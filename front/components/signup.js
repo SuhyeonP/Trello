@@ -49,24 +49,20 @@ const SignUpForm = () => {
         <title>Sign Up</title>
       </Head>
       <Form onFinish={gotoSignUp}>
-        <div>
-          <label htmlFor="userId">ID&nbsp;:&nbsp;</label>
-          <Input value={userId} onChange={onChangeId} />
+        <div className="signup-div">
+          <Input placeholder="ID" value={userId} onChange={onChangeId} />
         </div>
-        <div>
-          <label htmlFor="userNick">NickName&nbsp;:&nbsp;</label>
-          <Input value={userNick} onChange={onChangeNick} />
+        <div className="signup-div">
+          <Input placeholder="닉네임" value={userNick} onChange={onChangeNick} />
         </div>
-        <div>
-          <label htmlFor="userPassword">PW&nbsp;:&nbsp;</label>
-          <Input value={userPassword} onChange={onChangePassword} />
+        <div className="signup-div">
+          <Input placeholder="비밀번호" value={userPassword} onChange={onChangePassword} />
         </div>
-        <div>
-          <label htmlFor="pwCheck">PW Check&nbsp;:&nbsp;</label>
-          <Input name={pwCheck} value={pwCheck} onChange={onChangePwCheck} />
+        <div className="signup-div">
+          <Input placeholder="비밀번호 확인" name={pwCheck} value={pwCheck} onChange={onChangePwCheck} />
         </div>
-        {pwError && <p>비밀번호가 일치하지 않습니다.</p>}
-        <Button loading={signUpLoading} type="submit">SignUp</Button>
+        {pwError && <p className="pw-check">비밀번호가 일치하지 않습니다.</p>}
+        <Button loading={signUpLoading} htmlType="submit">SignUp</Button>
       </Form>
     </>
   );

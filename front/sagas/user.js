@@ -69,6 +69,7 @@ function* signUp(action) {
     yield delay(1000);
     yield put({
       type: SIGN_UP_SUCCESS,
+      data: dummyUser,
     });
   } catch (err) {
     console.error(err);

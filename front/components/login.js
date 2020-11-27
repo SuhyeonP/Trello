@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import { Form, Input } from 'antd';
+import { Form, Input, Button } from 'antd';
 import { useDispatch } from 'react-redux';
 import useInput from '../exp/useInput';
 import { LOG_IN_REQUEST } from '../reducers/user';
@@ -20,15 +20,13 @@ const LoginForm = () => {
   return (
     <>
       <Form onFinish={gotoLogin}>
-        <div>
-          <label htmlFor="userId">ID&nbsp;:&nbsp;</label>
-          <Input value={userId} onChange={onChangeId} />
+        <div className="signup-div">
+          <Input placeholder="ID" value={userId} onChange={onChangeId} />
         </div>
-        <div>
-          <label htmlFor="userPassword">PW&nbsp;:&nbsp;</label>
-          <Input value={userPassword} onChange={onChangePw} />
+        <div className="signup-div">
+          <Input placeholder="PW" value={userPassword} onChange={onChangePw} />
         </div>
-        <button type="submit">Login</button>
+        <Button htmlType="submit">Login</Button>
       </Form>
     </>
   );
