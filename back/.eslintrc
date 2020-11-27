@@ -1,18 +1,12 @@
 {
-  "extends": "airbnb-base",
+  "extends": ["plugin:@typescript-eslint/recommended", "airbnb-typescript/base", "prettier/@typescript-eslint"],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "ecmaVersion": 2020,
-    "sourceType": "module"
+    "sourceType": "module",
+    "project": "./tsconfig.json"
   },
-  "plugins": ["@typescript-eslint"],
-  "settings": {
-    "import/resolver": {
-      "node": {
-        "extensions": [".js", ".jsx", ".ts", ".tsx", ".d.ts"]
-      }
-    }
-  },
+  "plugins": ["@typescript-eslint", "prettier"],
   "rules": {
     "import/extensions": "off",
     "no-unused-vars": "off",

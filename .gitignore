@@ -1,4 +1,7 @@
 .env
 back/node_modules
+back/.vscode
 front/node_modules
 .idea
+.vscode
+
