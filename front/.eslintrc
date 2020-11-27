@@ -32,6 +32,9 @@
     "object-curly-newline": "off",
     "linebreak-style": "off",
     "no-param-reassign": "off",
+    "@emotion/jsx-import": "error",
+    "@emotion/no-vanilla": "error",
     "@emotion/import-from-emotion": "error",
+    "@emotion/styled-import": "error"
   }
 }
