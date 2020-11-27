@@ -1,12 +1,12 @@
 import React from 'react';
-import Head from 'next/head';
+import BoardTest from '../components/BoardTest';
 
-function board() {
+function Board() {
   return (
     <>
-      <Head>board</Head>
+      <BoardTest />
     </>
   );
 }
 
-export default board;
+export default Board;
