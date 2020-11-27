@@ -15,7 +15,7 @@ In Front We Use
 * l
 
 In Back We Use
-* s
+* typescript
 * k
 * i
 * l
