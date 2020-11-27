@@ -1,49 +1,62 @@
 import React, { useState, useCallback } from 'react';
 import Head from 'next/head';
+import { useDispatch, useSelector } from 'react-redux';
 import LoginForm from '../components/login';
 import SignUpForm from '../components/signup';
+import { LOG_OUT_REQUEST } from '../reducers/user';
 
 const mainIndex = () => {
-  const [userIn, setUserIn] = useState(false);
-  // userIn 리덕스로 사용자 있는지 없는지로 만든거 임의구현
   const [showLog, setShowLogin] = useState(false);
   const [showSign, setShowSign] = useState(false);
+  const [back, setBack] = useState(true);
+  const { me } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
 
   const logOutBtn = useCallback(() => {
-    setUserIn(false);
+    dispatch({
+      type: LOG_OUT_REQUEST,
+    });
   }, []);
-
   const showLogin = useCallback(() => {
     setShowLogin(true);
     setShowSign(false);
+    setBack(false);
   }, []);
   const showSignUp = useCallback(() => {
     setShowSign(true);
+    setBack(false);
     setShowLogin(false);
   }, []);
-  const lookLike = useCallback(() => {
-    setUserIn(true);
-    setShowLogin(false);
+  const goBackToForm = useCallback(() => {
+    setBack(true);
     setShowSign(false);
-  }, [userIn]);
+    setShowLogin(false);
+  }, []);
+
   return (
     <>
       <Head>
         <title>hi test</title>
       </Head>
       <div>Hello, Next!</div>
-      <button type="button" onClick={lookLike}>로그인한것처럼 보이게 하기</button>
       <br />
-      {showLog && <LoginForm />}
-      {showSign && <SignUpForm />}
-      {userIn ? (
+      {!me && showLog && <LoginForm />}
+      {!me && showSign && <SignUpForm />}
+      {me
+      && (
+      <>
+        <p>Hi {me.nickName},</p>
         <button type="button" onClick={logOutBtn}>로그아웃</button>
+      </>
+      )}
+      {!me && back ? (
+        <>
+          <button type="button" onClick={showLogin}>로그인</button>
+          <button type="button" onClick={showSignUp}>회원가입</button>
+        </>
       )
         : (
-          <>
-            <button type="button" onClick={showLogin}>로그인</button>
-            <button type="button" onClick={showSignUp}>회원가입</button>
-          </>
+          <button type="button" onClick={goBackToForm}>뒤로가기</button>
         )}
     </>
   );
