@@ -1,5 +1,4 @@
 import express from 'express';
-import morgan from 'morgan';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import dotenv from 'dotenv';
@@ -9,11 +8,12 @@ const app = express();
 const prod: boolean = process.env.NODE_ENV === 'production';
 
 app.set('port', prod ? process.env.PORT : 3065);
-app.use(morgan('dev'));
-app.use(cors({
-  origin: true,
-  credentials: true,
-}));
+app.use(
+  cors({
+    origin: true,
+    credentials: true,
+  }),
+);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser(process.env.COOKIE_SECRET));
