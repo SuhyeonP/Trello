@@ -1,5 +1,9 @@
-import React, { useCallback, useState } from 'react';
-import { Form, Input } from 'antd';
+import React, { useCallback, useEffect, useState } from 'react';
+import { Button, Form, Input } from 'antd';
+import Router from 'next/router';
+import Head from 'next/head';
+import { useDispatch, useSelector } from 'react-redux';
+import { SIGN_UP_REQUEST } from '../reducers/user';
 import useInput from '../exp/useInput';
 
 const SignUpForm = () => {
@@ -8,21 +12,42 @@ const SignUpForm = () => {
   const [userNick, onChangeNick] = useInput('');
   const [pwCheck, setPwCheck] = useState('');
   const [pwError, setPwError] = useState(false);
+  const dispatch = useDispatch();
+  const { signUpLoading, signUpDone, signUpError } = useSelector((state) => state.user);
+
+  useEffect(() => {
+    if (signUpDone) {
+      Router.replace('/');
+    }
+  }, [signUpDone]);
+
+  useEffect(() => {
+    if (signUpError) {
+      alert(signUpError);
+    }
+  }, [signUpError]);
 
   const onChangePwCheck = useCallback((e) => {
     setPwError(e.target.value !== userPassword);
     setPwCheck(e.target.value);
   }, [userPassword]);
 
+  // eslint-disable-next-line consistent-return
   const gotoSignUp = useCallback(() => {
     if (userPassword !== pwCheck) {
       return setPwError(true);
     }
-    return console.log(userId, userPassword);
+    dispatch({
+      type: SIGN_UP_REQUEST,
+      data: { userId, userNick, userPassword },
+    });
   }, [userId, userPassword, userNick, pwCheck]);
 
   return (
     <>
+      <Head>
+        <title>Sign Up</title>
+      </Head>
       <Form onFinish={gotoSignUp}>
         <div>
           <label htmlFor="userId">ID&nbsp;:&nbsp;</label>
@@ -41,7 +66,7 @@ const SignUpForm = () => {
           <Input name={pwCheck} value={pwCheck} onChange={onChangePwCheck} />
         </div>
         {pwError && <p>비밀번호가 일치하지 않습니다.</p>}
-        <button type="submit">SignUp</button>
+        <Button loading={signUpLoading} type="submit">SignUp</Button>
       </Form>
     </>
   );
