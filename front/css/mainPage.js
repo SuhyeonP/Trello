@@ -3,6 +3,7 @@ import { css } from '@emotion/react';
 const mainPage = css`
     display:table;
     height:100vh;
+    
     .user-join{
         display:table-cell;
         vertical-align:middle;
@@ -34,6 +35,18 @@ const mainPage = css`
             text-decoration:underline;
             &:hover{
                 color:#408bff;
+            }
+        }
+    }
+    @media (max-width:677px){
+        .ant-form{
+            width:50vw;
+            margin:0 auto;
+            input{
+                width:90%;
+            }
+            .pw-check{
+                color:red;
             }
         }
     }

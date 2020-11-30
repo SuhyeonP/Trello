@@ -27,6 +27,8 @@
     "no-console": "off",
     "no-underscore-dangle": "off",
     "react/forbid-prop-types": "off",
+    "eact/jsx-props-no-spreading": "off",
+    "consistent-return": "off",
     "react/jsx-filename-extension": "off",
     "react/jsx-one-expression-per-line": "off",
     "object-curly-newline": "off",

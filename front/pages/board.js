@@ -1,10 +1,12 @@
 import React from 'react';
-import BoardTest from '../components/BoardTest';
+import BoardLayout from '../components/BoardTest';
 
 function Board() {
   return (
     <>
-      <BoardTest />
+      <BoardLayout>
+        test
+      </BoardLayout>
     </>
   );
 }

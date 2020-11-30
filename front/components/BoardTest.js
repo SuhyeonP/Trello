@@ -1,32 +1,18 @@
 import React from 'react';
-import { List } from 'antd';
-import {
-  boardSection,
-  boardHead,
-  boardBase,
-  listBox,
-  listData,
-} from '../css/mainboard';
+import { Input } from 'antd';
+import { mainBoardSection } from '../css/mainboard';
+import useInput from '../exp/useInput';
 
-export default function BoardTest() {
+const BoardLayout = ({ children }) => {
+  const [search, onChangeSearch] = useInput('');
   return (
-    <>
-      <div css={boardSection}>
-        <div css={boardHead}>head</div>
-        <div css={boardBase}>
-          <List
-            grid={{ gutter: 8, column: 4 }}
-            dataSource={listData}
-            renderItem={(item) => (
-              <List.Item>
-                <div css={listBox} title={item.title}>
-                  Card content
-                </div>
-              </List.Item>
-            )}
-          />
-        </div>
-      </div>
-    </>
+    <div css={mainBoardSection}>
+      <header>
+        <Input.Search onChange={onChangeSearch} value={search} />
+        <p>Fake trello</p>
+      </header>
+      {children}
+    </div>
   );
-}
+};
+export default BoardLayout;
