@@ -21,10 +21,10 @@ const LoginForm = () => {
     <>
       <Form onFinish={gotoLogin}>
         <div className="signup-div">
-          <Input placeholder="ID" value={userId} onChange={onChangeId} />
+          <Input required placeholder="ID" value={userId} onChange={onChangeId} />
         </div>
         <div className="signup-div">
-          <Input placeholder="PW" value={userPassword} onChange={onChangePw} />
+          <Input required placeholder="PW" value={userPassword} onChange={onChangePw} />
         </div>
         <Button htmlType="submit">Login</Button>
       </Form>
