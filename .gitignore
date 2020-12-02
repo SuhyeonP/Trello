@@ -1,6 +1,10 @@
 .env
+
 back/node_modules
 back/.vscode
+back/.eslintrc
+back/.prettierrc
+
 front/node_modules
 .idea
 .vscode
