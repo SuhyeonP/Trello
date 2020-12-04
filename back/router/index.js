@@ -2,8 +2,8 @@ const express = require('express');
 
 const router = express.Router();
 
-router.get('/', res => {
-  res.status(200).send('wlcm');
+router.get('/', (req, res) => {
+  return res.status(200).send('wlcm');
 });
 
 module.exports = router;
