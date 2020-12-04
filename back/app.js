@@ -6,7 +6,7 @@ const app = express();
 const indexRouter = require('./router/index');
 
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 app.use('/', indexRouter);
