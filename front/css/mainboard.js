@@ -49,6 +49,7 @@ const listWrapper = css`
     width: 272px;
     margin: 0 4px;
     height: 100%;
+    position:relative;
     box-sizing: border-box;
     display: inline-block;
     vertical-align: top;
@@ -100,6 +101,9 @@ const listWrapper = css`
             font-weight: 400;
             padding-left:3px;
         }
+    }
+    .wrap-board{
+        display:inline-block;
     }
 `;
 
