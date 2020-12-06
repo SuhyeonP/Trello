@@ -1,5 +1,6 @@
 import React, { useCallback, useState } from 'react';
 import { Form } from 'antd';
+import { useRouter } from 'next/router';
 import useInput from '../exp/useInput';
 import { makeBoard } from '../css/mainboard';
 import AddOrClose from './addorclose';
@@ -8,18 +9,14 @@ const ListForm = () => {
   const [listTitle, setListTitle] = useInput('');
   const [inputMode, setInputMode] = useState(false);
   const [togOn, setToggle] = useState(true);
+  const router = useRouter();
 
   const makingBoard = useCallback(() => {
-    if (togOn) {
-      setInputMode(true);
-      setToggle(false);
-      document.getElementById('erase-input').style.display = 'none';
-    } else {
-      setInputMode(false);
-      setToggle(true);
-      document.getElementById('erase-input').style.display = 'block';
-      console.log(listTitle);
-    }
+    setInputMode(false);
+    setToggle(true);
+    document.getElementById('erase-input').style.display = 'block';
+    console.log(listTitle);
+    router.push('/board');
   }, [listTitle, inputMode, togOn]);
 
   const openInputTitle = useCallback(() => {

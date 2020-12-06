@@ -1,6 +1,7 @@
 import React, { useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Form } from 'antd';
+import { useRouter } from 'next/router';
 import { listWrapper } from '../css/mainboard';
 import useInput from '../exp/useInput';
 import AddOrClose from './addorclose';
@@ -10,6 +11,7 @@ const ListCards = ({ openSingle }) => {
   const [modifyListTitle, onChangeListTitle] = useInput('');
   const [addCardTitle, onChangeAddCardTitle] = useInput('');
   const [openAddCard, setOpenAddCard] = useState(false);
+  const router = useRouter();
 
   const setListTitleChange = useCallback(() => {
     setChangeTitle(true);
@@ -18,9 +20,11 @@ const ListCards = ({ openSingle }) => {
   const closeInputListTitle = useCallback(() => {
     setChangeTitle(false);
   }, []);
+
   const addCardToSend = useCallback(() => {
     setOpenAddCard(false);
     console.log(addCardTitle);
+    router.push('/board');
   }, [addCardTitle]);
 
   const openAddCardForm = useCallback(() => {

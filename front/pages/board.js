@@ -17,9 +17,23 @@ function Board() {
     setCanIopen(false);
   }, [openFrame]);
 
+  const openTheMenu = useCallback(() => {
+
+  }, []);
+
   return (
     <>
       <BoardLayout>
+        <div className="board-header-title">
+          <div className="project-title">
+            <h1>Board-title</h1>
+          </div>
+          <div className="showMenu-btn">
+            <button type="button" onClick={openTheMenu}>
+              Show Menu
+            </button>
+          </div>
+        </div>
         <div>
           <ListCards openSingle={openSingle} />
           {canIopen

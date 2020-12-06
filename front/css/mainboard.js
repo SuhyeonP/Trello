@@ -77,6 +77,79 @@ const mainBoardSection = css`
     .closeBtn{
         background-color: #61616152;
     }
+    .board-header-title{
+        height: auto;
+        padding: 8px 4px 4px 8px;
+        position: relative;
+        display:flex;
+        justify-content:space-between;
+        background: #0079bf;
+        transition: padding .1s ease-in;
+    }
+    .project-title{
+        background: transparent;
+        cursor: default;
+        font-size: 18px;
+        font-weight: 700;
+        line-height: 32px;
+        padding: 0;
+        text-decoration: none;
+        max-width: calc(100% - 24px);
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        height: 32px;
+        h1{
+            font-size: 18px;
+            font-weight: 700;
+            line-height: 32px;
+            padding: 0 12px;
+            color:#fff;
+            position:relative;
+            &::after{
+                position:absolute;
+                content:"";
+                width:1px;
+                height:18px;
+                background-color:white;
+                top:9px;
+                margin-left:5px;
+            }
+        }
+    }
+    .showMenu-btn{
+        transition: .1s ease;
+        button{
+            display:inline-flex;
+            background-color: hsla(0,0%,100%,.24);
+            border:0;
+            border-radius: 3px;
+            color: #fff;
+            cursor: default;
+            float: left;
+            font-size: 14px;
+            height: 32px;
+            line-height: 32px;
+            margin: 0 4px 4px 0;
+            max-width: 400px;
+            overflow: hidden;
+            padding:0 10px 0 32px;
+            position: relative;
+            text-decoration: none;
+            text-overflow: ellipsis;
+            &::before{
+                position:absolute;
+                content:"...";
+                left:5px;
+                letter-spacing:1px;
+                top:-6px;
+                font-size:17px;
+            }
+            &:active{
+                outline:0;
+            }
+        }
+    }
 `;
 
 const listWrapper = css`
@@ -192,6 +265,9 @@ const listWrapper = css`
             text-decoration: none;
             -webkit-user-select: none;
             user-select: none;
+            span{
+                cursor:pointer;
+            }
         }
     }
 `;

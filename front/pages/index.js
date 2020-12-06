@@ -56,6 +56,7 @@ const mainIndex = () => {
           && (
           <>
             <p>Hi {me.nickName},</p>
+            <p>Wait a sec we move to your board</p>
             <Button type="button" onClick={logOutBtn}>로그아웃</Button>
           </>
           )}
