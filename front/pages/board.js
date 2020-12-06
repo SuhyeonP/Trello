@@ -4,7 +4,7 @@ import ListCards from '../components/listCards';
 import ListForm from '../components/listForm';
 import InnerCard from '../components/innderCard';
 
-function Board() {
+const Board = () => {
   const [openFrame, setOpenFrame] = useState('');
   const [canIopen, setCanIopen] = useState(false);
 
@@ -45,6 +45,6 @@ function Board() {
       </BoardLayout>
     </>
   );
-}
+};
 
 export default Board;

@@ -6,7 +6,7 @@ export default class MyDocument extends Document {
     const originalRenderPage = ctx.renderPage;
     try {
       ctx.renderPage = () => originalRenderPage({
-        enhanceApp: (App) => (props) =>(<App {...props} />),
+        enhanceApp: (App) => (props) => (<App {...props} />),
       });
       const initialProps = await Document.getInitialProps(ctx);
       return {
@@ -27,9 +27,11 @@ export default class MyDocument extends Document {
     return (
       <Html>
         <Head>
-            <meta charSet="utf-8"/>
-            <meta name="viewport"
-                  content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no"/>
+          <meta charSet="utf-8" />
+          <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no"
+          />
         </Head>
         <body>
           <Main />
