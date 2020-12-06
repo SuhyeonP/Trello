@@ -43,6 +43,40 @@ const mainBoardSection = css`
         color:white;
     }
  }
+ .twoButtonSetting{
+    height: 32px;
+    transition: margin 85ms ease-in,height 85ms ease-in;
+    overflow: hidden;
+    margin: 4px 0 0;
+ }
+ .closeBtn,.addButton{
+        box-shadow: none;
+        border: none;
+        color: #fff;
+        cursor: pointer;
+        display: inline-block;
+        font-weight: 400;
+        line-height: 20px;
+        margin: 8px 4px 0 0;
+        padding: 6px 12px;
+        text-align: center;
+        float: left;
+        min-height: 32px;
+        height: 32px;
+        margin-top: 0;
+        padding-top: 4px;
+        padding-bottom: 4px;
+        &:focus{
+            outline:0;
+            transform:scale(1.1);
+        }
+    }
+    .addButton{
+        background-color: #5aac44;
+    }
+    .closeBtn{
+        background-color: #61616152;
+    }
 `;
 
 const listWrapper = css`
@@ -70,6 +104,10 @@ const listWrapper = css`
         padding: 10px 8px;
         position: relative;
         min-height: 20px;
+        z-index:2;
+        h2{
+            
+        }
     }
     .list-cards{
         flex: 1 1 auto;
@@ -81,6 +119,37 @@ const listWrapper = css`
         z-index: 1;
         min-height: 0;
         max-height:87vh;  
+    }
+    .add-card-form{
+        overflow: hidden;
+        position: relative;
+        z-index: 10;
+        margin-bottom: 8px;
+        textarea{
+            overflow: hidden;
+            overflow-wrap: break-word;
+            resize: none;
+            height: 54px;
+            border: none;
+            background-color: #fff;
+            border-radius: 3px;
+            box-shadow: 0 1px 0 rgba(9,30,66,.25);
+            margin-bottom: 12px;
+            max-height: 162px;
+            min-height: 54px;
+            padding: 4px 2px;
+            width:100%;
+            box-sizing: border-box;
+            -webkit-appearance: none;
+            display: block;
+            line-height: 20px;
+            transition-property: background-color,border-color,box-shadow;
+            transition-duration: 85ms;
+            transition-timing-function: ease;
+            &:focus{
+                outline:0;
+            }
+        }
     }
     .list-card{
         background-color: #fff;
@@ -104,6 +173,26 @@ const listWrapper = css`
     }
     .wrap-board{
         display:inline-block;
+    }
+    .input-list-title{
+        display:inline-block;
+        z-index:5;
+    }
+    .add-card{
+        min-height: 38px;
+        max-height: 38px;
+        div{
+            border-radius: 3px;
+            color: #5e6c84;
+            display: block;
+            flex: 1 0 auto;
+            margin: 2px 0 8px 8px;
+            padding: 4px 8px;
+            position: relative;
+            text-decoration: none;
+            -webkit-user-select: none;
+            user-select: none;
+        }
     }
 `;
 
@@ -174,40 +263,8 @@ const makeBoard = css`
             }
         }
     }
-    .inputbutton-close{
-        height: 32px;
-        transition: margin 85ms ease-in,height 85ms ease-in;
-        overflow: hidden;
-        margin: 4px 0 0;
-    }
-    .closeBtn,.addButton{
-        box-shadow: none;
-        border: none;
-        color: #fff;
-        cursor: pointer;
-        display: inline-block;
-        font-weight: 400;
-        line-height: 20px;
-        margin: 8px 4px 0 0;
-        padding: 6px 12px;
-        text-align: center;
-        float: left;
-        min-height: 32px;
-        height: 32px;
-        margin-top: 0;
-        padding-top: 4px;
-        padding-bottom: 4px;
-        &:focus{
-            outline:0;
-            transform:scale(1.1);
-        }
-    }
-    .addButton{
-        background-color: #5aac44;
-    }
-    .closeBtn{
-        background-color: #61616152;
-    }
+    
+    
 `;
 
 export { mainBoardSection, makeBoard, listWrapper };
