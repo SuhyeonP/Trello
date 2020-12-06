@@ -1,0 +1,10 @@
+{
+  "plugins": ["prettier"],
+  "extends": ["eslint:recommended", "airbnb-base", "plugin:prettier/recommended"],
+  "rules": {
+    "import/extensions": "off",
+    "no-unused-vars": "off",
+    "max-len": "off",
+    "linebreak-style": "off"
+  }
+}
