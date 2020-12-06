@@ -63,6 +63,7 @@ const reducer = (state = initialState, action) => produce(state, (draft) => {
     case SIGN_UP_SUCCESS:
       draft.signUpLoading = false;
       draft.signUpDone = true;
+      draft.me = action.data;
       break;
     case SIGN_UP_FAILURE:
       draft.signUpLoading = false;

@@ -1,16 +1,26 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import Head from 'next/head';
 import { useDispatch, useSelector } from 'react-redux';
+import { Button } from 'antd';
+import { useRouter } from 'next/router';
 import LoginForm from '../components/login';
 import SignUpForm from '../components/signup';
 import { LOG_OUT_REQUEST } from '../reducers/user';
+import { mainPage } from '../css/mainPage';
 
 const mainIndex = () => {
   const [showLog, setShowLogin] = useState(false);
   const [showSign, setShowSign] = useState(false);
   const [back, setBack] = useState(true);
-  const { me } = useSelector((state) => state.user);
+  const { me, logInDone, signUpDone } = useSelector((state) => state.user);
   const dispatch = useDispatch();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (logInDone || signUpDone) {
+      router.push('/board');
+    }
+  }, [logInDone, signUpDone]);
 
   const logOutBtn = useCallback(() => {
     dispatch({
@@ -38,26 +48,29 @@ const mainIndex = () => {
       <Head>
         <title>hi test</title>
       </Head>
-      <div>Hello, Next!</div>
-      <br />
-      {!me && showLog && <LoginForm />}
-      {!me && showSign && <SignUpForm />}
-      {me
-      && (
-      <>
-        <p>Hi {me.nickName},</p>
-        <button type="button" onClick={logOutBtn}>로그아웃</button>
-      </>
-      )}
-      {!me && back ? (
-        <>
-          <button type="button" onClick={showLogin}>로그인</button>
-          <button type="button" onClick={showSignUp}>회원가입</button>
-        </>
-      )
-        : (
-          <button type="button" onClick={goBackToForm}>뒤로가기</button>
-        )}
+      <div css={mainPage}>
+        <div className="user-join">
+          {!me && showLog && <LoginForm />}
+          {!me && showSign && <SignUpForm />}
+          {me
+          && (
+          <>
+            <p>Hi {me.nickName},</p>
+            <p>Wait a sec we move to your board</p>
+            <Button type="button" onClick={logOutBtn}>로그아웃</Button>
+          </>
+          )}
+          {!me && back ? (
+            <>
+              <Button type="button" onClick={showLogin}>로그인</Button>
+              <Button type="button" onClick={showSignUp}>회원가입</Button>
+            </>
+          )
+            : (
+              <Button className="go-back-set" type="button" onClick={goBackToForm}>뒤로가기</Button>
+            )}
+        </div>
+      </div>
     </>
   );
 };
