@@ -1,9 +1,8 @@
-const createError = require('http-errors');
-const express = require('express');
-const cookieParser = require('cookie-parser');
+import express from 'express';
+import cookieParser from 'cookie-parser';
+import indexRouter from './router/index.js';
 
 const app = express();
-const indexRouter = require('./router/index');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -19,4 +18,4 @@ app.use((err, req, res, next) => {
   res.render('error');
 });
 
-module.exports = app;
+export default app;
