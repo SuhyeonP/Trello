@@ -3,10 +3,11 @@
   "version": "0.0.1",
   "description": "",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node ./bin/www",
-    "dev": "nodemon ./bin/www"
+    "start": "node ./bin/index.js",
+    "dev": "nodemon ./bin/index.js"
   },
   "author": "dajeong dongryeol suhyeon",
   "license": "MIT",
