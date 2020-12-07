@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
-const http = require('http');
-const app = require('../app');
+import http from 'http';
+import app from '../app.js';
 
 const port = normalizePort(process.env.PORT || '3000');
 app.set('port', port);
@@ -12,7 +12,7 @@ server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
 
-function normalizePort(val) {
+const normalizePort = val => {
   const port = parseInt(val, 10);
 
   if (isNaN(port)) {
@@ -24,9 +24,9 @@ function normalizePort(val) {
   }
 
   return false;
-}
+};
 
-function onError(error) {
+const onError = error => {
   if (error.syscall !== 'listen') {
     throw error;
   }
@@ -45,10 +45,10 @@ function onError(error) {
     default:
       throw error;
   }
-}
+};
 
-function onListening() {
+const onListening = () => {
   const addr = server.address();
   const bind = typeof addr === 'string' ? `pipe ${addr}` : `port ${addr.port}`;
   console.log(`Listening on ${bind}`);
-}
+};
