@@ -3,7 +3,6 @@ import ListCards from '../components/listCards';
 import ListForm from '../components/listForm';
 import InnerCard from '../components/innerCard';
 import BoardLayout from '../components/mainBoard';
-import { boardMenu } from '../css/mainboard';
 import BoardMenu from '../components/boardMenu';
 
 const Board = () => {
