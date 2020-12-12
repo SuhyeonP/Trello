@@ -32,7 +32,6 @@ const SignUpForm = () => {
     setPwCheck(e.target.value);
   }, [userPassword]);
 
-  // eslint-disable-next-line consistent-return
   const gotoSignUp = useCallback(() => {
     if (userPassword !== pwCheck) {
       return setPwError(true);
