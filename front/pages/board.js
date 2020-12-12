@@ -1,25 +1,28 @@
 import React, { useCallback, useState } from 'react';
-import BoardLayout from '../components/BoardTest';
 import ListCards from '../components/listCards';
 import ListForm from '../components/listForm';
-import InnerCard from '../components/innderCard';
+import InnerCard from '../components/innerCard';
+import BoardLayout from '../components/mainBoard';
+import { boardMenu } from '../css/mainboard';
+import BoardMenu from '../components/boardMenu';
 
 const Board = () => {
   const [openFrame, setOpenFrame] = useState('');
   const [canIopen, setCanIopen] = useState(false);
+  const [canIopenMenu, setCanIopenMenu] = useState(false);
 
   const openSingle = useCallback((openLink) => {
     setOpenFrame(openLink);
     setCanIopen(true);
-  }, []);
+  }, [openFrame, canIopen]);
 
   const closeFrame = useCallback(() => {
     setCanIopen(false);
   }, [openFrame]);
 
   const openTheMenu = useCallback(() => {
-
-  }, []);
+    setCanIopenMenu(true);
+  }, [canIopenMenu]);
 
   return (
     <>
@@ -29,12 +32,16 @@ const Board = () => {
             <h1>Board-title</h1>
           </div>
           <div className="showMenu-btn">
-            <button type="button" onClick={openTheMenu}>
+            <button className="showMenu-Button" type="button" onClick={openTheMenu}>
               Show Menu
             </button>
+            {canIopenMenu && (
+              <BoardMenu canIopenMenu={canIopenMenu} setCanIopenMenu={setCanIopenMenu} />
+            )}
           </div>
         </div>
-        <div>
+        <div className="showing-board-inList">
+          <ListCards openSingle={openSingle} />
           <ListCards openSingle={openSingle} />
           {canIopen
           && (

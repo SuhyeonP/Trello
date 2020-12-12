@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { memo, useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Form } from 'antd';
 import { useRouter } from 'next/router';
@@ -11,15 +11,18 @@ const ListCards = ({ openSingle }) => {
   const [modifyListTitle, onChangeListTitle] = useInput('');
   const [addCardTitle, onChangeAddCardTitle] = useInput('');
   const [openAddCard, setOpenAddCard] = useState(false);
+  const [focusOnListTitle, setFocusListTitle] = useState(false);
   const router = useRouter();
 
   const setListTitleChange = useCallback(() => {
     setChangeTitle(true);
-  }, []);
+    setFocusListTitle(true);
+    document.getElementById('list-title-input');
+  }, [changeTitle]);
 
   const closeInputListTitle = useCallback(() => {
     setChangeTitle(false);
-  }, []);
+  }, [changeTitle]);
 
   const addCardToSend = useCallback(() => {
     setOpenAddCard(false);
@@ -40,7 +43,7 @@ const ListCards = ({ openSingle }) => {
       <div className="list">
         <div className="list-header">
           {!changeTitle && <h2 id="origin-title" onClick={setListTitleChange}>Title</h2>}
-          {changeTitle && <input id="list-title-input" onBlur={closeInputListTitle} className="input-list-title" onChange={onChangeListTitle} value={modifyListTitle} />}
+          {changeTitle && <input autoFocus={focusOnListTitle} id="list-title-input" onBlur={closeInputListTitle} className="input-list-title" onChange={onChangeListTitle} value={modifyListTitle} />}
         </div>
         <div className="list-cards">
           <div className="list-card"><p onClick={() => openSingle('/board/1')}>test</p></div>
@@ -76,4 +79,4 @@ const ListCards = ({ openSingle }) => {
 ListCards.propTypes = {
   openSingle: PropTypes.func.isRequired,
 };
-export default ListCards;
+export default memo(ListCards);
