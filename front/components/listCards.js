@@ -1,4 +1,4 @@
-import React, { memo, useCallback, useState } from 'react';
+import React, {memo, useCallback, useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
 import { Form } from 'antd';
 import { useRouter } from 'next/router';
@@ -35,6 +35,9 @@ const ListCards = ({ openSingle }) => {
   const openAddCardForm = useCallback(() => {
     setOpenAddCard(true);
   }, []);
+  useEffect(() => {
+    console.log(lists);
+  }, [lists]);
 
   const closeCardForm = useCallback(() => {
     setOpenAddCard(false);
@@ -60,26 +63,8 @@ const ListCards = ({ openSingle }) => {
             />
           )}
         </div>
-        <TestListMap lists={lists} setLists={setLists} />
+        <TestListMap openSingle={openSingle} lists={lists} setLists={setLists} />
         <div className="list-cards">
-          <div className="list-card">
-            <p onClick={() => openSingle('/board/1')}>test</p>
-          </div>
-          <div className="list-card">
-            <p>test</p>
-          </div>
-          <div className="list-card">
-            <p>test</p>
-          </div>
-          <div className="list-card">
-            <p>test</p>
-          </div>
-          <div className="list-card">
-            <p>test</p>
-          </div>
-          <div className="list-card">
-            <p>test</p>
-          </div>
           {openAddCard && (
             <div className="add-card-form">
               <Form onFinish={addCardToSend}>

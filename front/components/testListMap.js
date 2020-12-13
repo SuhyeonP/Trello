@@ -3,12 +3,12 @@ import { SortableContainer, SortableElement } from 'react-sortable-hoc';
 import arrayMove from 'array-move';
 import PropTypes from 'prop-types';
 
-const TestListMap = ({ lists, setLists }) => {
+const TestListMap = ({ lists, setLists, openSingle }) => {
   const onSortEnd = ({ oldIndex, newIndex }) => setLists(arrayMove(lists, oldIndex, newIndex));
 
   const SortableItem = SortableElement(({ value, sortIndex }) => (
     <div className="list-card">
-      {value} - #{sortIndex}
+      <p onMouseDownCapture={() => openSingle('/board/1')}>{value} - #{sortIndex}←this will be erased</p>
     </div>
   ));
 
@@ -31,6 +31,7 @@ const TestListMap = ({ lists, setLists }) => {
 TestListMap.propTypes = {
   lists: PropTypes.array.isRequired,
   setLists: PropTypes.func.isRequired,
+  openSingle: PropTypes.func.isRequired,
 };
 
 export default TestListMap;

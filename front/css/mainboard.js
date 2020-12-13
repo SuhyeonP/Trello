@@ -245,6 +245,8 @@ export const listWrapper = css`
             line-height: 22px;
             font-weight: 400;
             padding-left:3px;
+            display:inline-block;
+            z-index:15;
         }
     }
     .wrap-board{
