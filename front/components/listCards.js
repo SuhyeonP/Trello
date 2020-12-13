@@ -1,7 +1,8 @@
-import React, {memo, useCallback, useEffect, useState} from 'react';
+import React, { memo, useCallback, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Form } from 'antd';
 import { useRouter } from 'next/router';
+import { MoreOutlined } from '@ant-design/icons';
 import { listWrapper } from '../css/mainboard';
 import useInput from '../exp/useInput';
 import AddOrClose from './addorclose';
@@ -9,6 +10,7 @@ import TestListMap from './testListMap';
 
 const ListCards = ({ openSingle }) => {
   const [changeTitle, setChangeTitle] = useState(false);
+  const [sortList, setSortList] = useState(false);
   const [modifyListTitle, onChangeListTitle] = useInput('');
   const [addCardTitle, onChangeAddCardTitle] = useInput('');
   const [openAddCard, setOpenAddCard] = useState(false);
@@ -43,6 +45,10 @@ const ListCards = ({ openSingle }) => {
     setOpenAddCard(false);
   }, []);
 
+  const sortingCards = useCallback(() => {
+    setSortList((prev) => !prev);
+  }, [sortList]);
+
   return (
     <div css={listWrapper}>
       <div className="list">
@@ -62,6 +68,16 @@ const ListCards = ({ openSingle }) => {
               value={modifyListTitle}
             />
           )}
+          <span className="sorting-button">
+            <MoreOutlined onClick={sortingCards} />
+            {sortList && (
+            <ul className="sort-setting">
+              <li><button type="button">최신순</button></li>
+              <li><button type="button">오래된순</button></li>
+              <li><button type="button">내맘대루</button></li>
+            </ul>
+            )}
+          </span>
         </div>
         <TestListMap openSingle={openSingle} lists={lists} setLists={setLists} />
         <div className="list-cards">

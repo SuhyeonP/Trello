@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { SortableContainer, SortableElement } from 'react-sortable-hoc';
 import arrayMove from 'array-move';
 import PropTypes from 'prop-types';
@@ -34,4 +34,4 @@ TestListMap.propTypes = {
   openSingle: PropTypes.func.isRequired,
 };
 
-export default TestListMap;
+export default memo(TestListMap);

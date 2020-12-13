@@ -278,6 +278,51 @@ export const listWrapper = css`
             }
         }
     }
+    .sorting-button{
+        display:inline-block;
+        position:absolute;
+        top:10px;
+        right:0;
+        padding:5px 10px 5px;
+        font-weight:700;
+    }
+    .sort-setting{
+        z-index:20;
+        display:inline-block;
+        position:absolute;
+        top:28px;
+        right:-77px;
+        list-style:none;
+        width:97px;
+        padding:5px;
+        background:#ffffffcf;
+        border-radius:4px;
+        li{
+            padding:2px;
+            position:relative;
+            &::after{
+                content:"";
+                bottom:3px;
+                left:0;
+                width:80px;
+                position:absolute;
+                height:1px;
+                background-color:black;
+            }
+        }
+        button{
+            background:inherit;
+            border:0;
+            outline:0;
+            &:active{
+                outline:0;
+                color:blue;
+            }
+        }
+    }
+    .origin-title{
+        z-index:14;
+    }
 `;
 
 export const makeBoard = css`
