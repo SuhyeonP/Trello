@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import ListCards from '../components/listCards';
 import ListForm from '../components/listForm';
+import Lists from '../components/lists';
 import InnerCard from '../components/innerCard';
 import BoardLayout from '../components/mainBoard';
 import BoardMenu from '../components/boardMenu';
@@ -26,10 +27,13 @@ const Board = () => {
   //   });
   // }, []);
 
-  const openSingle = useCallback((openLink) => {
-    setOpenFrame(openLink);
-    setCanIopen(true);
-  }, [openFrame, canIopen]);
+  const openSingle = useCallback(
+    (openLink) => {
+      setOpenFrame(openLink);
+      setCanIopen(true);
+    },
+    [openFrame, canIopen]
+  );
 
   const closeFrame = useCallback(() => {
     setCanIopen(false);
@@ -71,18 +75,12 @@ const Board = () => {
             <button className="showMenu-Button" type="button" onClick={openTheMenu}>
               Show Menu
             </button>
-            {canIopenMenu && (
-              <BoardMenu canIopenMenu={canIopenMenu} setCanIopenMenu={setCanIopenMenu} />
-            )}
+            {canIopenMenu && <BoardMenu canIopenMenu={canIopenMenu} setCanIopenMenu={setCanIopenMenu} />}
           </div>
         </div>
         <div className="showing-board-inList">
-          <ListCards openSingle={openSingle} />
-          <ListCards openSingle={openSingle} />
-          {canIopen
-          && (
-          <InnerCard iframeSrc={openFrame} onCloseFrame={closeFrame} />
-          )}
+          <Lists openSingle={openSingle} />
+          {canIopen && <InnerCard iframeSrc={openFrame} onCloseFrame={closeFrame} />}
           <ListForm />
         </div>
       </BoardLayout>

@@ -6,7 +6,7 @@ import { MoreOutlined } from '@ant-design/icons';
 import { listWrapper } from '../css/mainboard';
 import useInput from '../exp/useInput';
 import AddOrClose from './addorclose';
-import TestListMap from './testListMap';
+import ListCardsMap from './listCardsMap';
 
 const ListCards = ({ openSingle }) => {
   const [changeTitle, setChangeTitle] = useState(false);
@@ -15,7 +15,7 @@ const ListCards = ({ openSingle }) => {
   const [addCardTitle, onChangeAddCardTitle] = useInput('');
   const [openAddCard, setOpenAddCard] = useState(false);
   const [focusOnListTitle, setFocusListTitle] = useState(false);
-  const [lists, setLists] = useState(['test1', 'test2', 'test3', 'test4']);
+  const [cards, setCards] = useState(['test1', 'test2', 'test3', 'test4']);
   const router = useRouter();
 
   const setListTitleChange = useCallback(() => {
@@ -37,9 +37,10 @@ const ListCards = ({ openSingle }) => {
   const openAddCardForm = useCallback(() => {
     setOpenAddCard(true);
   }, []);
+
   useEffect(() => {
-    console.log(lists);
-  }, [lists]);
+    console.log(cards);
+  }, [cards]);
 
   const closeCardForm = useCallback(() => {
     setOpenAddCard(false);
@@ -55,7 +56,7 @@ const ListCards = ({ openSingle }) => {
         <div className="list-header">
           {!changeTitle && (
             <h2 id="origin-title" onClick={setListTitleChange}>
-              Title
+              test
             </h2>
           )}
           {changeTitle && (
@@ -71,15 +72,21 @@ const ListCards = ({ openSingle }) => {
           <span className="sorting-button">
             <MoreOutlined onClick={sortingCards} />
             {sortList && (
-            <ul className="sort-setting">
-              <li><button type="button">최신순</button></li>
-              <li><button type="button">오래된순</button></li>
-              <li><button type="button">내맘대루</button></li>
-            </ul>
+              <ul className="sort-setting">
+                <li>
+                  <button type="button">최신순</button>
+                </li>
+                <li>
+                  <button type="button">오래된순</button>
+                </li>
+                <li>
+                  <button type="button">내맘대루</button>
+                </li>
+              </ul>
             )}
           </span>
         </div>
-        <TestListMap openSingle={openSingle} lists={lists} setLists={setLists} />
+        <ListCardsMap openSingle={openSingle} cards={cards} setCards={setCards} />
         <div className="list-cards">
           {openAddCard && (
             <div className="add-card-form">
@@ -111,5 +118,6 @@ const ListCards = ({ openSingle }) => {
 
 ListCards.propTypes = {
   openSingle: PropTypes.func.isRequired,
+  listsMapTitle: PropTypes.string.isRequired,
 };
 export default memo(ListCards);

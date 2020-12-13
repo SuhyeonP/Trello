@@ -1,37 +1,42 @@
 import React, { memo } from 'react';
-import { SortableContainer, SortableElement } from 'react-sortable-hoc';
+import { SortableContainer, SortableElement, SortableHandle } from 'react-sortable-hoc';
 import arrayMove from 'array-move';
 import PropTypes from 'prop-types';
+import ListCards from './listCards';
 
-const TestListMap = ({ lists, setLists, openSingle }) => {
+const ListsMap = ({ lists, setLists, openSingle }) => {
+  const DragHandle = SortableHandle(() => <span>[btn]</span>);
+
   const onSortEnd = ({ oldIndex, newIndex }) => setLists(arrayMove(lists, oldIndex, newIndex));
 
   const SortableItem = SortableElement(({ value, sortIndex }) => (
-    <div className="list-card">
-      <p onMouseDownCapture={() => openSingle('/board/1')}>{value} - #{sortIndex}←this will be erased</p>
+    <div style={{ display: 'inline-block' }} value={value} sortIndex={sortIndex}>
+      <ListCards openSingle={openSingle} />
+      <DragHandle />
     </div>
   ));
 
   const SortableList = SortableContainer(() => (
-    <div className="list-cards">
+    <div>
       {lists.map((value, index) => (
         <SortableItem key={`item-${index}`} index={index} sortIndex={index} value={value} />
       ))}
     </div>
   ));
+
   return (
-    <SortableList axis="y" onSortEnd={onSortEnd}>
+    <SortableList axis="x" onSortEnd={onSortEnd} useDragHandle>
       {lists.map((e, i) => (
-        <SortableItem index={i} key={`item-${i}`} sortIndex={i} value={e} />
+        <SortableItem key={`item-${i}`} index={i} sortIndex={i} value={e} />
       ))}
     </SortableList>
   );
 };
 
-TestListMap.propTypes = {
+ListsMap.propTypes = {
   lists: PropTypes.array.isRequired,
   setLists: PropTypes.func.isRequired,
   openSingle: PropTypes.func.isRequired,
 };
 
-export default memo(TestListMap);
+export default memo(ListsMap);
