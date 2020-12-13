@@ -2,6 +2,7 @@
 
 import http from 'http';
 import app from '../app.js';
+import getDatabase from '../model/index.js';
 
 const normalizePort = val => {
   const port = parseInt(val, 10);
@@ -46,6 +47,9 @@ const onListening = () => {
 
 const port = normalizePort(process.env.PORT || '3000');
 app.set('port', port);
+
+const models = await getDatabase();
+app.set('db', models);
 
 const server = http.createServer(app);
 
