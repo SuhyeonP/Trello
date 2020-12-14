@@ -1,6 +1,7 @@
 import express from 'express';
 import cookieParser from 'cookie-parser';
 import indexRouter from './router/index.js';
+import boardRouter from './router/board.js';
 import cardRouter from './router/card.js';
 
 const app = express();
@@ -15,6 +16,7 @@ app.use((req, res, next) => {
 });
 
 app.use('/', indexRouter);
+app.use('/board', boardRouter);
 app.use('/card', cardRouter);
 
 app.use((err, req, res, next) => {
