@@ -4,22 +4,26 @@ This Project remade by Trello and made into a KOR.ver
 
 We have 5 members in Project.     
 
-Front: [Chansol]() , [Mingue]() , [Suhyeon](https://github.com/SuhyeonP)     
-Back: [Dajeong]() , [Dongryeol]() , [Suhyeon](https://github.com/SuhyeonP)
+Front: [Chansol](https://github.com/badbeoti) ,
+ [Mingue](https://github.com/gyumong) ,
+  [Suhyeon](https://github.com/SuhyeonP)     
+Back: [Dajeong](https://github.com/dismsssss) ,
+ [Dongryeol](https://github.com/ryeol37) ,
+  [Suhyeon](https://github.com/SuhyeonP)
 
 In Front We Use
-* s
-* k
-* i
-* l
-* l
+* JavaScript
+* React
+* Next
+* Redux
+* Emotion
+* AWS-EC2
 
 In Back We Use
-* s
-* k
-* i
-* l
-* l
+* Javascript
+* Express
+* MySQL
+* AWS-EC2,RDS
 
 
 *****

@@ -1,7 +1,8 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import ListCards from '../components/listCards';
-import ListForm from '../components/listForm';
+
+import Lists from '../components/lists';
 import InnerCard from '../components/innerCard';
 import BoardLayout from '../components/mainBoard';
 import BoardMenu from '../components/boardMenu';
@@ -13,7 +14,7 @@ const Board = () => {
   const [canIopen, setCanIopen] = useState(false);
   const [canIopenMenu, setCanIopenMenu] = useState(false);
   const [changeBoardTitle, setChangeTitle] = useState(false);
-  const [boardTitle, onChangeBoardTitle] = useInput('');
+  const [boardTitle, onChangeBoardTitle, setBoardTitle] = useInput('');
   const [focusOnTitle, setFocus] = useState(false);
   // const dispatch = useDispatch();
   // const { me } = useSelector((state) => state.user);
@@ -26,10 +27,13 @@ const Board = () => {
   //   });
   // }, []);
 
-  const openSingle = useCallback((openLink) => {
-    setOpenFrame(openLink);
-    setCanIopen(true);
-  }, [openFrame, canIopen]);
+  const openSingle = useCallback(
+    (openLink) => {
+      setOpenFrame(openLink);
+      setCanIopen(true);
+    },
+    [openFrame, canIopen],
+  );
 
   const closeFrame = useCallback(() => {
     setCanIopen(false);
@@ -46,6 +50,7 @@ const Board = () => {
         return;
       }
       // send request to change title
+      setBoardTitle('');
     }
     setChangeTitle((prev) => !prev);
     setFocus((prev) => !prev);
@@ -71,19 +76,18 @@ const Board = () => {
             <button className="showMenu-Button" type="button" onClick={openTheMenu}>
               Show Menu
             </button>
-            {canIopenMenu && (
-              <BoardMenu canIopenMenu={canIopenMenu} setCanIopenMenu={setCanIopenMenu} />
+            {canIopenMenu
+            && (
+            <BoardMenu
+              canIopenMenu={canIopenMenu}
+              setCanIopenMenu={setCanIopenMenu}
+            />
             )}
           </div>
         </div>
         <div className="showing-board-inList">
-          <ListCards openSingle={openSingle} />
-          <ListCards openSingle={openSingle} />
-          {canIopen
-          && (
-          <InnerCard iframeSrc={openFrame} onCloseFrame={closeFrame} />
-          )}
-          <ListForm />
+          <Lists openSingle={openSingle} />
+          {canIopen && <InnerCard iframeSrc={openFrame} onCloseFrame={closeFrame} />}
         </div>
       </BoardLayout>
     </>
