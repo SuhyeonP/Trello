@@ -46,6 +46,7 @@ export const mainBoardSection = css`
  }
  .twoButtonSetting{
     height: 32px;
+    display:inline-block;
     transition: margin 85ms ease-in,height 85ms ease-in;
     overflow: hidden;
     margin: 4px 0 0;
@@ -151,7 +152,14 @@ export const mainBoardSection = css`
             }
         }
     }
-    
+    .showing-board-inList{
+        display:flex;
+    }
+    .moving-list{
+        position:absolute;
+        bottom:5px;
+        right:5px;
+    }
 `;
 
 export const listWrapper = css`
@@ -232,7 +240,8 @@ export const listWrapper = css`
         border-radius: 3px;
         box-shadow: 0 1px 0 rgba(9,30,66,.25);
         cursor: pointer;
-        display: block;
+        display: flex;
+        justify-content:space-between;
         margin-bottom: 8px;
         max-width: 300px;
         min-height: 20px;
@@ -247,6 +256,10 @@ export const listWrapper = css`
             padding-left:3px;
             display:inline-block;
             z-index:15;
+        }
+        .moving-card{
+            display:inline-block;
+            padding:4px 4px 4px 0;
         }
     }
     .wrap-board{
@@ -329,9 +342,9 @@ export const makeBoard = css`
     margin-top:8px;
     border-radius: 3px;
     box-sizing: border-box;
-    display: flex;
+    display: inline-flex;
     flex-direction: column;
-    max-height: 100%;
+    max-height: 40px;
     position: relative;
     white-space: normal;
     background-color: hsla(0,0%,100%,.24);
@@ -400,7 +413,7 @@ export const boardMenu = css`
     top:0;
     right:0;
     width:339px;
-    height:100vw;
+    height:100vh;
     background-color:#f4f5f7;
     transition-property: transform,width;
     transition-duration: .1s;

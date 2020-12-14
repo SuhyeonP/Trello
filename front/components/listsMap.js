@@ -2,18 +2,25 @@ import React, { memo } from 'react';
 import { SortableContainer, SortableElement, SortableHandle } from 'react-sortable-hoc';
 import arrayMove from 'array-move';
 import PropTypes from 'prop-types';
+import { MenuOutlined } from '@ant-design/icons';
+import styled from '@emotion/styled';
 import ListCards from './listCards';
 
+const TheList = styled.div`
+  display:inline-block;
+  position:relative;
+`;
+
 const ListsMap = ({ lists, setLists, openSingle }) => {
-  const DragHandle = SortableHandle(() => <span>[btn]</span>);
+  const DragHandle = SortableHandle(() => <MenuOutlined className="moving-list" />);
 
   const onSortEnd = ({ oldIndex, newIndex }) => setLists(arrayMove(lists, oldIndex, newIndex));
 
   const SortableItem = SortableElement(({ value, sortIndex }) => (
-    <div style={{ display: 'inline-block' }} value={value} sortIndex={sortIndex}>
+    <TheList value={value} sortIndex={sortIndex}>
       <ListCards openSingle={openSingle} />
       <DragHandle />
-    </div>
+    </TheList>
   ));
 
   const SortableList = SortableContainer(() => (

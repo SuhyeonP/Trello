@@ -1,12 +1,12 @@
 import React, { memo, useCallback, useState } from 'react';
 import { Form } from 'antd';
 import { useRouter } from 'next/router';
-import useInput from '../exp/useInput';
 import { makeBoard } from '../css/mainboard';
 import AddOrClose from './addorclose';
+import useInput from '../exp/useInput';
 
 const ListForm = () => {
-  const [listTitle, setListTitle] = useInput('');
+  const [listTitle, onChangeText, setListTitle] = useInput('');
   const [inputMode, setInputMode] = useState(false);
   const [togOn, setToggle] = useState(true);
   const [focusOnForm, setFocusOnForm] = useState(true);
@@ -18,6 +18,7 @@ const ListForm = () => {
     setFocusOnForm(true);
     document.getElementById('erase-input').style.display = 'block';
     console.log(listTitle);
+    setListTitle('');
     router.push('/board');
   }, [listTitle, inputMode, togOn]);
 
@@ -40,7 +41,7 @@ const ListForm = () => {
         {inputMode && (
         <Form onFinish={makingBoard}>
           <div className="title-inputmode">
-            <input autoFocus={focusOnForm} value={listTitle} onChange={setListTitle} />
+            <input id="list-input-id" autoFocus={focusOnForm} value={listTitle} onChange={onChangeText} />
             <AddOrClose addText="Add List" onClickToClose={openInputTitle} />
           </div>
         </Form>

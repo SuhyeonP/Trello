@@ -2,6 +2,7 @@ import React, { memo } from 'react';
 import { SortableContainer, SortableElement } from 'react-sortable-hoc';
 import arrayMove from 'array-move';
 import PropTypes from 'prop-types';
+import { MenuOutlined } from '@ant-design/icons';
 
 const ListCardsMap = ({ cards, setCards, openSingle }) => {
   const onSortEnd = ({ oldIndex, newIndex }) => setCards(arrayMove(cards, oldIndex, newIndex));
@@ -11,6 +12,7 @@ const ListCardsMap = ({ cards, setCards, openSingle }) => {
       <p onMouseDownCapture={() => openSingle('/board/1')}>
         {value} - #{sortIndex}←this will be erased
       </p>
+      <MenuOutlined className="moving-card" />
     </div>
   ));
 

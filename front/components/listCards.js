@@ -11,8 +11,8 @@ import ListCardsMap from './listCardsMap';
 const ListCards = ({ openSingle }) => {
   const [changeTitle, setChangeTitle] = useState(false);
   const [sortList, setSortList] = useState(false);
-  const [modifyListTitle, onChangeListTitle] = useInput('');
-  const [addCardTitle, onChangeAddCardTitle] = useInput('');
+  const [modifyListTitle, onChangeListTitle, setListTitle] = useInput('');
+  const [addCardTitle, onChangeAddCardTitle, setAddCardTitle] = useInput('');
   const [openAddCard, setOpenAddCard] = useState(false);
   const [focusOnListTitle, setFocusListTitle] = useState(false);
   const [cards, setCards] = useState(['test1', 'test2', 'test3', 'test4']);
@@ -26,11 +26,13 @@ const ListCards = ({ openSingle }) => {
 
   const closeInputListTitle = useCallback(() => {
     setChangeTitle(false);
+    setListTitle('');
   }, [changeTitle]);
 
   const addCardToSend = useCallback(() => {
     setOpenAddCard(false);
     console.log(addCardTitle);
+    setAddCardTitle('');
     router.push('/board');
   }, [addCardTitle]);
 
@@ -70,7 +72,7 @@ const ListCards = ({ openSingle }) => {
             />
           )}
           <span className="sorting-button">
-            <MoreOutlined onClick={sortingCards} />
+            <MoreOutlined onClick={sortingCards} onBlur={sortingCards} />
             {sortList && (
               <ul className="sort-setting">
                 <li>
@@ -118,6 +120,5 @@ const ListCards = ({ openSingle }) => {
 
 ListCards.propTypes = {
   openSingle: PropTypes.func.isRequired,
-  listsMapTitle: PropTypes.string.isRequired,
 };
 export default memo(ListCards);
