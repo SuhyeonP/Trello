@@ -5,6 +5,7 @@ import dotenv from 'dotenv';
 import passport from 'passport';
 import indexRouter from './router/index.js';
 import boardRouter from './router/board.js';
+import listRouter from './router/list.js';
 import cardRouter from './router/card.js';
 import userRouter from './router/user.js';
 
@@ -40,6 +41,7 @@ if (process.env.NODE_ENV === 'production') {
 
 app.use('/', indexRouter);
 app.use('/board', boardRouter);
+app.use('/list', listRouter);
 app.use('/card', cardRouter);
 app.use('/user', userRouter);
 
