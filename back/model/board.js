@@ -11,7 +11,7 @@ const createBoardInstance = db => {
         primaryKey: true,
         autoIncrement: true,
       },
-      boardName: {
+      boardTitle: {
         type: DataTypes.STRING(15),
       },
       backgroundType: {
