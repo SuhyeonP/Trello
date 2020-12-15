@@ -1,9 +1,9 @@
 import pkg from 'sequelize';
 
-const createCardInstance = async db => {
+const createCardInstance = db => {
   const { DataTypes } = pkg;
 
-  await db.define(
+  db.define(
     'card',
     {
       cardId: {

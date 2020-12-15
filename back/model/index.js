@@ -22,7 +22,6 @@ const createConnectionPool = () => {
       host: process.env.HOST,
       dialect: process.env.DATABASE_DIALECT,
       dialectOptions: {
-        useUTC: false,
         dateStrings: true,
         typeCast: true,
       },
@@ -38,9 +37,9 @@ const createConnectionPool = () => {
   );
 };
 
-const getDatabase = async () => {
+const getDatabase = () => {
   const db = createConnectionPool();
-  await defineModels(db);
+  defineModels(db);
   return db;
 };
 
