@@ -5,6 +5,8 @@ import app from '../app.js';
 import getDatabase from '../model/index.js';
 
 (async () => {
+  const server = http.createServer(app);
+
   const normalizePort = val => {
     const port = parseInt(val, 10);
 
@@ -52,8 +54,6 @@ import getDatabase from '../model/index.js';
 
   const models = await getDatabase();
   app.set('db', models);
-
-  const server = http.createServer(app);
 
   server.listen(port);
   server.on('error', onError);
