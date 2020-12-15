@@ -16,7 +16,7 @@ const createCardInstance = async db => {
         allowNull: false,
       },
       cardTitle: {
-        type: DataTypes.TEXT,
+        type: DataTypes.STRING(30),
         allowNull: false,
       },
       content: {

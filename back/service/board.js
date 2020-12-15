@@ -20,4 +20,9 @@ const createBoard = async (db, boardData) => {
   }
 };
 
-export default { createBoard };
+const getBoard = async db => {
+  const data = await db.board.findAll();
+  return data;
+};
+
+export default { createBoard, getBoard };

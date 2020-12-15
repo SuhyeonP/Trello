@@ -27,14 +27,6 @@ const createBoardInstance = async db => {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      createdAt: {
-        type: DataTypes.DATE,
-        allowNull: false,
-      },
-      updatedAt: {
-        type: DataTypes.DATE,
-        allowNull: false,
-      },
     },
     {
       freezeTableName: true,
