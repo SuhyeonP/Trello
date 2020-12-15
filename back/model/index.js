@@ -1,8 +1,15 @@
 import dotenv from 'dotenv';
 
 import pkg from 'sequelize';
+import createCardInstance from './card.js';
+import createBoardInstance from './board.js';
 
 dotenv.config();
+
+const defineModels = db => {
+  createCardInstance(db);
+  createBoardInstance(db);
+};
 
 const createConnectionPool = () => {
   const { Sequelize } = pkg;
@@ -14,7 +21,12 @@ const createConnectionPool = () => {
     {
       host: process.env.HOST,
       dialect: process.env.DATABASE_DIALECT,
-      port: process.env.PORT,
+      dialectOptions: {
+        dateStrings: true,
+        typeCast: true,
+      },
+      timezone: process.env.TIMEZONE,
+      port: process.env.DATABASE_PORT,
       pool: {
         max: Number(process.env.MAX_CONNECTION_COUNT),
         min: Number(process.env.MIN_CONNECTION_COUNT),
@@ -25,8 +37,10 @@ const createConnectionPool = () => {
   );
 };
 
-const getConnectionPool = () => {
-  return createConnectionPool();
+const getDatabase = () => {
+  const db = createConnectionPool();
+  defineModels(db);
+  return db;
 };
 
-export default getConnectionPool;
+export default getDatabase;
