@@ -1,8 +1,8 @@
 import express from 'express';
 import passport from 'passport';
-import isValidateUserLoginData from '../validation/userLogin.js';
+import Strategy from 'passport-local';
 import isValidateUserSignupData from '../validation/userSignup.js';
-import User from '../service/user.js';
+import user from '../service/user.js';
 
 const router = express.Router();
 
@@ -12,24 +12,24 @@ router.post('/login', async (req, res, next) => {
 });
 
 // sign up
-router.post('/', async (req, res, next) => {
-  try {
-    const exUser = await User.findUser(req.db.models, req.body.userId);
-    if (exUser) {
-      return res.status(401).send('Duplicated Id');
-    }
-    if (isValidateUserSignupData(req.body)) {
-      const result = await User.createUser(req.db.models, req.body);
-      res.status(201).send('ok');
-    } else {
-      res.status(400).send({
-        message: 'invalid data',
-      });
-    }
-  } catch (err) {
-    console.error(err);
-    next(err);
+router.post('/signup', async (req, res, next) => {
+  // 1. 데이터 형식 검사
+  // 2. 가입되어 있는 아이디인지 확인
+  // 3. 가입
+
+  if (!isValidateUserSignupData(req.body)) {
+    res.status(400).send({ message: 'invalid data' });
   }
+
+  const { userId } = req.body;
+  const { models } = req.db;
+  const registerdUser = await user.findUser(models, userId);
+
+  if (!registerdUser) {
+    const result = await user.createUser(req.db, req.body);
+    res.status(200).send(result);
+  }
+  next();
 });
 
 export default router;
