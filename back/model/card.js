@@ -31,14 +31,6 @@ const createCardInstance = async db => {
         type: DataTypes.TEXT,
         allowNull: true,
       },
-      createdAt: {
-        type: DataTypes.DATE,
-        allowNull: false,
-      },
-      updatedAt: {
-        type: DataTypes.DATE,
-        allowNull: false,
-      },
     },
     {
       freezeTableName: true,
