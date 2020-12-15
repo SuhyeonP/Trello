@@ -14,21 +14,17 @@ import {
 } from '../reducers/user';
 
 function logInAPI(data) {
+  console.log('dd')
   return axios.post('/user/login', data);
 }
 
-const dummyUser = {
-  id: 'test1',
-  nickName: 'testUser',
-};
-
 function* logIn(action) {
   try {
-    // const result = yield call(logInAPI, action.data);
-    yield delay(1000);
+    console.log(action.data);
+    const result = yield call(logInAPI, action.data);
     yield put({
       type: LOG_IN_SUCCESS,
-      data: dummyUser,
+      data: result.data,
     });
   } catch (err) {
     console.error(err);
@@ -65,11 +61,11 @@ function signUpAPI(data) {
 
 function* signUp(action) {
   try {
-    // const result = yield call(signUpAPI, action.data);
-    yield delay(1000);
+    const result = yield call(signUpAPI, action.data);
+    // yield delay(1000);
     yield put({
       type: SIGN_UP_SUCCESS,
-      data: dummyUser,
+      data: result.data,
     });
   } catch (err) {
     console.error(err);

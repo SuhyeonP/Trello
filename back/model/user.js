@@ -1,29 +1,26 @@
 import pkg from 'sequelize';
 
-const createBoardInstance = db => {
+const createUserInstance = db => {
   const { DataTypes } = pkg;
 
   db.define(
-    'board',
+    'user',
     {
-      boardId: {
+      id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true,
       },
-      boardName: {
-        type: DataTypes.STRING(15),
-      },
-      backgroundType: {
-        type: DataTypes.INTEGER(1),
-        allowNull: false,
-      },
       userId: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING(15),
         allowNull: false,
       },
-      backgroundValue: {
-        type: DataTypes.TEXT,
+      userPassword: {
+        type: DataTypes.STRING(100),
+        allowNull: false,
+      },
+      userNickName: {
+        type: DataTypes.STRING(10),
       },
     },
     {
@@ -32,4 +29,4 @@ const createBoardInstance = db => {
   );
 };
 
-export default createBoardInstance;
+export default createUserInstance;
