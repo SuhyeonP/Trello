@@ -12,15 +12,15 @@ const mainIndex = () => {
   const [showLog, setShowLogin] = useState(false);
   const [showSign, setShowSign] = useState(false);
   const [back, setBack] = useState(true);
-  const { me, logInDone, signUpDone } = useSelector((state) => state.user);
+  const { me, logInDone } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const router = useRouter();
 
   useEffect(() => {
-    if (logInDone || signUpDone) {
+    if (logInDone) {
       router.push('/board');
     }
-  }, [logInDone, signUpDone]);
+  }, [logInDone]);
 
   const logOutBtn = useCallback(() => {
     dispatch({
