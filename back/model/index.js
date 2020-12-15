@@ -3,12 +3,14 @@ import dotenv from 'dotenv';
 import pkg from 'sequelize';
 import createCardInstance from './card.js';
 import createBoardInstance from './board.js';
+import createListInstance from './list.js';
 
 dotenv.config();
 
 const defineModels = db => {
   createCardInstance(db);
   createBoardInstance(db);
+  createListInstance(db);
 };
 
 const createConnectionPool = () => {
