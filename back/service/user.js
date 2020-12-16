@@ -49,4 +49,9 @@ const LoginUser = async (db, loginInfo) => {
   }
 };
 
-export default { LoginUser, createUser, findUser };
+const reloadUser = async (db, user) => {
+  const miniUser = db.user.findOne(user.id);
+  return miniUser;
+};
+
+export default { reloadUser, LoginUser, createUser, findUser };

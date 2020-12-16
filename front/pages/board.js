@@ -8,6 +8,7 @@ import BoardLayout from '../components/mainBoard';
 import BoardMenu from '../components/boardMenu';
 import { LOAD_MAIN_REQUEST } from '../reducers/board';
 import useInput from '../exp/useInput';
+import { LOG_OUT_REQUEST } from '../reducers/user';
 
 const Board = () => {
   const [openFrame, setOpenFrame] = useState('');
@@ -16,7 +17,7 @@ const Board = () => {
   const [changeBoardTitle, setChangeTitle] = useState(false);
   const [boardTitle, onChangeBoardTitle, setBoardTitle] = useInput('');
   const [focusOnTitle, setFocus] = useState(false);
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
   // const { me } = useSelector((state) => state.user);
   // const { mainLists } = useSelector((state) => state.board);
 
@@ -26,6 +27,12 @@ const Board = () => {
   //     data: { userId: me.userId },
   //   });
   // }, []);
+
+  const logOutBtn = useCallback(() => {
+    dispatch({
+      type: LOG_OUT_REQUEST,
+    });
+  }, []);
 
   const openSingle = useCallback(
     (openLink) => {
@@ -79,6 +86,7 @@ const Board = () => {
             {canIopenMenu
             && (
             <BoardMenu
+              logoutBtn={logOutBtn}
               canIopenMenu={canIopenMenu}
               setCanIopenMenu={setCanIopenMenu}
             />

@@ -3,10 +3,13 @@ import Head from 'next/head';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button } from 'antd';
 import { useRouter } from 'next/router';
+import axios from 'axios';
+import { END } from 'redux-saga';
 import LoginForm from '../components/login';
 import SignUpForm from '../components/signup';
-import { LOG_OUT_REQUEST } from '../reducers/user';
+import { LOG_OUT_REQUEST, RELOAD_USER_REQUEST } from '../reducers/user';
 import { mainPage } from '../css/mainPage';
+import wrapper from '../store/configureStore';
 
 const mainIndex = () => {
   const [showLog, setShowLogin] = useState(false);
@@ -18,7 +21,8 @@ const mainIndex = () => {
 
   useEffect(() => {
     if (logInDone) {
-      router.push('/board');
+      // router.push('/board');
+      document.getElementById('goBack-btn').style.display = 'none';
     }
   }, [logInDone]);
 
@@ -27,16 +31,19 @@ const mainIndex = () => {
       type: LOG_OUT_REQUEST,
     });
   }, []);
+
   const showLogin = useCallback(() => {
     setShowLogin(true);
     setShowSign(false);
     setBack(false);
   }, []);
+
   const showSignUp = useCallback(() => {
     setShowSign(true);
     setBack(false);
     setShowLogin(false);
   }, []);
+
   const goBackToForm = useCallback(() => {
     setBack(true);
     setShowSign(false);
@@ -67,12 +74,28 @@ const mainIndex = () => {
             </>
           )
             : (
-              <Button className="go-back-set" type="button" onClick={goBackToForm}>뒤로가기</Button>
+              <Button id="goBack-btn" className="go-back-set" type="button" onClick={goBackToForm}>뒤로가기</Button>
             )}
         </div>
       </div>
     </>
   );
 };
+
+export const getServerSideProps = wrapper.getServerSideProps(async (context) => {
+  const cookie = context.req ? context.req.headers.cookie : '';
+  axios.defaults.headers.Cookie = '';
+
+  if (context.req && cookie) {
+    axios.defaults.headers.Cookie = cookie;
+  }
+  console.log(cookie, 'this is cookie');
+  console.log(context, 'this is context');
+  context.store.dispatch({
+    type: RELOAD_USER_REQUEST,
+  });
+  context.store.dispatch(END);
+  await context.store.sagaTask.toPromise();
+});
 
 export default mainIndex;

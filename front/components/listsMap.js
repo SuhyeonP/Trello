@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import { MenuOutlined } from '@ant-design/icons';
 import styled from '@emotion/styled';
 import ListCards from './listCards';
+import ListForm from './listForm';
 
 const TheList = styled.div`
   display:inline-block;
@@ -24,10 +25,11 @@ const ListsMap = ({ lists, setLists, openSingle }) => {
   ));
 
   const SortableList = SortableContainer(() => (
-    <div>
+    <div className="display-board">
       {lists.map((value, index) => (
         <SortableItem key={`item-${index}`} index={index} sortIndex={index} value={value} />
       ))}
+      <ListForm />
     </div>
   ));
 

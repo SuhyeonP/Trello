@@ -12,7 +12,7 @@ const PickBackgroundColor = styled.p`
     background-color:${(props) => props.color || 'rgb(0, 121, 191)'};
 `;
 
-const BoardMenu = ({ setCanIopenMenu, canIopenMenu }) => {
+const BoardMenu = ({ logoutBtn, setCanIopenMenu, canIopenMenu }) => {
   const [changeBoardBack, setChangeBoardBack] = useState(false);
   const [menuTitle, setMenuTitle] = useState('Menu');
   const [originMenu, setOriginMenu] = useState(true);
@@ -90,6 +90,10 @@ const BoardMenu = ({ setCanIopenMenu, canIopenMenu }) => {
                 {/* <ChangeBoardColor color={} /> */}
                 <p>Change Background</p>
               </div>
+            </div>
+            <hr className="menu-underline" />
+            <div className="logout-btn">
+              <button type="button">Logout</button>
             </div>
             <hr className="menu-underline" />
             <div className="timeline-title">
