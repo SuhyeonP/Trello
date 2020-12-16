@@ -1,6 +1,9 @@
 import produce from 'immer';
 
 export const initialState = {
+  loadUserLoading: false,
+  loadUserDone: false,
+  loadUserError: null,
   logInLoading: false,
   logInDone: false,
   logInError: null,
@@ -24,6 +27,10 @@ export const LOG_OUT_FAILURE = 'LOG_OUT_FAILURE';
 export const SIGN_UP_REQUEST = 'SIGN_UP_REQUEST';
 export const SIGN_UP_SUCCESS = 'SIGN_UP_SUCCESS';
 export const SIGN_UP_FAILURE = 'SIGN_UP_FAILURE';
+
+export const RELOAD_USER_REQUEST = 'RELOAD_USER_REQUEST';
+export const RELOAD_USER_SUCCESS = 'RELOAD_USER_SUCCESS';
+export const RELOAD_USER_FAILURE = 'RELOAD_USER_FAILURE';
 
 const reducer = (state = initialState, action) => produce(state, (draft) => {
   switch (action.type) {
@@ -54,6 +61,20 @@ const reducer = (state = initialState, action) => produce(state, (draft) => {
     case LOG_OUT_FAILURE:
       draft.logOutLoading = false;
       draft.logOutError = action.error;
+      break;
+    case RELOAD_USER_REQUEST:
+      draft.loadUserLoading = true;
+      draft.loadUserError = null;
+      draft.loadUserDone = false;
+      break;
+    case RELOAD_USER_SUCCESS:
+      draft.loadUserLoading = false;
+      draft.me = action.data;
+      draft.loadUserDone = true;
+      break;
+    case RELOAD_USER_FAILURE:
+      draft.loadUserLoading = false;
+      draft.loadUserError = action.error;
       break;
     case SIGN_UP_REQUEST:
       draft.signUpLoading = true;

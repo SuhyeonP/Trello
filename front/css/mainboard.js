@@ -1,6 +1,6 @@
 import { css } from '@emotion/react';
 
-const mainBoardSection = css`
+export const mainBoardSection = css`
  background-color: #0079bf;
  overflow-y:hidden;
  height:100vh;
@@ -14,6 +14,7 @@ const mainBoardSection = css`
     justify-content:space-between;
     background-color:#0067a3;
     padding:10px 20px;
+    z-index:1;
     p{
         color:white;
         font-size:20px;
@@ -45,6 +46,7 @@ const mainBoardSection = css`
  }
  .twoButtonSetting{
     height: 32px;
+    display:inline-block;
     transition: margin 85ms ease-in,height 85ms ease-in;
     overflow: hidden;
     margin: 4px 0 0;
@@ -119,7 +121,7 @@ const mainBoardSection = css`
     }
     .showMenu-btn{
         transition: .1s ease;
-        button{
+        .showMenu-Button{
             display:inline-flex;
             background-color: hsla(0,0%,100%,.24);
             border:0;
@@ -150,9 +152,21 @@ const mainBoardSection = css`
             }
         }
     }
+    .showing-board-inList{
+        display:block;
+        .display-board{
+            display:flex;
+            padding-left:5px;
+        }
+    }
+    .moving-list{
+        position:absolute;
+        bottom:5px;
+        right:5px;
+    }
 `;
 
-const listWrapper = css`
+export const listWrapper = css`
     width: 272px;
     margin: 0 4px;
     height: 100%;
@@ -179,7 +193,8 @@ const listWrapper = css`
         min-height: 20px;
         z-index:2;
         h2{
-            
+            height: 28px;
+            min-height: 20px;
         }
     }
     .list-cards{
@@ -229,7 +244,8 @@ const listWrapper = css`
         border-radius: 3px;
         box-shadow: 0 1px 0 rgba(9,30,66,.25);
         cursor: pointer;
-        display: block;
+        display: flex;
+        justify-content:space-between;
         margin-bottom: 8px;
         max-width: 300px;
         min-height: 20px;
@@ -242,6 +258,12 @@ const listWrapper = css`
             line-height: 22px;
             font-weight: 400;
             padding-left:3px;
+            display:inline-block;
+            z-index:15;
+        }
+        .moving-card{
+            display:inline-block;
+            padding:4px 4px 4px 0;
         }
     }
     .wrap-board{
@@ -250,6 +272,9 @@ const listWrapper = css`
     .input-list-title{
         display:inline-block;
         z-index:5;
+        height: 28px;
+        min-height: 20px;
+        padding:4px 8px;
     }
     .add-card{
         min-height: 38px;
@@ -270,15 +295,60 @@ const listWrapper = css`
             }
         }
     }
+    .sorting-button{
+        display:inline-block;
+        position:absolute;
+        top:10px;
+        right:0;
+        padding:5px 10px 5px;
+        font-weight:700;
+    }
+    .sort-setting{
+        z-index:20;
+        display:inline-block;
+        position:absolute;
+        top:28px;
+        right:-77px;
+        list-style:none;
+        width:97px;
+        padding:5px;
+        background:#ffffffcf;
+        border-radius:4px;
+        li{
+            padding:2px;
+            position:relative;
+            &::after{
+                content:"";
+                bottom:3px;
+                left:0;
+                width:80px;
+                position:absolute;
+                height:1px;
+                background-color:black;
+            }
+        }
+        button{
+            background:inherit;
+            border:0;
+            outline:0;
+            &:active{
+                outline:0;
+                color:blue;
+            }
+        }
+    }
+    .origin-title{
+        z-index:14;
+    }
 `;
 
-const makeBoard = css`
+export const makeBoard = css`
     margin-top:8px;
     border-radius: 3px;
     box-sizing: border-box;
-    display: flex;
+    display: inline-flex;
     flex-direction: column;
-    max-height: 100%;
+    max-height: 40px;
     position: relative;
     white-space: normal;
     background-color: hsla(0,0%,100%,.24);
@@ -339,8 +409,166 @@ const makeBoard = css`
             }
         }
     }
-    
-    
 `;
 
-export { mainBoardSection, makeBoard, listWrapper };
+export const boardMenu = css`
+    position:absolute;
+    z-index:50;
+    top:0;
+    right:0;
+    width:339px;
+    height:100vh;
+    background-color:#f4f5f7;
+    transition-property: transform,width;
+    transition-duration: .1s;
+    transition-timing-function: ease-in;
+    box-shadow: 0 12px 24px -6px rgba(9,30,66,.25), 0 0 0 1px rgba(9,30,66,.08);
+    transform: translateX(0);
+    .logout-btn{
+        display:block;
+        padding: 6px 6px 6px 40px;
+        &>button{
+            display:inline-block;
+            font-size: 16px;
+            color: #172b4d;
+            font-weight:600;
+            border:0;
+            outline:0;
+            &:active{
+                outline:0;
+            }
+            &:hover{
+                transform:scale(1.1);
+            }
+        }
+    }
+    .close-menu{
+        font-size:14px;
+        color:black;
+        background:inherit;
+        border:0;
+        &:active{
+            outline:0;
+        }
+    }
+    
+    .menu-title-div{
+        box-sizing: border-box;
+        flex: 0 0 auto;
+        height: 48px;
+        padding: 0 6px 0 12px;
+        position: relative;
+        div{
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+        }
+    }
+    .menu-title{
+        line-height: 20px;
+        margin: 14px 32px;
+        overflow: hidden;
+        text-align: center;
+        text-overflow: ellipsis;
+        transition: margin .12s ease-in;
+        white-space: nowrap;
+        flex: 1;
+        font-size: 16px;
+        color: #172b4d;
+        font-weight:600;
+    }
+    .menu-underline{
+        background-color: rgba(9,30,66,.13);
+        border: 0;
+        height: 1px;
+        margin: 2px 0;
+        padding: 0;
+        width: 100%;
+    }
+    .inner-menu{
+        box-sizing: border-box;
+        flex: 1 1 auto;
+        overflow-x: hidden;
+        overflow-y: auto;
+        padding: 12px 6px 12px 12px;
+        width: 100%;
+        height: 100%;
+        span{
+            font-size: 20px;
+            height: 20px;
+            line-height: 20px;
+            width: 20px;
+            position: absolute;
+            top: 6px;
+            left: 12px;
+        }
+    }
+    .change-background{
+        width:100%;
+        padding-bottom:7px;
+        .change-bc{
+            border-radius: 3px;
+            display: block;
+            font-weight: 600;
+            line-height: 20px;
+            text-decoration: none;
+            padding: 6px 6px 6px 40px;
+            position: relative;
+            width:100%;
+            &:hover{
+                background-color: rgba(9,30,66,.08);
+            }
+        }
+    }
+    .timeline-title{
+        border-radius: 3px;
+        display: block;
+        line-height: 20px;
+        padding: 6px 6px 6px 40px;
+        position: relative;
+        text-decoration: none;
+        h2{
+            font-weight:700;
+            color: #172b4d;
+            font-size:14px;
+        }
+    }
+    .timeline-onBoard{
+        margin-top:7px;
+    }
+    .timeline-oneline{
+        min-height: 32px;
+        padding: 8px 0;
+        position: relative;
+        margin-left:40px;
+    }
+    .background-holder{
+        display:table;
+        width:100%;
+        text-align:center;
+        height:80vh;
+        &>div{
+            display:table-cell;
+            vertical-align:middle;
+        }
+    }
+    .background-is{
+        height:45%;
+        display:block;
+        margin:4% 0;
+        &>div{
+            display:inline-block;
+            &>p,&>img{
+                width:10vw;
+                height:10vw;
+            }
+            &>img{
+                background-color:white;
+            }
+            &>p{
+                overflow-y:hidden;
+                overflow-x:scroll;
+            }
+        }
+    }
+`;

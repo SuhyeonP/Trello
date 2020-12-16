@@ -1,17 +1,35 @@
 # Hi Guys
 
-##This Project remade by Trello and made into a KOREAN and to minimize trello.
+This Project remade by Trello and made into a KOR.ver
 
 [Demo]()
 
+Front: [Chansol](https://github.com/badbeoti) ,
+ [Mingue](https://github.com/gyumong) ,
+  [Suhyeon](https://github.com/SuhyeonP)     
+Back: [Dajeong](https://github.com/dismsssss) ,
+ [Dongryeol](https://github.com/ryeol37) ,
+  [Suhyeon](https://github.com/SuhyeonP)
 -img-    
 -img-     
 -img-        
 
+In Front We Use
+* JavaScript
+* React
+* Next
+* Redux
+* Emotion
+* AWS-EC2
 We can see very similar Right?HHH 😁
 We started this project on 23 Nov 2020.To be end on "Date".     
 This project hommage Trello.So its not as same as Trello. Just similar.
 
+In Back We Use
+* Javascript
+* Express
+* MySQL
+* AWS-EC2,RDS
 🔽In this Project Using Skills are🔽   
 <table>
 <thead>
@@ -43,14 +61,3 @@ Now the Project is processing Now,
 If you want to see it in real time,    
 [CLICK ME](https://github.com/SuhyeonP/trello/tree/develop)
 
-
-We have 5 members in Project.     
-Our members are:     
-Front: [Chansol](https://github.com/badbeoti) ,
- [Mingue](https://github.com/gyumong) ,
-  [Suhyeon](https://github.com/SuhyeonP)     
-Back: [Dajeong](https://github.com/dismsssss) ,
- [Dongryeol](https://github.com/ryeol37) ,
-  [Suhyeon](https://github.com/SuhyeonP)
-
-We take this topic by "[Dongryeol](https://github.com/ryeol37)".

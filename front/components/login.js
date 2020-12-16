@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { memo, useCallback } from 'react';
 import { Form, Input, Button } from 'antd';
 import { useDispatch } from 'react-redux';
 import useInput from '../exp/useInput';
@@ -32,4 +32,4 @@ const LoginForm = () => {
   );
 };
 
-export default LoginForm;
+export default memo(LoginForm);
