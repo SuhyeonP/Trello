@@ -9,7 +9,7 @@ import useInput from '../exp/useInput';
 const SignUpForm = () => {
   const [userId, onChangeId] = useInput('');
   const [userPassword, onChangePassword] = useInput('');
-  const [userNick, onChangeNick] = useInput('');
+  const [userNickName, onChangeNick] = useInput('');
   const [pwCheck, setPwCheck] = useState('');
   const [pwError, setPwError] = useState(false);
   const dispatch = useDispatch();
@@ -17,7 +17,7 @@ const SignUpForm = () => {
 
   useEffect(() => {
     if (signUpDone) {
-      Router.replace('/');
+      Router.reload();
     }
   }, [signUpDone]);
 
@@ -38,9 +38,9 @@ const SignUpForm = () => {
     }
     dispatch({
       type: SIGN_UP_REQUEST,
-      data: { userId, userNick, userPassword },
+      data: { userId, userNickName, userPassword },
     });
-  }, [userId, userPassword, userNick, pwCheck]);
+  }, [userId, userPassword, userNickName, pwCheck]);
 
   return (
     <>
@@ -52,7 +52,7 @@ const SignUpForm = () => {
           <Input placeholder="ID" value={userId} onChange={onChangeId} />
         </div>
         <div className="signup-div">
-          <Input placeholder="닉네임" value={userNick} onChange={onChangeNick} />
+          <Input placeholder="닉네임" value={userNickName} onChange={onChangeNick} />
         </div>
         <div className="signup-div">
           <Input placeholder="비밀번호" value={userPassword} onChange={onChangePassword} />

@@ -15,7 +15,7 @@ const isValidateCardData = data => {
   };
 
   const validate = ajv.compile(schema);
-  validate(data);
+  return validate(data);
 };
 
 export default isValidateCardData;

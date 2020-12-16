@@ -2,53 +2,60 @@
 
 import http from 'http';
 import app from '../app.js';
+import getDatabase from '../model/index.js';
 
-const normalizePort = val => {
-  const port = parseInt(val, 10);
+(async () => {
+  const server = http.createServer(app);
 
-  if (isNaN(port)) {
-    return val;
-  }
+  const normalizePort = val => {
+    const port = parseInt(val, 10);
 
-  if (port >= 0) {
-    return port;
-  }
+    if (isNaN(port)) {
+      return val;
+    }
 
-  return false;
-};
+    if (port >= 0) {
+      return port;
+    }
 
-const onError = error => {
-  if (error.syscall !== 'listen') {
-    throw error;
-  }
+    return false;
+  };
 
-  const bind = typeof port === 'string' ? `Pipe ${port}` : `Port ${port}`;
-
-  switch (error.code) {
-    case 'EACCES':
-      console.error(`${bind} requires elevated privileges`);
-      process.exit(1);
-      break;
-    case 'EADDRINUSE':
-      console.error(`${bind} is already in use`);
-      process.exit(1);
-      break;
-    default:
+  const onError = error => {
+    if (error.syscall !== 'listen') {
       throw error;
-  }
-};
+    }
 
-const onListening = () => {
-  const addr = server.address();
-  const bind = typeof addr === 'string' ? `pipe ${addr}` : `port ${addr.port}`;
-  console.log(`Listening on ${bind}`);
-};
+    const bind = typeof port === 'string' ? `Pipe ${port}` : `Port ${port}`;
 
-const port = normalizePort(process.env.PORT || '3000');
-app.set('port', port);
+    switch (error.code) {
+      case 'EACCES':
+        console.error(`${bind} requires elevated privileges`);
+        process.exit(1);
+        break;
+      case 'EADDRINUSE':
+        console.error(`${bind} is already in use`);
+        process.exit(1);
+        break;
+      default:
+        throw error;
+    }
+  };
 
-const server = http.createServer(app);
+  const onListening = () => {
+    const addr = server.address();
+    const bind =
+      typeof addr === 'string' ? `pipe ${addr}` : `port ${addr.port}`;
+    console.log(`Listening on ${bind}`);
+  };
 
-server.listen(port);
-server.on('error', onError);
-server.on('listening', onListening);
+  const port = normalizePort(process.env.PORT || '3064');
+  app.set('port', port);
+
+  const models = await getDatabase();
+  app.set('db', models);
+
+  server.listen(port);
+  server.on('error', onError);
+  server.on('listening', onListening);
+})();
