@@ -1,10 +1,10 @@
 import express from 'express';
 import passport from 'passport';
-import isValidateUserLoginData from '../validation/userLogin.js';
 import isValidateUserSignupData from '../validation/userSignup.js';
 import User from '../service/user.js';
-import { isLoggedIn, isNotLoggedIn } from './middlewares.js';
 import local from '../passport/local.js';
+import isValidateUserLoginData from '../validation/userLogin.js';
+import { isLoggedIn, isNotLoggedIn } from './middlewares.js';
 
 const router = express.Router();
 
@@ -23,34 +23,18 @@ router.get('/', async (req, res, next) => {
 });
 router.post(
   '/login',
+  isNotLoggedIn,
   passport.authenticate('local'),
   async (req, res, next) => {
     const userInfo = await User.LoginUser(req.db.models, req.body);
-    console.log(userInfo);
     return res.status(200).json(userInfo);
   },
 );
-// router.post('/login', isNotLoggedIn, (req, res, next) => {
-//   passport.authenticate('local', (err, user, info) => {
-//     console.log(err, user, info);
-//     if (err) {
-//       console.error(err);
-//       return next(err);
-//     } // info is client error
-//     if (info.message) {
-//       return res.status(401).send(info.reason);
-//     }
-//     return req.login(user, async loginErr => {
-//       if (loginErr) {
-//         console.error(loginErr);
-//         return next(loginErr);
-//       }
-//       const userInfo = await User.LoginUser(req.db.models, req.body);
-//       console.log(userInfo);
-//       return res.status(200).json(user);
-//     });
-//   })(res, res, next);
-// });
+router.post('/logout', isLoggedIn, (req, res) => {
+  req.logout();
+  req.session.destroy();
+  res.send('ok');
+});
 
 router.post('/', async (req, res, next) => {
   try {
@@ -70,12 +54,6 @@ router.post('/', async (req, res, next) => {
     console.error(err);
     next(err);
   }
-});
-
-router.post('/logout', (req, res) => {
-  req.logout();
-  req.session.destroy();
-  res.send('ok');
 });
 
 export default router;

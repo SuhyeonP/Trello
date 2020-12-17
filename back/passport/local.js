@@ -1,10 +1,8 @@
 import passport from 'passport';
 import { Strategy as LocalStrategy } from 'passport-local';
 import bcrypt from 'bcrypt';
-import createUserInstance from '../model/user.js';
 
-const local = () => {
-  console.log('isti');
+function local(models) {
   passport.use(
     new LocalStrategy(
       {
@@ -12,9 +10,8 @@ const local = () => {
         passwordField: 'userPassword',
       },
       async (userId, userPassword, done) => {
-        console.log('isti2', userId, userPassword);
         try {
-          const existUser = await createUserInstance.findOne({
+          const existUser = await models.user.findOne({
             where: {
               userId,
             },
@@ -37,5 +34,5 @@ const local = () => {
       },
     ),
   );
-};
+}
 export default local;

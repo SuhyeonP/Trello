@@ -1,6 +1,10 @@
 import React, { useCallback, useState } from 'react';
+import axios from 'axios';
+import { END } from 'redux-saga';
 import { OpenLinkSingle } from '../../css/single';
 import useInput from '../../exp/useInput';
+import wrapper from '../../store/configureStore';
+import { RELOAD_USER_REQUEST } from '../../reducers/user';
 
 const SingleCard = () => {
   const [changeTitle, onChangeTitle] = useInput('');
@@ -34,4 +38,18 @@ const SingleCard = () => {
     </div>
   );
 };
+export const getServerSideProps = wrapper.getServerSideProps(async (context) => {
+  const cookie = context.req ? context.req.headers.cookie : '';
+  axios.defaults.headers.Cookie = '';
+
+  if (context.req && cookie) {
+    axios.defaults.headers.Cookie = cookie;
+  }
+  console.log(cookie, 'this is cookie');
+  context.store.dispatch({
+    type: RELOAD_USER_REQUEST,
+  });
+  context.store.dispatch(END);
+  await context.store.sagaTask.toPromise();
+});
 export default SingleCard;
