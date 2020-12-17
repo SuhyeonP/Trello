@@ -29,7 +29,7 @@ const createUser = async (db, signUpData) => {
           userId: id,
           boardTitle: 'todo',
           backgroundType: 0,
-          backgroundValue: 'blue',
+          backgroundValue: null,
         },
         { transaction: t },
       );
