@@ -55,10 +55,10 @@ const SignUpForm = () => {
           <Input placeholder="닉네임" value={userNickName} onChange={onChangeNick} />
         </div>
         <div className="signup-div">
-          <Input placeholder="비밀번호" value={userPassword} onChange={onChangePassword} />
+          <Input type="password" placeholder="비밀번호" value={userPassword} onChange={onChangePassword} />
         </div>
         <div className="signup-div">
-          <Input placeholder="비밀번호 확인" name={pwCheck} value={pwCheck} onChange={onChangePwCheck} />
+          <Input type="password" placeholder="비밀번호 확인" name={pwCheck} value={pwCheck} onChange={onChangePwCheck} />
         </div>
         {pwError && <p className="pw-check">비밀번호가 일치하지 않습니다.</p>}
         <Button loading={signUpLoading} htmlType="submit">SignUp</Button>

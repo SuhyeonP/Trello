@@ -34,16 +34,12 @@ const Board = () => {
       window.location.href = '/';
     }
   }, [me]);
-  useEffect(() => {
-    if (logOutDone) {
-      window.location.href = '/';
-    }
-  }, [logOutDone]);
 
   const logOutBtn = useCallback(() => {
     dispatch({
       type: LOG_OUT_REQUEST,
     });
+    window.location.href = '/';
   }, []);
 
   const openSingle = useCallback(

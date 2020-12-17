@@ -4,7 +4,7 @@ import passport from 'passport';
 import isValidateUserSignupData from '../validation/userSignup.js';
 import { isLoggedIn, isNotLoggedIn } from './middlewares.js';
 
-import User from '../service/user.js';
+import user from '../service/user.js';
 
 const router = express.Router();
 
@@ -25,12 +25,12 @@ router.post('/signup', async (req, res, next) => {
   }
 
   res.status(400).send({ message: 'duplicated user' });
-}
+});
 
 router.get('/', async (req, res, next) => {
   try {
     if (req.user) {
-      const userInfoExceptPw = await User.reloadUser(req.db.models, req.user);
+      const userInfoExceptPw = await user.reloadUser(req.db.models, req.user);
       res.status(200).json(userInfoExceptPw);
     } else {
       res.status(200).json(null);
@@ -46,7 +46,7 @@ router.post(
   isNotLoggedIn,
   passport.authenticate('local'),
   async (req, res, next) => {
-    const userInfo = await User.LoginUser(req.db.models, req.body);
+    const userInfo = await user.LoginUser(req.db.models, req.body);
     return res.status(200).json(userInfo);
   },
 );
