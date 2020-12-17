@@ -48,6 +48,63 @@ export const OpenLinkSingle = css`
   background-color: #f4f5f7;
   width: 100vw;
   height: 100vh;
+  .main {
+    display: flex;
+    .main-col {
+      margin: 0 0 4px 40px;
+      width: 512px;
+      p {
+        background-color: rgba(9, 30, 66, 0.04);
+        box-shadow: none;
+        border: none;
+        border-radius: 3px;
+        font-size: 14px;
+        min-height: 56px;
+
+        padding: 8px 12px;
+        text-decoration: none;
+        margin: 0;
+        &:hover {
+          background-color: rgba(9, 30, 66, 0.14);
+          cursor: pointer;
+        }
+      }
+    }
+    .sidebar {
+      padding: 0 16px 8px 8px;
+      width: 168px;
+      overflow: hidden;
+      z-index: 10;
+      h3 {
+        color: #5e6c84;
+        font-size: 12px;
+        font-weight: 500;
+        letter-spacing: 0.04em;
+        line-height: 16px;
+        margin-top: 16px;
+        text-transform: uppercase;
+        line-height: 20px;
+        margin-bottom: -4px;
+      }
+      p {
+        background-color: rgba(9, 30, 66, 0.04);
+        color: #172b4d;
+        box-shadow: none;
+        box-sizing: border-box;
+        border: none;
+        border-radius: 3px;
+        font-size: 14px;
+        height: 32px;
+        padding: 6px 12px;
+        text-decoration: none;
+        margin: 8px 0 0 0;
+        &:hover {
+          background-color: rgba(9, 30, 66, 0.14);
+          cursor: pointer;
+        }
+      }
+    }
+  }
   .board-title {
     position: relative;
     min-height: 32px;
@@ -67,6 +124,7 @@ export const OpenLinkSingle = css`
   }
   .real-title {
     display: block;
+    width: 512px;
     margin: 4px 0 0;
     padding: 8px 0 0;
     font-size: 20px;
@@ -75,21 +133,6 @@ export const OpenLinkSingle = css`
       margin: 0 0 8px;
       font-size: 20px;
       line-height: 24px;
-    }
-    p {
-      background-color: rgba(9, 30, 66, 0.04);
-      box-shadow: none;
-      border: none;
-      border-radius: 3px;
-      font-size: 14px;
-      min-height: 56px;
-      padding: 8px 12px;
-      text-decoration: none;
-      margin: 0;
-      &:hover {
-        background-color: rgba(9, 30, 66, 0.14);
-        cursor: pointer;
-      }
     }
   }
   .little-title {

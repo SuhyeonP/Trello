@@ -3,6 +3,7 @@ import { OpenLinkSingle } from "../css/single";
 import { Input } from "antd";
 import styled from "@emotion/styled";
 import { css } from "@emotion/react";
+import { CloseOutlined } from "@ant-design/icons";
 const InputText = styled(Input.TextArea)`
   height: 108px;
   overflow: hidden;
@@ -39,6 +40,8 @@ const buttonBar = css`
     text-decoration: none;
     vertical-align: bottom;
     width: 32px;
+    background-color: #f4f5f7;
+    border: none;
   }
 `;
 
@@ -50,8 +53,8 @@ const OnClickDesc = ({ onToggleDesc }) => {
         <button type="submit" className="save-button">
           Save
         </button>
-        <button className="x-button" onClick={onToggleDesc}>
-          X
+        <button className="x-button">
+          <CloseOutlined style={{ fontSize: "20px" }} onClick={onToggleDesc} />
         </button>
       </div>
     </div>

@@ -1,7 +1,12 @@
 import React, { useCallback, useState } from "react";
 import { OpenLinkSingle } from "../../css/single";
 import useInput from "../../exp/useInput";
-import { AlignLeftOutlined } from "@ant-design/icons";
+import {
+  AlignLeftOutlined,
+  UserOutlined,
+  ArrowRightOutlined,
+  DeleteOutlined,
+} from "@ant-design/icons";
 import OnClickDesc from "../../components/OnClickDesc";
 
 const SingleCard = () => {
@@ -34,7 +39,9 @@ const SingleCard = () => {
         <div className="little-title">
           <p>in list : origin-list-name</p>
         </div>
-        <div className="real-title">
+      </div>
+      <div className="main">
+        <div className="main-col">
           {/* <AlignLeftOutlined /> */}
           <h2>Description</h2>
           {InputDesc ? (
@@ -42,6 +49,28 @@ const SingleCard = () => {
           ) : (
             <p onClick={onToggleDesc}>Add a more detailed description...</p>
           )}
+        </div>
+        <div className="sidebar">
+          <h3>ADD TO CARD</h3>
+          <div className="card-bar">
+            <p>
+              <UserOutlined style={{ marginRight: "6px" }} /> Members
+            </p>
+            <p>
+              <UserOutlined style={{ marginRight: "6px" }} /> Checklist
+            </p>
+          </div>
+          <h3>ACTIONS</h3>
+          <div className="card-bar">
+            <p>
+              <ArrowRightOutlined style={{ marginRight: "6px" }} />
+              Move
+            </p>
+            <p>
+              <DeleteOutlined style={{ marginRight: "6px" }} />
+              Delete
+            </p>
+          </div>
         </div>
       </div>
     </div>
