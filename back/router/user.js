@@ -21,7 +21,7 @@ router.post('/signup', async (req, res, next) => {
 
   if (!registerdUser) {
     const result = await user.createUser(req.db, req.body);
-    res.status(200).send('sucess signUp');
+    res.status(200).send('ok');
     return;
   }
 
