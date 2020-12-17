@@ -2,7 +2,7 @@ import passport from 'passport';
 import { Strategy as LocalStrategy } from 'passport-local';
 import bcrypt from 'bcrypt';
 
-function local(models) {
+const local = models => {
   passport.use(
     new LocalStrategy(
       {
@@ -34,5 +34,5 @@ function local(models) {
       },
     ),
   );
-}
+};
 export default local;

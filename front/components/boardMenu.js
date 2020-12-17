@@ -82,7 +82,7 @@ const BoardMenu = ({ me, logoutBtn, setCanIopenMenu, canIopenMenu }) => {
           <hr className="menu-underline" />
         </div>
         <div className="hi-user">
-          <h2>Welcome, {me.userNickName}.<br/> This is your Board</h2>
+          <h2>Welcome, {me.userNickName}.<br /> This is your Board</h2>
         </div>
         <div className="inner-menu">
           {originMenu && (
