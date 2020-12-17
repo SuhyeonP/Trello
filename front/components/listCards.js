@@ -27,7 +27,7 @@ const ListCards = ({ openSingle }) => {
   const closeInputListTitle = useCallback(() => {
     setChangeTitle(false);
     setListTitle('');
-  }, [changeTitle]);
+  }, [changeTitle, modifyListTitle]);
 
   const addCardToSend = useCallback(() => {
     setOpenAddCard(false);

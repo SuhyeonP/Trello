@@ -1,4 +1,5 @@
 import produce from 'immer';
+import { createReducer } from '@reduxjs/toolkit';
 
 export const initialState = {
   mainLists: [],
@@ -51,94 +52,97 @@ export const DELETE_CARD_REQUEST = 'DELETE_CARD_REQUEST';
 export const DELETE_CARD_SUCCESS = 'DELETE_CARD_SUCCESS';
 export const DELETE_CARD_FAILURE = 'DELETE_CARD_FAILURE';
 
-const reducer = (state = initialState, action) => produce(state, (draft) => {
-  switch (action.type) {
-    case LOAD_MAIN_REQUEST:
-      draft.loadingBoards = true;
-      draft.loadBoardError = null;
-      draft.loadedBoards = false;
-      break;
-    case LOAD_MAIN_SUCCESS:
-      draft.loadingBoards = false;
-      draft.mainLists = action.data;
-      draft.loadedBoards = true;
-      break;
-    case LOAD_MAIN_FAILURE:
-      draft.loadingBoards = false;
-      draft.loadBoardError = action.error;
-      break;
-    case LOAD_CARD_REQUEST:// load modal
-      draft.loadingCard = true;
-      draft.loadCardError = null;
-      draft.loadedCard = false;
-      break;
-    case LOAD_CARD_SUCCESS:
-      draft.loadingCard = false;
-      draft.loadedCard = true;
-      draft.cardModal = action.data;
-      break;
-    case LOAD_CARD_FAILURE:
-      draft.loadingCard = false;
-      draft.loadCardError = action.error;
-      break;
-    case ADD_LIST_REQUEST:
-      draft.addListLoading = true;
-      draft.addListError = null;
-      draft.logOutDone = false;
-      break;
-    case ADD_LIST_SUCCESS:
-      draft.addListLoading = false;
-      draft.addListDone = true;
-      draft.mainLists = action.data;
-      break;
-    case ADD_LIST_FAILURE:
-      draft.addListLoading = false;
-      draft.addListError = action.error;
-      break;
-    case ADD_CARD_REQUEST:
-      draft.addCardLoading = true;
-      draft.addCardError = null;
-      draft.addCardDone = false;
-      break;
-    case ADD_CARD_SUCCESS:
-      draft.addCardLoading = false;
-      draft.addCardDone = true;
-      draft.mainLists = action.data;
-      break;
-    case ADD_CARD_FAILURE:
-      draft.addCardLoading = false;
-      draft.addCardError = action.error;
-      break;
-    case MODIFY_LIST_REQUEST:
-    case MODIFY_CARD_REQUEST:
-      draft.modifyTextLoading = true;
-      draft.modifyTextError = null;
-      break;
-    case MODIFY_LIST_SUCCESS:
-    case MODIFY_CARD_SUCCESS:
-      draft.modifyTextDone = true;
-      draft.modifyTextLoading = false;
-      break;
-    case MODIFY_LIST_FAILURE:
-    case MODIFY_CARD_FAILURE:
-      draft.modifyTextDone = false;
-      draft.modifyTextError = action.error;
-      break;
-    case DELETE_CARD_REQUEST:
-      draft.deleteCardLoading = true;
-      draft.deleteCardError = null;
-      break;
-    case DELETE_CARD_SUCCESS:
-      draft.deleteCardLoading = false;
-      draft.deleteCardDone = true;
-      break;
-    case DELETE_CARD_FAILURE:
-      draft.deleteCardLoading = false;
-      draft.deleteCardError = action.error;
-      break;
-    default:
-      break;
-  }
+export default createReducer(initialState, {
+  [LOAD_MAIN_REQUEST]: (state) => produce(state, (draft) => {
+    draft.loadingBoards = true;
+    draft.loadBoardError = null;
+    draft.loadedBoards = false;
+  }),
+  [LOAD_MAIN_SUCCESS]: (state, action) => produce(state, (draft) => {
+    draft.loadingBoards = false;
+    draft.mainLists = action.data;
+    draft.loadedBoards = true;
+  }),
+  [LOAD_MAIN_FAILURE]: (state, action) => produce(state, (draft) => {
+    draft.loadingBoards = false;
+    draft.loadBoardError = action.error;
+  }),
+  [LOAD_CARD_REQUEST]: (state) => produce(state, (draft) => {
+    draft.loadingCard = true;
+    draft.loadCardError = null;
+    draft.loadedCard = false;
+  }),
+  [LOAD_CARD_SUCCESS]: (state, action) => produce(state, (draft) => {
+    draft.loadingCard = false;
+    draft.loadedCard = true;
+    draft.cardModal = action.data;
+  }),
+  [LOAD_CARD_FAILURE]: (state, action) => produce(state, (draft) => {
+    draft.loadingCard = false;
+    draft.loadCardError = action.error;
+  }),
+  [ADD_LIST_REQUEST]: (state) => produce(state, (draft) => {
+    draft.addListLoading = true;
+    draft.addListError = null;
+    draft.logOutDone = false;
+  }),
+  [ADD_LIST_SUCCESS]: (state, action) => produce(state, (draft) => {
+    draft.addListLoading = false;
+    draft.addListDone = true;
+    draft.mainLists = action.data;
+  }),
+  [ADD_LIST_FAILURE]: (state, action) => produce(state, (draft) => {
+    draft.addListLoading = false;
+    draft.addListError = action.error;
+  }),
+  [ADD_CARD_REQUEST]: (state) => produce(state, (draft) => {
+    draft.addCardLoading = true;
+    draft.addCardError = null;
+    draft.addCardDone = false;
+  }),
+  [ADD_CARD_SUCCESS]: (state, action) => produce(state, (draft) => {
+    draft.addCardLoading = false;
+    draft.addCardDone = true;
+    draft.mainLists = action.data;
+  }),
+  [ADD_CARD_FAILURE]: (state, action) => produce(state, (draft) => {
+    draft.addCardLoading = false;
+    draft.addCardError = action.error;
+  }),
+  [MODIFY_LIST_REQUEST]: (state) => produce(state, (draft) => {
+    draft.modifyTextLoading = true;
+    draft.modifyTextError = null;
+  }),
+  [MODIFY_CARD_REQUEST]: (state) => produce(state, (draft) => {
+    draft.modifyTextLoading = true;
+    draft.modifyTextError = null;
+  }),
+  [MODIFY_LIST_SUCCESS]: (state) => produce(state, (draft) => {
+    draft.modifyTextDone = true;
+    draft.modifyTextLoading = false;
+  }),
+  [MODIFY_CARD_SUCCESS]: (state) => produce(state, (draft) => {
+    draft.modifyTextDone = true;
+    draft.modifyTextLoading = false;
+  }),
+  [MODIFY_LIST_FAILURE]: (state, action) => produce(state, (draft) => {
+    draft.modifyTextDone = false;
+    draft.modifyTextError = action.error;
+  }),
+  [MODIFY_CARD_FAILURE]: (state, action) => produce(state, (draft) => {
+    draft.modifyTextDone = false;
+    draft.modifyTextError = action.error;
+  }),
+  [DELETE_CARD_REQUEST]: (state) => produce(state, (draft) => {
+    draft.deleteCardLoading = true;
+    draft.deleteCardError = null;
+  }),
+  [DELETE_CARD_SUCCESS]: (state) => produce(state, (draft) => {
+    draft.deleteCardLoading = false;
+    draft.deleteCardDone = true;
+  }),
+  [DELETE_CARD_FAILURE]: (state, action) => produce(state, (draft) => {
+    draft.deleteCardLoading = false;
+    draft.deleteCardError = action.error;
+  }),
 });
-
-export default reducer;
