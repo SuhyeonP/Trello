@@ -6,6 +6,10 @@ const createBoardInstance = db => {
   db.define(
     'board',
     {
+      userId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
       boardId: {
         type: DataTypes.INTEGER,
         primaryKey: true,
@@ -16,10 +20,6 @@ const createBoardInstance = db => {
       },
       backgroundType: {
         type: DataTypes.INTEGER(1),
-        allowNull: false,
-      },
-      userId: {
-        type: DataTypes.INTEGER,
         allowNull: false,
       },
       backgroundValue: {
