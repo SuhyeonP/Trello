@@ -61,12 +61,20 @@ const LoginUser = async (db, loginInfo) => {
     },
   });
   try {
-    const findUserBoard = await db.board.findOne(checkUser.dataValues.boardId);
-    return { user: checkUser, board: findUserBoard };
+    return checkUser;
   } catch (err) {
     console.error(err);
     return err;
   }
 };
 
-export default { LoginUser, createUser, findUser };
+const reloadUser = async (db, user) => {
+  const miniUser = await db.user.findByPk(user.id, {
+    attributes: {
+      exclude: ['userPassword'],
+    },
+  });
+  return miniUser;
+};
+
+export default { reloadUser, LoginUser, createUser, findUser };
