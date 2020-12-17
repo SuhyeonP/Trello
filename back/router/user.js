@@ -7,16 +7,12 @@ import user from '../service/user.js';
 const router = express.Router();
 
 router.post('/login', async (req, res, next) => {
-  const userInfoExceptPw = await User.LoginUser(req.db.models, req.body);
+  const userInfoExceptPw = await user.LoginUser(req.db.models, req.body);
   return res.status(200).json(userInfoExceptPw);
 });
 
 // sign up
 router.post('/signup', async (req, res, next) => {
-  // 1. 데이터 형식 검사
-  // 2. 가입되어 있는 아이디인지 확인
-  // 3. 가입
-
   if (!isValidateUserSignupData(req.body)) {
     res.status(400).send({ message: 'invalid data' });
   }
@@ -28,8 +24,10 @@ router.post('/signup', async (req, res, next) => {
   if (!registerdUser) {
     const result = await user.createUser(req.db, req.body);
     res.status(200).send(result);
+    return;
   }
-  next();
+
+  res.status(400).send({ message: 'duplicated user' });
 });
 
 export default router;
