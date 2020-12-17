@@ -1,14 +1,10 @@
 import express from 'express';
 import passport from 'passport';
-import Strategy from 'passport-local';
-
-import local from '../passport/local.js';
 
 import isValidateUserSignupData from '../validation/userSignup.js';
-import isValidateUserLoginData from '../validation/userLogin.js';
+import { isLoggedIn, isNotLoggedIn } from './middlewares.js';
 
 import User from '../service/user.js';
-import { isLoggedIn, isNotLoggedIn } from './middlewares.js';
 
 const router = express.Router();
 
