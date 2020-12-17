@@ -12,7 +12,7 @@ const PickBackgroundColor = styled.p`
     background-color:${(props) => props.color || 'rgb(0, 121, 191)'};
 `;
 
-const BoardMenu = ({ logoutBtn, setCanIopenMenu, canIopenMenu }) => {
+const BoardMenu = ({ me, logoutBtn, setCanIopenMenu, canIopenMenu }) => {
   const [changeBoardBack, setChangeBoardBack] = useState(false);
   const [menuTitle, setMenuTitle] = useState('Menu');
   const [originMenu, setOriginMenu] = useState(true);
@@ -81,6 +81,9 @@ const BoardMenu = ({ logoutBtn, setCanIopenMenu, canIopenMenu }) => {
           </div>
           <hr className="menu-underline" />
         </div>
+        <div className="hi-user">
+          <h2>Welcome, {me.userNickName}.<br /> This is your Board</h2>
+        </div>
         <div className="inner-menu">
           {originMenu && (
           <>
@@ -93,7 +96,7 @@ const BoardMenu = ({ logoutBtn, setCanIopenMenu, canIopenMenu }) => {
             </div>
             <hr className="menu-underline" />
             <div className="logout-btn">
-              <button type="button">Logout</button>
+              <button onClick={logoutBtn} type="button">Logout</button>
             </div>
             <hr className="menu-underline" />
             <div className="timeline-title">
@@ -149,6 +152,8 @@ const BoardMenu = ({ logoutBtn, setCanIopenMenu, canIopenMenu }) => {
 BoardMenu.propTypes = {
   setCanIopenMenu: PropTypes.any.isRequired,
   canIopenMenu: PropTypes.bool.isRequired,
+  logoutBtn: PropTypes.func.isRequired,
+  me: PropTypes.any.isRequired,
 };
 
 export default memo(BoardMenu);

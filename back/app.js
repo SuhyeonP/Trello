@@ -4,16 +4,13 @@ import cors from 'cors';
 import passport from 'passport';
 import dotenv from 'dotenv';
 import session from 'express-session';
-import { Strategy as LocalStrategy } from 'passport-local';
-import bcrypt from 'bcrypt';
 import indexRouter from './router/index.js';
 import boardRouter from './router/board.js';
 import listRouter from './router/list.js';
 import cardRouter from './router/card.js';
 import userRouter from './router/user.js';
 import passportConfig from './passport/index.js';
-// import local from './passport/local.js';
-import createUserInstance from './model/user.js';
+import local from './passport/local.js';
 
 dotenv.config();
 const app = express();
@@ -21,7 +18,7 @@ app.use((req, res, next) => {
   req.db = app.get('db');
   next();
 });
-passportConfig();
+
 
 if (process.env.NODE_ENV === 'production') {
   app.use(
@@ -51,78 +48,9 @@ app.use(
 );
 
 app.use((req, res, next) => {
-  // local();
   const { models } = req.db;
-  passport.use(
-    new LocalStrategy(
-      {
-        usernameField: 'userId',
-        passwordField: 'userPassword',
-      },
-      async (userId, userPassword, done) => {
-        console.log('isti2', userId, userPassword);
-        try {
-          const existUser = await models.user.findOne({
-            where: {
-              userId,
-            },
-          });
-          if (!existUser) {
-            return done(null, false, { reason: 'wrong Id' });
-          }
-          const result = await bcrypt.compare(
-            userPassword,
-            existUser.userPassword,
-          );
-          if (result) {
-            return done(null, existUser);
-          }
-          return done(null, false, { reason: 'wrong password' });
-        } catch (err) {
-          console.error(err);
-          return done(err);
-        }
-      },
-    ),
-  );
-  // function local() {
-  //   console.log('isti');
-  //
-  //   passport.use(
-  //     new LocalStrategy(
-  //       {
-  //         usernameField: 'userId',
-  //         passwordField: 'userPassword',
-  //       },
-  //       async (userId, userPassword, done) => {
-  //         const { model } = req.db;
-  //         console.log('isti2', userId, userPassword);
-  //         try {
-  //           const existUser = await model.user.findOne({
-  //             where: {
-  //               userId,
-  //             },
-  //           });
-  //           if (!existUser) {
-  //             return done(null, false, { reason: 'wrong Id' });
-  //           }
-  //           const result = await bcrypt.compare(
-  //             userPassword,
-  //             existUser.userPassword,
-  //           );
-  //           if (result) {
-  //             return done(null, existUser);
-  //           }
-  //           return done(null, false, { reason: 'wrong password' });
-  //         } catch (err) {
-  //           console.error(err);
-  //           return done(err);
-  //         }
-  //       },
-  //     ),
-  //   );
-  // }
-  // local();
+  passportConfig(models);
+  local(models);
   next();
 });
 app.use(passport.initialize());

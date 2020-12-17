@@ -424,7 +424,7 @@ export const boardMenu = css`
     transition-timing-function: ease-in;
     box-shadow: 0 12px 24px -6px rgba(9,30,66,.25), 0 0 0 1px rgba(9,30,66,.08);
     transform: translateX(0);
-    .logout-btn{
+    .logout-btn,.hi-user{
         display:block;
         padding: 6px 6px 6px 40px;
         &>button{
@@ -440,6 +440,9 @@ export const boardMenu = css`
             &:hover{
                 transform:scale(1.1);
             }
+        }
+        h2{
+            font-size:16px;
         }
     }
     .close-menu{
@@ -571,4 +574,5 @@ export const boardMenu = css`
             }
         }
     }
+    
 `;

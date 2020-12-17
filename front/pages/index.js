@@ -1,13 +1,13 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import Head from 'next/head';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Button } from 'antd';
 import { useRouter } from 'next/router';
 import axios from 'axios';
 import { END } from 'redux-saga';
 import LoginForm from '../components/login';
 import SignUpForm from '../components/signup';
-import { LOG_OUT_REQUEST, RELOAD_USER_REQUEST } from '../reducers/user';
+import { RELOAD_USER_REQUEST } from '../reducers/user';
 import { mainPage } from '../css/mainPage';
 import wrapper from '../store/configureStore';
 
@@ -15,22 +15,15 @@ const mainIndex = () => {
   const [showLog, setShowLogin] = useState(false);
   const [showSign, setShowSign] = useState(false);
   const [back, setBack] = useState(true);
-  const { me, logInDone } = useSelector((state) => state.user);
-  const dispatch = useDispatch();
+  const { me, logInDone, loadUserDone } = useSelector((state) => state.user);
   const router = useRouter();
 
   useEffect(() => {
-    if (logInDone) {
-      // router.push('/board');
+    if (logInDone && loadUserDone) {
+      router.push('/board');
       document.getElementById('goBack-btn').style.display = 'none';
     }
-  }, [logInDone]);
-
-  const logOutBtn = useCallback(() => {
-    dispatch({
-      type: LOG_OUT_REQUEST,
-    });
-  }, []);
+  }, [logInDone, loadUserDone]);
 
   const showLogin = useCallback(() => {
     setShowLogin(true);
@@ -64,7 +57,6 @@ const mainIndex = () => {
           <>
             <p>Hi {me.nickName},</p>
             <p>Wait a sec we move to your board</p>
-            <Button type="button" onClick={logOutBtn}>로그아웃</Button>
           </>
           )}
           {!me && back ? (
@@ -90,7 +82,6 @@ export const getServerSideProps = wrapper.getServerSideProps(async (context) => 
     axios.defaults.headers.Cookie = cookie;
   }
   console.log(cookie, 'this is cookie');
-  console.log(context, 'this is context');
   context.store.dispatch({
     type: RELOAD_USER_REQUEST,
   });

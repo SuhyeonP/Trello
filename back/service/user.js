@@ -1,5 +1,4 @@
 import bcrypt from 'bcrypt';
-import board from './board.js';
 
 const createUser = async (db, signUpData) => {
   const hashedPassword = await bcrypt.hash(signUpData.userPassword, 10);
@@ -25,7 +24,7 @@ const createUser = async (db, signUpData) => {
 };
 
 const findUser = async (db, userId) => {
-  const checkDuplicate = db.user.findOne({
+  const checkDuplicate = await db.user.findOne({
     where: {
       userId,
     },
@@ -41,8 +40,7 @@ const LoginUser = async (db, loginInfo) => {
     },
   });
   try {
-    const findUserBoard = await db.board.findOne(checkUser.dataValues.boardId);
-    return { user: checkUser, board: findUserBoard };
+    return checkUser;
   } catch (err) {
     console.error(err);
     return err;
@@ -50,7 +48,11 @@ const LoginUser = async (db, loginInfo) => {
 };
 
 const reloadUser = async (db, user) => {
-  const miniUser = db.user.findOne(user.id);
+  const miniUser = await db.user.findByPk(user.id, {
+    attributes: {
+      exclude: ['userPassword'],
+    },
+  });
   return miniUser;
 };
 
