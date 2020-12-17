@@ -1,10 +1,13 @@
 import express from 'express';
 import passport from 'passport';
-
 import Strategy from 'passport-local';
 
-import User from '../service/user.js';
+import local from '../passport/local.js';
+
 import isValidateUserSignupData from '../validation/userSignup.js';
+import isValidateUserLoginData from '../validation/userLogin.js';
+
+import User from '../service/user.js';
 import { isLoggedIn, isNotLoggedIn } from './middlewares.js';
 
 const router = express.Router();
@@ -21,12 +24,12 @@ router.post('/signup', async (req, res, next) => {
 
   if (!registerdUser) {
     const result = await user.createUser(req.db, req.body);
-    res.status(200).send('ok');
+    res.status(200).send(result);
     return;
   }
 
-  next();
-});
+  res.status(400).send({ message: 'duplicated user' });
+}
 
 router.get('/', async (req, res, next) => {
   try {
