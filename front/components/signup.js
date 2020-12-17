@@ -1,13 +1,31 @@
-import React, { useCallback, useState } from 'react';
-import { Form, Input } from 'antd';
+import React, { useCallback, useEffect, useState } from 'react';
+import { Button, Form, Input } from 'antd';
+import Router from 'next/router';
+import Head from 'next/head';
+import { useDispatch, useSelector } from 'react-redux';
+import { SIGN_UP_REQUEST } from '../reducers/user';
 import useInput from '../exp/useInput';
 
 const SignUpForm = () => {
   const [userId, onChangeId] = useInput('');
   const [userPassword, onChangePassword] = useInput('');
-  const [userNick, onChangeNick] = useInput('');
+  const [userNickName, onChangeNick] = useInput('');
   const [pwCheck, setPwCheck] = useState('');
   const [pwError, setPwError] = useState(false);
+  const dispatch = useDispatch();
+  const { signUpLoading, signUpDone, signUpError } = useSelector((state) => state.user);
+
+  useEffect(() => {
+    if (signUpDone) {
+      Router.reload();
+    }
+  }, [signUpDone]);
+
+  useEffect(() => {
+    if (signUpError) {
+      alert(signUpError);
+    }
+  }, [signUpError]);
 
   const onChangePwCheck = useCallback((e) => {
     setPwError(e.target.value !== userPassword);
@@ -18,30 +36,32 @@ const SignUpForm = () => {
     if (userPassword !== pwCheck) {
       return setPwError(true);
     }
-    return console.log(userId, userPassword);
-  }, [userId, userPassword, userNick, pwCheck]);
+    dispatch({
+      type: SIGN_UP_REQUEST,
+      data: { userId, userNickName, userPassword },
+    });
+  }, [userId, userPassword, userNickName, pwCheck]);
 
   return (
     <>
+      <Head>
+        <title>Sign Up</title>
+      </Head>
       <Form onFinish={gotoSignUp}>
-        <div>
-          <label htmlFor="userId">ID&nbsp;:&nbsp;</label>
-          <Input value={userId} onChange={onChangeId} />
+        <div className="signup-div">
+          <Input placeholder="ID" value={userId} onChange={onChangeId} />
         </div>
-        <div>
-          <label htmlFor="userNick">NickName&nbsp;:&nbsp;</label>
-          <Input value={userNick} onChange={onChangeNick} />
+        <div className="signup-div">
+          <Input placeholder="닉네임" value={userNickName} onChange={onChangeNick} />
         </div>
-        <div>
-          <label htmlFor="userPassword">PW&nbsp;:&nbsp;</label>
-          <Input value={userPassword} onChange={onChangePassword} />
+        <div className="signup-div">
+          <Input type="password" placeholder="비밀번호" value={userPassword} onChange={onChangePassword} />
         </div>
-        <div>
-          <label htmlFor="pwCheck">PW Check&nbsp;:&nbsp;</label>
-          <Input name={pwCheck} value={pwCheck} onChange={onChangePwCheck} />
+        <div className="signup-div">
+          <Input type="password" placeholder="비밀번호 확인" name={pwCheck} value={pwCheck} onChange={onChangePwCheck} />
         </div>
-        {pwError && <p>비밀번호가 일치하지 않습니다.</p>}
-        <button type="submit">SignUp</button>
+        {pwError && <p className="pw-check">비밀번호가 일치하지 않습니다.</p>}
+        <Button loading={signUpLoading} htmlType="submit">SignUp</Button>
       </Form>
     </>
   );
