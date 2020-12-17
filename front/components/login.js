@@ -24,7 +24,7 @@ const LoginForm = () => {
           <Input required placeholder="ID" value={userId} onChange={onChangeId} />
         </div>
         <div className="signup-div">
-          <Input required placeholder="PW" value={userPassword} onChange={onChangePw} />
+          <Input type="password" required placeholder="PW" value={userPassword} onChange={onChangePw} />
         </div>
         <Button htmlType="submit">Login</Button>
       </Form>

@@ -1,8 +1,5 @@
 import bcrypt from 'bcrypt';
 
-// TODO create후에 반환되는 값들 중 날짜 값을 yyyy-mm-dd hh:mm:ss
-// 포맷으로 변경하는 코드가 중복되어서 사용되어짐. 모듈로 분리할것
-
 const createDate = date => {
   return `${date.getFullYear()}-${
     date.getMonth() + 1
