@@ -28,20 +28,18 @@ const createUser = async (db, signUpData) => {
         {
           userId: id,
           boardTitle: 'todo',
-          backgroundType: 'color',
+          backgroundType: 0,
           backgroundValue: 'blue',
         },
         { transaction: t },
       );
       const localTime = createDate(result.dataValues.createdAt);
       result.dataValues.createdAt = localTime;
-      result.dataValues.updatedAt = localTime;
       return result;
     });
-
     return successSignupData;
   } catch (e) {
-    console.log(e);
+    console.error(e);
     return e;
   }
 };
