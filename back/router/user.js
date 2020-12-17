@@ -1,12 +1,31 @@
 import express from 'express';
 import passport from 'passport';
+
 import isValidateUserSignupData from '../validation/userSignup.js';
-import User from '../service/user.js';
-import local from '../passport/local.js';
-import isValidateUserLoginData from '../validation/userLogin.js';
 import { isLoggedIn, isNotLoggedIn } from './middlewares.js';
 
+import User from '../service/user.js';
+
 const router = express.Router();
+
+// sign up
+router.post('/signup', async (req, res, next) => {
+  if (!isValidateUserSignupData(req.body)) {
+    res.status(400).send({ message: 'invalid data' });
+  }
+
+  const { userId } = req.body;
+  const { models } = req.db;
+  const registerdUser = await user.findUser(models, userId);
+
+  if (!registerdUser) {
+    const result = await user.createUser(req.db, req.body);
+    res.status(200).send(result);
+    return;
+  }
+
+  res.status(400).send({ message: 'duplicated user' });
+}
 
 router.get('/', async (req, res, next) => {
   try {
@@ -21,6 +40,7 @@ router.get('/', async (req, res, next) => {
     next(err);
   }
 });
+
 router.post(
   '/login',
   isNotLoggedIn,
@@ -30,30 +50,11 @@ router.post(
     return res.status(200).json(userInfo);
   },
 );
+
 router.post('/logout', isLoggedIn, (req, res) => {
   req.logout();
   req.session.destroy();
   res.send('ok');
-});
-
-router.post('/', async (req, res, next) => {
-  try {
-    const exUser = await User.findUser(req.db.models, req.body.userId);
-    if (exUser) {
-      return res.status(401).send('Duplicated Id');
-    }
-    if (isValidateUserSignupData(req.body)) {
-      const result = await User.createUser(req.db.models, req.body);
-      res.status(201).send('ok');
-    } else {
-      res.status(400).send({
-        message: 'invalid data',
-      });
-    }
-  } catch (err) {
-    console.error(err);
-    next(err);
-  }
 });
 
 export default router;
