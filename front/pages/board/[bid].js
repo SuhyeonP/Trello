@@ -1,31 +1,28 @@
-import React, { useCallback, useState } from "react";
-import { OpenLinkSingle } from "../../css/single";
-import useInput from "../../exp/useInput";
-import {
-  AlignLeftOutlined,
-  UserOutlined,
-  ArrowRightOutlined,
-  DeleteOutlined,
-} from "@ant-design/icons";
-import OnClickDesc from "../../components/OnClickDesc";
+import React, { useCallback, useState } from 'react';
+import axios from 'axios';
+import { END } from 'redux-saga';
+import { OpenLinkSingle } from '../../css/single';
+import useInput from '../../exp/useInput';
+import wrapper from '../../store/configureStore';
+import { RELOAD_USER_REQUEST } from '../../reducers/user';
+import OnClickDesc from '../../components/OnClickDesc';
+import BoardSideBar from '../../components/boardSideBar';
 
 const SingleCard = () => {
-  const [changeTitle, onChangeTitle] = useInput("");
+  const [changeTitle, onChangeTitle, setChangeTitle] = useInput('');
   const [modifyTitle, setModifyTitle] = useState(false);
-  const [InputDesc, setInputDesc] = useState(false);
+  const [inputDesc, setInputDesc] = useState(false);
   const changeToModifyTitle = useCallback(() => {
-    setModifyTitle(true);
+    if (changeTitle) {
+      console.log(changeTitle);
+      setChangeTitle('');
+    }
+    setModifyTitle((prev) => !prev);
   }, [changeTitle]);
 
-  const closeInputs = useCallback(() => {
-    if (modifyTitle) {
-      setModifyTitle(false);
-    }
-  }, [modifyTitle]);
-
   const onToggleDesc = useCallback(() => {
-    setInputDesc(!InputDesc);
-  }, [InputDesc]);
+    setInputDesc((prev) => !prev);
+  }, [inputDesc]);
   return (
     <div css={OpenLinkSingle}>
       <div className="board-title">
@@ -33,7 +30,12 @@ const SingleCard = () => {
         <div className="real-title">
           {!modifyTitle && <h2 onClick={changeToModifyTitle}>Title</h2>}
           {modifyTitle && (
-            <input onChange={onChangeTitle} value={changeTitle} />
+            <input
+              onBlur={changeToModifyTitle}
+              autoFocus={modifyTitle}
+              onChange={onChangeTitle}
+              value={changeTitle}
+            />
           )}
         </div>
         <div className="little-title">
@@ -44,36 +46,33 @@ const SingleCard = () => {
         <div className="main-col">
           {/* <AlignLeftOutlined /> */}
           <h2>Description</h2>
-          {InputDesc ? (
-            <OnClickDesc onToggleDesc={onToggleDesc} />
+          {inputDesc ? (
+            <OnClickDesc
+              setInputDesc={setInputDesc}
+              inputDesc={inputDesc}
+              onToggleDesc={onToggleDesc}
+            />
           ) : (
             <p onClick={onToggleDesc}>Add a more detailed description...</p>
           )}
         </div>
-        <div className="sidebar">
-          <h3>ADD TO CARD</h3>
-          <div className="card-bar">
-            <p>
-              <UserOutlined style={{ marginRight: "6px" }} /> Members
-            </p>
-            <p>
-              <UserOutlined style={{ marginRight: "6px" }} /> Checklist
-            </p>
-          </div>
-          <h3>ACTIONS</h3>
-          <div className="card-bar">
-            <p>
-              <ArrowRightOutlined style={{ marginRight: "6px" }} />
-              Move
-            </p>
-            <p>
-              <DeleteOutlined style={{ marginRight: "6px" }} />
-              Delete
-            </p>
-          </div>
-        </div>
+        <BoardSideBar />
       </div>
     </div>
   );
 };
+export const getServerSideProps = wrapper.getServerSideProps(async (context) => {
+  const cookie = context.req ? context.req.headers.cookie : '';
+  axios.defaults.headers.Cookie = '';
+
+  if (context.req && cookie) {
+    axios.defaults.headers.Cookie = cookie;
+  }
+  console.log(cookie, 'this is cookie');
+  context.store.dispatch({
+    type: RELOAD_USER_REQUEST,
+  });
+  context.store.dispatch(END);
+  await context.store.sagaTask.toPromise();
+});
 export default SingleCard;

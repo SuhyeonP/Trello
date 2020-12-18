@@ -7,7 +7,8 @@ import {
   LOG_IN_SUCCESS,
   LOG_OUT_FAILURE,
   LOG_OUT_REQUEST,
-  LOG_OUT_SUCCESS,
+  LOG_OUT_SUCCESS, RELOAD_USER_FAILURE,
+  RELOAD_USER_REQUEST, RELOAD_USER_SUCCESS,
   SIGN_UP_FAILURE,
   SIGN_UP_REQUEST,
   SIGN_UP_SUCCESS,
@@ -17,18 +18,13 @@ function logInAPI(data) {
   return axios.post('/user/login', data);
 }
 
-const dummyUser = {
-  id: 'test1',
-  nickName: 'testUser',
-};
-
 function* logIn(action) {
   try {
-    // const result = yield call(logInAPI, action.data);
-    yield delay(1000);
+    const result = yield call(logInAPI, action.data);
+    console.log(result.data);
     yield put({
       type: LOG_IN_SUCCESS,
-      data: dummyUser,
+      data: result.data,
     });
   } catch (err) {
     console.error(err);
@@ -45,8 +41,7 @@ function logOutAPI() {
 
 function* logOut() {
   try {
-    // yield call(logOutAPI);
-    yield delay(1000);
+    yield call(logOutAPI);
     yield put({
       type: LOG_OUT_SUCCESS,
     });
@@ -60,21 +55,39 @@ function* logOut() {
 }
 
 function signUpAPI(data) {
-  return axios.post('/user', data);
+  return axios.post('/user/signup', data);
 }
 
 function* signUp(action) {
   try {
-    // const result = yield call(signUpAPI, action.data);
-    yield delay(1000);
+    const result = yield call(signUpAPI, action.data);
     yield put({
       type: SIGN_UP_SUCCESS,
-      data: dummyUser,
+      data: result.data,
     });
   } catch (err) {
     console.error(err);
     yield put({
       type: SIGN_UP_FAILURE,
+      error: err.response.data,
+    });
+  }
+}
+function loadUserAPI() {
+  return axios.get('/user');
+}
+
+function* loadUser() {
+  try {
+    const result = yield call(loadUserAPI);
+    yield put({
+      type: RELOAD_USER_SUCCESS,
+      data: result.data,
+    });
+  } catch (err) {
+    console.error(err);
+    yield put({
+      type: RELOAD_USER_FAILURE,
       error: err.response.data,
     });
   }
@@ -91,11 +104,15 @@ function* watchLogOut() {
 function* watchSignUp() {
   yield takeLatest(SIGN_UP_REQUEST, signUp);
 }
+function* watchReloadUser() {
+  yield takeLatest(RELOAD_USER_REQUEST, loadUser);
+}
 
 export default function* userSaga() {
   yield all([
     fork(watchLogIn),
     fork(watchLogOut),
     fork(watchSignUp),
+    fork(watchReloadUser),
   ]);
 }

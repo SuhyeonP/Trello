@@ -153,7 +153,11 @@ export const mainBoardSection = css`
         }
     }
     .showing-board-inList{
-        display:flex;
+        display:block;
+        .display-board{
+            display:flex;
+            padding-left:5px;
+        }
     }
     .moving-list{
         position:absolute;
@@ -420,7 +424,27 @@ export const boardMenu = css`
     transition-timing-function: ease-in;
     box-shadow: 0 12px 24px -6px rgba(9,30,66,.25), 0 0 0 1px rgba(9,30,66,.08);
     transform: translateX(0);
-    
+    .logout-btn,.hi-user{
+        display:block;
+        padding: 6px 6px 6px 40px;
+        &>button{
+            display:inline-block;
+            font-size: 16px;
+            color: #172b4d;
+            font-weight:600;
+            border:0;
+            outline:0;
+            &:active{
+                outline:0;
+            }
+            &:hover{
+                transform:scale(1.1);
+            }
+        }
+        h2{
+            font-size:16px;
+        }
+    }
     .close-menu{
         font-size:14px;
         color:black;
@@ -550,4 +574,5 @@ export const boardMenu = css`
             }
         }
     }
+    
 `;
