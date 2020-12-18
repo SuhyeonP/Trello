@@ -29,17 +29,16 @@ const dummyLists = [
   { listId: 1, boardId: 1, createdAt: '2020.10.21', updatedAt: null },
 ];// this is board table i need
 
-function loadMainLists(data) {
-  return axios.get('/list', data);
+function loadMainLists() {
+  return axios.get('/board');
 }
 
-function* loadMain(action) {
+function* loadMain() {
   try {
-    // const result=yield call(loadMainLists,action.data),
-    yield delay(1000);
+    const result = yield call(loadMainLists);
     yield put({
       type: LOAD_MAIN_SUCCESS,
-      data: dummyLists,
+      data: result.data,
     });
   } catch (err) {
     console.error(err);
