@@ -31,6 +31,9 @@ const createCardInstance = db => {
         type: DataTypes.TEXT,
         allowNull: true,
       },
+      checklist: {
+        type: DataTypes.JSON,
+      },
     },
     {
       freezeTableName: true,

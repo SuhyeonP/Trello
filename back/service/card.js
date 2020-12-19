@@ -1,3 +1,15 @@
+const getCard = async (models, boardId) => {
+  const cardData = await models.card.findAll({
+    where: {
+      boardId: Number(boardId),
+    },
+  });
+
+  return cardData.filter(card => {
+    return card.dataValues;
+  });
+};
+
 const createCard = async (db, cardData) => {
   const newCardData = db.card.build(cardData);
 
@@ -9,4 +21,4 @@ const createCard = async (db, cardData) => {
   }
 };
 
-export default { createCard };
+export default { createCard, getCard };
