@@ -20,8 +20,10 @@ const createBoard = async (db, boardData) => {
   }
 };
 
-const getBoard = async db => {
-  const data = await db.board.findAll();
+const getBoard = async (db, id) => {
+  const data = await db.board.findOne({
+    where: { userId: id },
+  });
   return data;
 };
 

@@ -19,22 +19,21 @@ const Board = () => {
   const [boardTitle, onChangeBoardTitle, setBoardTitle] = useInput('');
   const [focusOnTitle, setFocus] = useState(false);
   const { me, logOutDone } = useSelector((state) => state.user);
-  // const { mainLists } = useSelector((state) => state.board);
+  const { mainLists } = useSelector((state) => state.board);
   const dispatch = useDispatch();
 
-  // useEffect(() => {
-  //   dispatch({
-  //     type: LOAD_MAIN_REQUEST,
-  //     data: { userId: me.userId },
-  //   });
-  // }, []);
   useEffect(() => {
-    if (!me) {
+    console.log(mainLists);
+  }, [mainLists]);
+  useEffect(() => {
+    if (!(me && me.id)) {
       alert('Only Member');
       window.location.href = '/';
     }
   }, [me]);
-
+  if (!me) {
+    return '내 정보 로딩중...';
+  }
   const logOutBtn = useCallback(() => {
     dispatch({
       type: LOG_OUT_REQUEST,
@@ -114,13 +113,14 @@ const Board = () => {
 export const getServerSideProps = wrapper.getServerSideProps(async (context) => {
   const cookie = context.req ? context.req.headers.cookie : '';
   axios.defaults.headers.Cookie = '';
-
   if (context.req && cookie) {
     axios.defaults.headers.Cookie = cookie;
   }
-  console.log(cookie, 'this is cookie');
   context.store.dispatch({
     type: RELOAD_USER_REQUEST,
+  });
+  context.store.dispatch({
+    type: LOAD_MAIN_REQUEST,
   });
   context.store.dispatch(END);
   await context.store.sagaTask.toPromise();
