@@ -259,3 +259,89 @@ export const ColorBox = styled.span`
     box-shadow:2px 3px 8px 0px #00000059;
     cursor:pointer;
 `;
+
+export const modalCheckList = css`
+    ul,li{
+        list-style:none;
+    }
+    .todo-title{
+        font-size:17px;
+    }
+    .modal-checkList{
+        margin-bottom: 6px;
+        position: relative;
+    }
+    .origin-graph{
+        background: rgba(9,30,66,.08);
+        border-radius: 4px;
+        clear: both;
+        height: 8px;
+        margin: 0 0 0 40px;
+        overflow: hidden;
+        position: relative;
+    }
+    .percent-now{
+        color: #5e6c84;
+        font-size: 11px;
+        line-height: 10px;
+        position: absolute;
+        left: 0;
+        top: -1px;
+        text-align: center;
+        width: 32px;
+    }
+    .add-todo{
+        background-color: rgba(9,30,66,.04);
+        display: inline-flex;
+        text-decoration: none;
+        border:none;
+        border-radius:3px;
+        line-height:20px;
+        margin-top:5px;
+        &:active{
+            outline:0;
+        }
+    }
+    .add-todo-List{
+        input{
+            background-color: #fff;
+            box-shadow: inset 0 0 0 2px #0079bf;
+            color: #172b4d;
+            cursor: text;
+            width: 100%;
+            float: none;
+            border:none;
+            padding: 8px 12px 9px;
+            min-height:32px;
+            border-radius:3px;
+            margin:4px 0 0;
+            overflow:hidden;
+            &:focus{
+                outline:0;
+            }
+        }
+    }
+    .complete-underline{
+        text-decoration:line-through;
+    }
+    .todo-list{
+        display:flex;
+        font-size:17px;
+        h5{
+            padding-left:10px;
+            vertical-align:top;
+        }
+    }
+`;
+export const ChargingGraph = styled.div`
+    width:${(props) => props.width || '0%'};
+    background: #5ba4cf;
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    top: 0;
+    z-index:999;
+    transition-property: width,background;
+    transition-duration: .14s;
+    transition-timing-function: ease-in;
+`;

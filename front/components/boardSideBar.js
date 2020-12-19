@@ -7,11 +7,11 @@ import {
 import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 
-const BoardSideBar = ({ openChangeCover }) => (
+const BoardSideBar = ({ openChangeCover, openTodoList }) => (
   <div className="sidebar">
     <h3>ADD TO CARD</h3>
     <div className="card-bar">
-      <p>
+      <p onClick={openTodoList}>
         <CheckSquareOutlined /> Checklist
       </p>
       <p className="modal-cover" onClick={openChangeCover}>
@@ -34,6 +34,7 @@ const BoardSideBar = ({ openChangeCover }) => (
 );
 BoardSideBar.propTypes = {
   openChangeCover: PropTypes.func.isRequired,
+  openTodoList: PropTypes.func.isRequired,
 };
 
 export default memo(BoardSideBar);

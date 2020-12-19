@@ -9,6 +9,7 @@ import BoardSideBar from '../../components/boardSideBar';
 import ModalCover from '../../components/modalCover';
 import ModalDescription from '../../components/modalDescription';
 import ModifyDescription from '../../components/modifyDescription';
+import CheckList from '../../components/checkList';
 
 const SingleCard = () => {
   const [changeTitle, onChangeTitle, setChangeTitle] = useInput('');
@@ -17,6 +18,8 @@ const SingleCard = () => {
   const [modalContent, setModalContent] = useState(false);
   const [modalCover, setModalCover] = useState('#f4f5f7');
   const [colorIn, setColorIn] = useState(false);
+  const [openCheckList, setOpenCheckList] = useState(false);
+
   const colorArray = ['#5ba4cf', '#7bc86c', '#6deca9', '#fffff3', 'skyblue', '#cd8de5'];
   const changeToModifyTitle = useCallback(() => {
     if (changeTitle) {
@@ -30,6 +33,10 @@ const SingleCard = () => {
     console.log(openCover);
     setOpenCover((prev) => !prev);
   }, [openCover]);
+
+  const openTodoList = useCallback(() => {
+    setOpenCheckList((prevState) => !prevState);
+  }, [openCheckList]);
 
   useEffect(() => {
     if (modalCover !== '#f4f5f7') {
@@ -71,6 +78,8 @@ const SingleCard = () => {
                 />
               )}
             <br />
+            {openCheckList && <CheckList />}
+            <br />
             {openCover
             && (
             <ModalCover
@@ -81,7 +90,7 @@ const SingleCard = () => {
             />
             )}
           </div>
-          <BoardSideBar openChangeCover={openChangeCover} />
+          <BoardSideBar openTodoList={openTodoList} openChangeCover={openChangeCover} />
         </div>
       </div>
     </OpenLinkSingle>
