@@ -1,17 +1,24 @@
-import { ArrowRightOutlined, DeleteOutlined, UserOutlined } from '@ant-design/icons';
+import {
+  ArrowRightOutlined,
+  CheckSquareOutlined,
+  DeleteOutlined,
+  DesktopOutlined,
+} from '@ant-design/icons';
 import React, { memo } from 'react';
+import PropTypes from 'prop-types';
 
-const BoardSideBar = () => (
+const BoardSideBar = ({ openChangeCover }) => (
   <div className="sidebar">
     <h3>ADD TO CARD</h3>
     <div className="card-bar">
       <p>
-        <UserOutlined /> Members
+        <CheckSquareOutlined /> Checklist
       </p>
-      <p>
-        <UserOutlined /> Checklist
+      <p className="modal-cover" onClick={openChangeCover}>
+        <DesktopOutlined /> Cover
       </p>
     </div>
+    <br />
     <h3>ACTIONS</h3>
     <div className="card-bar">
       <p>
@@ -25,5 +32,8 @@ const BoardSideBar = () => (
     </div>
   </div>
 );
+BoardSideBar.propTypes = {
+  openChangeCover: PropTypes.func.isRequired,
+};
 
 export default memo(BoardSideBar);

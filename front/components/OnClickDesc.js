@@ -5,12 +5,13 @@ import { Form } from 'antd';
 import { buttonBar, InputText } from '../css/single';
 import useInput from '../exp/useInput';
 
-const OnClickDesc = ({ setInputDesc, inputDesc, onToggleDesc }) => {
+const OnClickDesc = ({ setModalContent, setInputDesc, inputDesc, onToggleDesc }) => {
   const [inputDescText, onChangeDesc, setInputDescText] = useInput('');
   const onSubmitDescription = useCallback(() => {
     console.log(inputDescText);
     setInputDescText('');
     setInputDesc((prev) => !prev);
+    setModalContent(true);
   }, [inputDescText]);
 
   return (
@@ -24,6 +25,9 @@ const OnClickDesc = ({ setInputDesc, inputDesc, onToggleDesc }) => {
           <CloseOutlined style={{ fontSize: '20px' }} onClick={onToggleDesc} />
         </button>
       </Form>
+      <br />
+      <br />
+      <br />
     </div>
   );
 };
@@ -32,6 +36,7 @@ OnClickDesc.propTypes = {
   onToggleDesc: PropTypes.func.isRequired,
   inputDesc: PropTypes.bool.isRequired,
   setInputDesc: PropTypes.func.isRequired,
+  setModalContent: PropTypes.any.isRequired,
 };
 
 export default memo(OnClickDesc);

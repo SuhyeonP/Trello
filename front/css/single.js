@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import { Input } from 'antd';
 
 export const singleBoard = css`
-  z-index: 999;
+  z-index: 997;
   text-align: center;
   position: absolute;
   top: 0;
@@ -46,12 +46,16 @@ export const singleBoard = css`
   }
 `;
 
-export const OpenLinkSingle = css`
-  background-color: #f4f5f7;
+export const OpenLinkSingle = styled.div`
   width: 100vw;
   height: 100vh;
+  padding:7px;
+  background-color:${(props) => props.color || '#f4f5f7'};
   .main {
     display: flex;
+    border-radius:3px;
+    min-height:86vh;
+    background-color:#f4f5f7de;
     .main-col {
       margin: 0 0 4px 40px;
       width: 512px;
@@ -153,7 +157,6 @@ export const OpenLinkSingle = css`
       padding-bottom: 0;
     }
   }
-
   @media (max-width: 767px) {
     .board-title {
       position: relative;
@@ -208,4 +211,51 @@ export const buttonBar = css`
     background-color: #f4f5f7;
     border: none;
   }
+`;
+
+export const modalBackground = css`
+  ul,li{
+    list-style:none;
+  }
+  display:block;
+  background:#ffffff9c;
+  .cover-title{
+    display:block;
+    text-align:center;
+    font-size:19px;
+    padding:15px 0;
+    span{
+        display:inline-block;
+    }
+  }
+  text-align:center;
+  .palette{
+    width:85%;
+    margin:7px;
+    display:inline-flex;
+    justify-content:space-between;
+    li{
+        display:inline-block;
+    }
+  }
+  .remove-cover{
+    border:0;
+    background:inherit;
+    outline:0;
+    padding-left:12px;
+    vertical-align:top;
+    &:active{
+        outline:0;
+    }
+  }
+  
+`;
+
+export const ColorBox = styled.span`
+    display:inline-block;
+    background-color:${(props) => props.color || 'rgb(0, 121, 191)'};
+    width:40px;
+    height:40px;
+    box-shadow:2px 3px 8px 0px #00000059;
+    cursor:pointer;
 `;
