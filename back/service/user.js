@@ -19,12 +19,11 @@ const createUser = async (db, signUpData) => {
         },
         { transaction: t },
       );
-
       const { id } = newUserData.dataValues;
       const result = await models.board.create(
         {
           userId: id,
-          boardTitle: 'Change your boardTitle',
+          boardTitle: 'boardTitle',
           backgroundType: 0,
           backgroundValue: null,
         },

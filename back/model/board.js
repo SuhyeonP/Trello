@@ -18,10 +18,6 @@ const createBoardInstance = db => {
       boardTitle: {
         type: DataTypes.STRING(15),
       },
-      backgroundType: {
-        type: DataTypes.INTEGER(1),
-        allowNull: false,
-      },
       backgroundValue: {
         type: DataTypes.TEXT,
       },

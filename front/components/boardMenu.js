@@ -23,11 +23,9 @@ const BoardMenu = ({ me, logoutBtn, setCanIopenMenu, canIopenMenu }) => {
   const [testUpdatedAt, setTestUpdatedAt] = useState(false);
   const [testContent, setTestContent] = useState('list card Title');
   const [colorIndex, setColorIndex] = useState(0);
-  const [ImgIndex, setImgIndex] = useState(0);
   const { mainLists } = useSelector((state) => state.board);
   const dispatch = useDispatch();
 
-  const backgroundIs = ['color', 'img'];
   const dummyColor = [null, 'navy', 'green'];
 
   const changeToBoardBack = useCallback(() => {
@@ -46,14 +44,6 @@ const BoardMenu = ({ me, logoutBtn, setCanIopenMenu, canIopenMenu }) => {
     setChangeBoardBack(false);
   }, []);
 
-  const changeImg = useCallback(() => {
-    if (ImgIndex === 6) {
-      setImgIndex(0);
-    } else {
-      setImgIndex((prev) => prev + 1);
-    }
-  }, [ImgIndex]);
-
   const changeColor = useCallback(() => {
     if (colorIndex === dummyColor.length - 1) {
       setColorIndex(0);
@@ -62,19 +52,14 @@ const BoardMenu = ({ me, logoutBtn, setCanIopenMenu, canIopenMenu }) => {
     }
   }, [colorIndex]);
 
-  const pickBoardBackground = useCallback((kind) => {
-    let temp;
-    if (kind === 'img') {
-      temp = `not yet${ImgIndex}`;
-    } else {
-      temp = dummyColor[colorIndex];
-    }
+  const pickBoardBackground = useCallback(() => {
+    const temp = dummyColor[colorIndex];
     console.log(temp);
     dispatch({
       type: MODIFY_BOARD_REQUEST,
-      data: { backgroundValue: temp, boardId: mainLists.boardId, backgroundType: 0 },
+      data: { backgroundValue: temp, boardId: mainLists.boardId },
     });
-  }, [colorIndex, ImgIndex]);
+  }, [colorIndex]);
 
   return (
     <div css={boardMenu}>
@@ -127,24 +112,16 @@ const BoardMenu = ({ me, logoutBtn, setCanIopenMenu, canIopenMenu }) => {
             <div className="background-holder">
               <div>
                 <p>When you pick you want, click title.</p>
-                {backgroundIs.map((x, ind) => (
-                  <div className="background-is" key={ind}>
-                    <div>
-                      {x === 'color'
-                        ? (
-                          <>
-                            <PickBackgroundColor
-                              onClick={changeColor}
-                              color={dummyColor[colorIndex]}
-                            />
-                          </>
-                        )
-                        : <img onClick={changeImg} id="pick-img" src="" />}
-                      <h5>you can click to go another</h5>
-                    </div>
-                    <p onClick={() => pickBoardBackground(x)}>{x}</p>
+                <div className="background-is">
+                  <div>
+                    <PickBackgroundColor
+                      onClick={changeColor}
+                      color={dummyColor[colorIndex]}
+                    />
+                    <h5>you can click to go another</h5>
                   </div>
-                ))}
+                  <p onClick={pickBoardBackground}>color</p>
+                </div>
               </div>
             </div>
           </>

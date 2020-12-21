@@ -43,7 +43,6 @@ const modifyTitle = async (db, modifyData) => {
 const modifyBG = async (db, backgroundData) => {
   await db.board.update(
     {
-      backgroundType: backgroundData.backgroundType,
       backgroundValue: backgroundData.backgroundValue,
     },
     {
