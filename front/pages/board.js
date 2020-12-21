@@ -6,7 +6,7 @@ import Lists from '../components/lists';
 import InnerCard from '../components/innerCard';
 import BoardLayout from '../components/mainBoard';
 import BoardMenu from '../components/boardMenu';
-import { LOAD_MAIN_REQUEST } from '../reducers/board';
+import { LOAD_MAIN_REQUEST, MODIFY_BOARD_TT_REQUEST } from '../reducers/board';
 import useInput from '../exp/useInput';
 import { LOG_OUT_REQUEST, RELOAD_USER_REQUEST } from '../reducers/user';
 import wrapper from '../store/configureStore';
@@ -18,12 +18,12 @@ const Board = () => {
   const [changeBoardTitle, setChangeTitle] = useState(false);
   const [boardTitle, onChangeBoardTitle, setBoardTitle] = useInput('');
   const [focusOnTitle, setFocus] = useState(false);
-  const { me, logOutDone } = useSelector((state) => state.user);
+  const { me } = useSelector((state) => state.user);
   const { mainLists } = useSelector((state) => state.board);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log(mainLists);
+    console.log(mainLists.boardTitle);
   }, [mainLists]);
   useEffect(() => {
     if (!(me && me.id)) {
@@ -59,11 +59,13 @@ const Board = () => {
 
   const modifyBoardTitle = useCallback(() => {
     if (changeBoardTitle) {
-      console.log(boardTitle);
       if (boardTitle === null) {
         return;
       }
-      // send request to change title
+      dispatch({
+        type: MODIFY_BOARD_TT_REQUEST,
+        data: { boardTitle, boardId: mainLists.boardId },
+      });
       setBoardTitle('');
     }
     setChangeTitle((prev) => !prev);
@@ -83,7 +85,7 @@ const Board = () => {
                 onChange={onChangeBoardTitle}
               />
             ) : (
-              <h1 onClick={modifyBoardTitle}>Board-title</h1>
+              <h1 onClick={modifyBoardTitle}>{mainLists.boardTitle}</h1>
             )}
           </div>
           <div className="showMenu-btn">

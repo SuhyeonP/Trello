@@ -6,6 +6,7 @@ const createDate = date => {
 
 const createList = async (db, listData) => {
   try {
+    console.log(listData)
     const result = await db.list.create(listData);
     const returnValues = await result.get();
 
@@ -13,7 +14,7 @@ const createList = async (db, listData) => {
 
     returnValues.createdAt = localDateTime;
     returnValues.updatedAt = localDateTime;
-
+    console.log(returnValues);
     return returnValues;
   } catch (e) {
     console.error(e);

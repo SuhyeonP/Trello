@@ -13,7 +13,7 @@ import {
   LOAD_CARD_SUCCESS,
   LOAD_MAIN_FAILURE,
   LOAD_MAIN_REQUEST,
-  LOAD_MAIN_SUCCESS,
+  LOAD_MAIN_SUCCESS, MODIFY_BOARD_TT_FAILURE, MODIFY_BOARD_TT_REQUEST, MODIFY_BOARD_TT_SUCCESS,
 
 } from '../reducers/board';
 
@@ -83,11 +83,10 @@ function addListRequest(data) {
 
 function* addList(action) {
   try {
-    // const result=yield call(addListRequest,action.data)
-    yield delay(1000);
+    const result = yield call(addListRequest, action.data);
     yield put({
       type: ADD_LIST_SUCCESS,
-      // data: result.data,
+      data: result.data,
     });
   } catch (err) {
     console.error(err);
@@ -127,11 +126,36 @@ function* watchAddCard() {
   yield takeLatest(ADD_CARD_REQUEST, addCard);
 }
 
+function setBoardTTAPI(data) {
+  return axios.patch('/board/title', data);
+}
+
+function* setBoardTitle(action) {
+  try {
+    const result = yield call(setBoardTTAPI, action.data);
+    yield put({
+      type: MODIFY_BOARD_TT_SUCCESS,
+      data: result.data,
+    });
+  } catch (err) {
+    console.error(err);
+    yield put({
+      type: MODIFY_BOARD_TT_FAILURE,
+      error: err.response.data,
+    });
+  }
+}
+
+function* watchBoardTT() {
+  yield takeLatest(MODIFY_BOARD_TT_REQUEST, setBoardTitle);
+}
+
 export default function* userSaga() {
   yield all([
     fork(watchLoadMain),
     fork(watchLoadModal),
     fork(watchAddList),
     fork(watchAddCard),
+    fork(watchBoardTT),
   ]);
 }

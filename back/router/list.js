@@ -5,11 +5,16 @@ import list from '../service/list.js';
 const router = express.Router();
 
 router.post('/', async (req, res, next) => {
-  if (isValidListData(req.body)) {
-    const result = await list.createList(req.db.models, req.body);
-    res.status(200).send(result);
+  try {
+    if (isValidListData(req.body)) {
+      const result = await list.createList(req.db.models, req.body);
+      res.status(200).send(result);
+    }
+    next();
+  } catch (err) {
+    console.error(err);
+    next(err);
   }
-  next();
 });
 
 export default router;

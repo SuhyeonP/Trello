@@ -24,7 +24,7 @@ const createUser = async (db, signUpData) => {
       const result = await models.board.create(
         {
           userId: id,
-          boardTitle: 'todo',
+          boardTitle: 'Change your boardTitle',
           backgroundType: 0,
           backgroundValue: null,
         },
