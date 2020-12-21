@@ -23,7 +23,7 @@ const Board = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log(mainLists.boardTitle);
+    console.log(mainLists);
   }, [mainLists]);
   useEffect(() => {
     if (!(me && me.id)) {

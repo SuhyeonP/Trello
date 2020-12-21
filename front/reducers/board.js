@@ -44,6 +44,10 @@ export const MODIFY_BOARD_TT_REQUEST = 'MODIFY_BOARD_TT_REQUEST';
 export const MODIFY_BOARD_TT_SUCCESS = 'MODIFY_BOARD_TT_SUCCESS';
 export const MODIFY_BOARD_TT_FAILURE = 'MODIFY_BOARD_TT_FAILURE';
 
+export const MODIFY_BOARD_REQUEST = 'MODIFY_BOARD_REQUEST';
+export const MODIFY_BOARD_SUCCESS = 'MODIFY_BOARD_SUCCESS';
+export const MODIFY_BOARD_FAILURE = 'MODIFY_BOARD_FAILURE';
+
 export const MODIFY_LIST_REQUEST = 'MODIFY_LIST_REQUEST';
 export const MODIFY_LIST_SUCCESS = 'MODIFY_LIST_SUCCESS';
 export const MODIFY_LIST_FAILURE = 'MODIFY_LIST_FAILURE';
@@ -117,6 +121,10 @@ export default createReducer(initialState, {
     draft.modifyTextLoading = true;
     draft.modifyTextError = null;
   }),
+  [MODIFY_BOARD_REQUEST]: (state) => produce(state, (draft) => {
+    draft.modifyTextLoading = true;
+    draft.modifyTextError = null;
+  }),
   [MODIFY_LIST_REQUEST]: (state) => produce(state, (draft) => {
     draft.modifyTextLoading = true;
     draft.modifyTextError = null;
@@ -130,6 +138,11 @@ export default createReducer(initialState, {
     draft.modifyTextLoading = false;
     draft.mainLists = action.data;
   }),
+  [MODIFY_BOARD_SUCCESS]: (state, action) => produce(state, (draft) => {
+    draft.modifyTextDone = true;
+    draft.modifyTextLoading = false;
+    draft.mainLists = action.data;
+  }),
   [MODIFY_LIST_SUCCESS]: (state) => produce(state, (draft) => {
     draft.modifyTextDone = true;
     draft.modifyTextLoading = false;
@@ -139,6 +152,10 @@ export default createReducer(initialState, {
     draft.modifyTextLoading = false;
   }),
   [MODIFY_BOARD_TT_FAILURE]: (state, action) => produce(state, (draft) => {
+    draft.modifyTextDone = false;
+    draft.modifyTextError = action.error;
+  }),
+  [MODIFY_BOARD_FAILURE]: (state, action) => produce(state, (draft) => {
     draft.modifyTextDone = false;
     draft.modifyTextError = action.error;
   }),

@@ -8,7 +8,7 @@ router.post('/', async (req, res, next) => {
   try {
     if (isValidListData(req.body)) {
       const result = await list.createList(req.db.models, req.body);
-      res.status(200).send(result);
+      res.status(200).json(result);
     }
     next();
   } catch (err) {

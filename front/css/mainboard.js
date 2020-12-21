@@ -1,7 +1,8 @@
 import { css } from '@emotion/react';
+import styled from '@emotion/styled';
 
-export const mainBoardSection = css`
- background-color: #0079bf;
+export const MainBoardSection = styled.div`
+ background-color:${(props) => props.color || '#0079bf'};
  overflow-y:hidden;
  height:100vh;
  *{
@@ -12,7 +13,7 @@ export const mainBoardSection = css`
     display:flex;
     text-align:center;
     justify-content:space-between;
-    background-color:#0067a3;
+    background-color:#0a0a0a52;
     padding:10px 20px;
     z-index:1;
     p{
@@ -25,7 +26,7 @@ export const mainBoardSection = css`
             height:35px;
             border:0;
             outline:0;
-            background-color:hsl(202, 47%, 52%);
+            background-color: hsla(202, 47%, 52%, 0.55);
             border-radius:4px;
             &:focus{
                 background-color:white;
@@ -85,7 +86,7 @@ export const mainBoardSection = css`
         position: relative;
         display:flex;
         justify-content:space-between;
-        background: #0079bf;
+        background: #34343459;
         transition: padding .1s ease-in;
     }
     .project-title{
@@ -176,7 +177,7 @@ export const listWrapper = css`
     vertical-align: top;
     white-space: nowrap;
     .list{
-        margin-top:8px;
+        margin:8px 4px 0;
         background-color: #ebecf0;
         border-radius: 3px;
         box-sizing: border-box;
@@ -343,17 +344,19 @@ export const listWrapper = css`
 `;
 
 export const makeBoard = css`
-    margin-top:8px;
-    border-radius: 3px;
-    box-sizing: border-box;
-    display: inline-flex;
-    flex-direction: column;
-    max-height: 40px;
-    position: relative;
-    white-space: normal;
-    background-color: hsla(0,0%,100%,.24);
-    cursor: pointer;
-    display:inline-block;
+    .same-line{
+        margin-top:8px;
+        border-radius: 3px;
+        box-sizing: border-box;
+        display: inline-flex;
+        flex-direction: column;
+        max-height: 40px;
+        position: relative;
+        white-space: normal;
+        background-color: hsla(0,0%,100%,.24);
+        cursor: pointer;
+        display:inline-block;
+    }
     .making-board{
         width:272px;
         margin: 0 4px;

@@ -43,16 +43,18 @@ const ListForm = () => {
 
   return (
     <div css={makeBoard}>
-      <div className="making-board">
-        <span id="erase-input" onClick={openInputTitle} className="placeholder"><span className="icon-sm icon-add" />Add another list</span>
-        {inputMode && (
-        <Form onFinish={makingBoard}>
-          <div className="title-inputmode">
-            <input id="list-input-id" autoFocus={focusOnForm} value={listTitle} onChange={onChangeText} />
-            <AddOrClose addText="Add List" onClickToClose={openInputTitle} />
-          </div>
-        </Form>
-        )}
+      <div className="same-line">
+        <div className="making-board">
+          <span id="erase-input" onClick={openInputTitle} className="placeholder"><span className="icon-sm icon-add" />Add another list</span>
+          {inputMode && (
+              <Form onFinish={makingBoard}>
+                <div className="title-inputmode">
+                  <input id="list-input-id" autoFocus={focusOnForm} value={listTitle} onChange={onChangeText} />
+                  <AddOrClose addText="Add List" onClickToClose={openInputTitle} />
+                </div>
+              </Form>
+          )}
+        </div>
       </div>
     </div>
   );

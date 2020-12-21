@@ -13,7 +13,13 @@ import {
   LOAD_CARD_SUCCESS,
   LOAD_MAIN_FAILURE,
   LOAD_MAIN_REQUEST,
-  LOAD_MAIN_SUCCESS, MODIFY_BOARD_TT_FAILURE, MODIFY_BOARD_TT_REQUEST, MODIFY_BOARD_TT_SUCCESS,
+  LOAD_MAIN_SUCCESS,
+  MODIFY_BOARD_FAILURE,
+  MODIFY_BOARD_REQUEST,
+  MODIFY_BOARD_SUCCESS,
+  MODIFY_BOARD_TT_FAILURE,
+  MODIFY_BOARD_TT_REQUEST,
+  MODIFY_BOARD_TT_SUCCESS,
 
 } from '../reducers/board';
 
@@ -150,6 +156,30 @@ function* watchBoardTT() {
   yield takeLatest(MODIFY_BOARD_TT_REQUEST, setBoardTitle);
 }
 
+function setBoardBGAPI(data) {
+  return axios.patch('/board/background', data);
+}
+
+function* setBoardBackground(action) {
+  try {
+    const result = yield call(setBoardBGAPI, action.data);
+    yield put({
+      type: MODIFY_BOARD_SUCCESS,
+      data: result.data,
+    });
+  } catch (err) {
+    console.error(err);
+    yield put({
+      type: MODIFY_BOARD_FAILURE,
+      error: err.response.data,
+    });
+  }
+}
+
+function* watchBackgroundBoard() {
+  yield takeLatest(MODIFY_BOARD_REQUEST, setBoardBackground);
+}
+
 export default function* userSaga() {
   yield all([
     fork(watchLoadMain),
@@ -157,5 +187,6 @@ export default function* userSaga() {
     fork(watchAddList),
     fork(watchAddCard),
     fork(watchBoardTT),
+    fork(watchBackgroundBoard),
   ]);
 }

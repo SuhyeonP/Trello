@@ -1,7 +1,9 @@
 import React, { memo, useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
+import { useDispatch, useSelector } from 'react-redux';
 import { boardMenu } from '../css/mainboard';
+import { MODIFY_BOARD_REQUEST } from '../reducers/board';
 
 const ChangeBoardColor = styled.span`
     border-radius: 3px;
@@ -10,6 +12,8 @@ const ChangeBoardColor = styled.span`
 
 const PickBackgroundColor = styled.p`
     background-color:${(props) => props.color || 'rgb(0, 121, 191)'};
+    display:inline-block;
+    cursor:pointer;
 `;
 
 const BoardMenu = ({ me, logoutBtn, setCanIopenMenu, canIopenMenu }) => {
@@ -20,9 +24,11 @@ const BoardMenu = ({ me, logoutBtn, setCanIopenMenu, canIopenMenu }) => {
   const [testContent, setTestContent] = useState('list card Title');
   const [colorIndex, setColorIndex] = useState(0);
   const [ImgIndex, setImgIndex] = useState(0);
+  const { mainLists } = useSelector((state) => state.board);
+  const dispatch = useDispatch();
 
   const backgroundIs = ['color', 'img'];
-  const dummyColor = [null, 'white', '#fffff3'];
+  const dummyColor = [null, 'navy', 'green'];
 
   const changeToBoardBack = useCallback(() => {
     setMenuTitle('Change Background');
@@ -63,11 +69,11 @@ const BoardMenu = ({ me, logoutBtn, setCanIopenMenu, canIopenMenu }) => {
     } else {
       temp = dummyColor[colorIndex];
     }
-    if (temp === null) {
-      console.log('nothing change');
-    } else {
-      console.log(temp);
-    }
+    console.log(temp);
+    dispatch({
+      type: MODIFY_BOARD_REQUEST,
+      data: { backgroundValue: temp, boardId: mainLists.boardId, backgroundType: 0 },
+    });
   }, [colorIndex, ImgIndex]);
 
   return (
