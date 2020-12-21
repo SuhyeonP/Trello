@@ -20,6 +20,48 @@ const createBoard = async (db, boardData) => {
   }
 };
 
+const getInitData = async (models, params) => {
+  const { boardId } = params;
+
+  models.board.hasMany(models.list, {
+    foreignKey: 'boardId',
+    sourceKey: 'boardId',
+  });
+  models.list.belongsTo(models.board, {
+    foreignKey: 'boardId',
+    targetKey: 'boardId',
+  });
+
+  models.list.hasMany(models.card, {
+    foreignKey: 'listId',
+    sourceKey: 'listId',
+  });
+
+  models.card.belongsTo(models.list, {
+    foreignKey: 'listId',
+    targetKey: 'listId',
+  });
+
+  const result = await models.board.findAll({
+    where: {
+      boardId: Number(boardId),
+    },
+    include: [
+      {
+        model: models.list,
+        include: [
+          {
+            model: models.card,
+          },
+        ],
+      },
+    ],
+  });
+  return result.filter(data => {
+    return data.dataValues;
+  })[0];
+};
+
 const getBoard = async (db, id) => {
   const data = await db.board.findOne({
     where: { userId: id },
@@ -27,4 +69,4 @@ const getBoard = async (db, id) => {
   return data;
 };
 
-export default { createBoard, getBoard };
+export default { createBoard, getBoard, getInitData };
