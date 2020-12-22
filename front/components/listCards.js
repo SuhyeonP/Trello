@@ -1,4 +1,4 @@
-import React, { memo, useCallback, useEffect, useState } from 'react';
+import React, { memo, useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Form } from 'antd';
 import { useRouter } from 'next/router';
@@ -39,10 +39,6 @@ const ListCards = ({ openSingle }) => {
   const openAddCardForm = useCallback(() => {
     setOpenAddCard(true);
   }, []);
-
-  useEffect(() => {
-    console.log(cards);
-  }, [cards]);
 
   const closeCardForm = useCallback(() => {
     setOpenAddCard(false);

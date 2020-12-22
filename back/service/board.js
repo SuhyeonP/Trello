@@ -1,8 +1,4 @@
-const createDate = date => {
-  return `${date.getFullYear()}-${
-    date.getMonth() + 1
-  }-${date.getDate()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
-};
+import { createDate } from '../util/createDate.js';
 
 const createBoard = async (db, boardData) => {
   try {
@@ -27,4 +23,30 @@ const getBoard = async (db, id) => {
   return data;
 };
 
-export default { createBoard, getBoard };
+const modifyTitle = async (db, modifyData) => {
+  await db.board.update(
+    {
+      boardTitle: modifyData.boardTitle,
+    },
+    {
+      where: { boardId: modifyData.boardId },
+    },
+  );
+  const data = await db.board.findByPk(modifyData.boardId);
+  return data;
+};
+
+const modifyBG = async (db, backgroundData) => {
+  await db.board.update(
+    {
+      backgroundValue: backgroundData.backgroundValue,
+    },
+    {
+      where: { boardId: backgroundData.boardId },
+    },
+  );
+  const data = await db.board.findByPk(backgroundData.boardId);
+  return data;
+};
+
+export default { modifyBG, modifyTitle, createBoard, getBoard };

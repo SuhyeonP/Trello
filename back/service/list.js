@@ -1,18 +1,16 @@
-const createDate = date => {
-  return `${date.getFullYear()}-${
-    date.getMonth() + 1
-  }-${date.getDate()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
-};
+import { createDate } from '../util/createDate.js';
 
 const createList = async (db, listData) => {
   try {
     const result = await db.list.create(listData);
-    const returnValues = await result.get();
+    const data = await result.get();
 
-    const localDateTime = createDate(returnValues.createdAt);
+    const localDateTime = createDate(data.createdAt);
 
-    returnValues.createdAt = localDateTime;
-    returnValues.updatedAt = localDateTime;
+    data.createdAt = localDateTime;
+    data.updatedAt = localDateTime;
+
+    const returnValues = await db.board.findByPk(data.boardId);
 
     return returnValues;
   } catch (e) {

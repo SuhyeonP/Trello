@@ -6,7 +6,6 @@ const isValidListData = data => {
   const schema = {
     properties: {
       boardId: { type: 'integer' },
-      userId: { type: 'string' },
       listTitle: { type: 'string' },
     },
     required: ['boardId', 'listTitle'],

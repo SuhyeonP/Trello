@@ -1,7 +1,9 @@
 import React, { memo, useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
+import { useDispatch, useSelector } from 'react-redux';
 import { boardMenu } from '../css/mainboard';
+import { MODIFY_BOARD_REQUEST } from '../reducers/board';
 
 const ChangeBoardColor = styled.span`
     border-radius: 3px;
@@ -10,6 +12,8 @@ const ChangeBoardColor = styled.span`
 
 const PickBackgroundColor = styled.p`
     background-color:${(props) => props.color || 'rgb(0, 121, 191)'};
+    display:inline-block;
+    cursor:pointer;
 `;
 
 const BoardMenu = ({ me, logoutBtn, setCanIopenMenu, canIopenMenu }) => {
@@ -19,10 +23,10 @@ const BoardMenu = ({ me, logoutBtn, setCanIopenMenu, canIopenMenu }) => {
   const [testUpdatedAt, setTestUpdatedAt] = useState(false);
   const [testContent, setTestContent] = useState('list card Title');
   const [colorIndex, setColorIndex] = useState(0);
-  const [ImgIndex, setImgIndex] = useState(0);
+  const { mainLists } = useSelector((state) => state.board);
+  const dispatch = useDispatch();
 
-  const backgroundIs = ['color', 'img'];
-  const dummyColor = [null, 'white', '#fffff3'];
+  const dummyColor = [null, 'navy', 'green'];
 
   const changeToBoardBack = useCallback(() => {
     setMenuTitle('Change Background');
@@ -40,14 +44,6 @@ const BoardMenu = ({ me, logoutBtn, setCanIopenMenu, canIopenMenu }) => {
     setChangeBoardBack(false);
   }, []);
 
-  const changeImg = useCallback(() => {
-    if (ImgIndex === 6) {
-      setImgIndex(0);
-    } else {
-      setImgIndex((prev) => prev + 1);
-    }
-  }, [ImgIndex]);
-
   const changeColor = useCallback(() => {
     if (colorIndex === dummyColor.length - 1) {
       setColorIndex(0);
@@ -56,19 +52,14 @@ const BoardMenu = ({ me, logoutBtn, setCanIopenMenu, canIopenMenu }) => {
     }
   }, [colorIndex]);
 
-  const pickBoardBackground = useCallback((kind) => {
-    let temp;
-    if (kind === 'img') {
-      temp = `not yet${ImgIndex}`;
-    } else {
-      temp = dummyColor[colorIndex];
-    }
-    if (temp === null) {
-      console.log('nothing change');
-    } else {
-      console.log(temp);
-    }
-  }, [colorIndex, ImgIndex]);
+  const pickBoardBackground = useCallback(() => {
+    const temp = dummyColor[colorIndex];
+    console.log(temp);
+    dispatch({
+      type: MODIFY_BOARD_REQUEST,
+      data: { backgroundValue: temp, boardId: mainLists.boardId },
+    });
+  }, [colorIndex]);
 
   return (
     <div css={boardMenu}>
@@ -121,24 +112,16 @@ const BoardMenu = ({ me, logoutBtn, setCanIopenMenu, canIopenMenu }) => {
             <div className="background-holder">
               <div>
                 <p>When you pick you want, click title.</p>
-                {backgroundIs.map((x, ind) => (
-                  <div className="background-is" key={ind}>
-                    <div>
-                      {x === 'color'
-                        ? (
-                          <>
-                            <PickBackgroundColor
-                              onClick={changeColor}
-                              color={dummyColor[colorIndex]}
-                            />
-                          </>
-                        )
-                        : <img onClick={changeImg} id="pick-img" src="" />}
-                      <h5>you can click to go another</h5>
-                    </div>
-                    <p onClick={() => pickBoardBackground(x)}>{x}</p>
+                <div className="background-is">
+                  <div>
+                    <PickBackgroundColor
+                      onClick={changeColor}
+                      color={dummyColor[colorIndex]}
+                    />
+                    <h5>you can click to go another</h5>
                   </div>
-                ))}
+                  <p onClick={pickBoardBackground}>color</p>
+                </div>
               </div>
             </div>
           </>
