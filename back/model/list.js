@@ -6,10 +6,13 @@ const createCardListInstance = db => {
   db.define(
     'list',
     {
-      boardId: {
+      listId: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true,
+      },
+      boardId: {
+        type: DataTypes.INTEGER,
       },
       listTitle: {
         type: DataTypes.STRING,

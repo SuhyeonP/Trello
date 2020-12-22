@@ -6,14 +6,14 @@ const createCardInstance = db => {
   db.define(
     'card',
     {
+      listId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
       cardId: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true,
-      },
-      cardListId: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
       },
       cardTitle: {
         type: DataTypes.STRING(30),
@@ -30,6 +30,9 @@ const createCardInstance = db => {
       background: {
         type: DataTypes.TEXT,
         allowNull: true,
+      },
+      checklist: {
+        type: DataTypes.JSON,
       },
     },
     {

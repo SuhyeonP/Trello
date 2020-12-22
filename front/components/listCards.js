@@ -1,4 +1,8 @@
+<<<<<<< HEAD
+import React, { memo, useCallback, useState } from 'react';
+=======
 import React, { memo, useCallback, useEffect, useState } from 'react';
+>>>>>>> master
 import PropTypes from 'prop-types';
 import { Form } from 'antd';
 import { useRouter } from 'next/router';
@@ -27,7 +31,11 @@ const ListCards = ({ openSingle }) => {
   const closeInputListTitle = useCallback(() => {
     setChangeTitle(false);
     setListTitle('');
+<<<<<<< HEAD
+  }, [changeTitle, modifyListTitle]);
+=======
   }, [changeTitle]);
+>>>>>>> master
 
   const addCardToSend = useCallback(() => {
     setOpenAddCard(false);
@@ -40,10 +48,13 @@ const ListCards = ({ openSingle }) => {
     setOpenAddCard(true);
   }, []);
 
+<<<<<<< HEAD
+=======
   useEffect(() => {
     console.log(cards);
   }, [cards]);
 
+>>>>>>> master
   const closeCardForm = useCallback(() => {
     setOpenAddCard(false);
   }, []);

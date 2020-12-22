@@ -1,4 +1,8 @@
 import produce from 'immer';
+<<<<<<< HEAD
+import { createReducer } from '@reduxjs/toolkit';
+=======
+>>>>>>> master
 
 export const initialState = {
   loadUserLoading: false,
@@ -32,6 +36,65 @@ export const RELOAD_USER_REQUEST = 'RELOAD_USER_REQUEST';
 export const RELOAD_USER_SUCCESS = 'RELOAD_USER_SUCCESS';
 export const RELOAD_USER_FAILURE = 'RELOAD_USER_FAILURE';
 
+<<<<<<< HEAD
+export default createReducer(initialState, {
+  [LOG_IN_REQUEST]: (state) => produce(state, (draft) => {
+    draft.logInLoading = true;
+    draft.logInError = null;
+    draft.logInDone = false;
+  }),
+  [LOG_IN_SUCCESS]: (state, action) => produce(state, (draft) => {
+    draft.logInLoading = false;
+    draft.me = action.data;
+    draft.logInDone = true;
+  }),
+  [LOG_IN_FAILURE]: (state, action) => produce(state, (draft) => {
+    draft.logInLoading = false;
+    draft.logInError = action.error;
+  }),
+  [LOG_OUT_REQUEST]: (state) => produce(state, (draft) => {
+    draft.logOutLoading = true;
+    draft.logOutError = null;
+    draft.logOutDone = false;
+  }),
+  [LOG_OUT_SUCCESS]: (state) => produce(state, (draft) => {
+    draft.logOutLoading = false;
+    draft.logOutDone = true;
+    draft.me = null;
+  }),
+  [LOG_OUT_FAILURE]: (state, action) => produce(state, (draft) => {
+    draft.logOutLoading = false;
+    draft.logOutError = action.error;
+  }),
+  [RELOAD_USER_REQUEST]: (state) => produce(state, (draft) => {
+    draft.loadUserLoading = true;
+    draft.loadUserError = null;
+    draft.loadUserDone = false;
+  }),
+  [RELOAD_USER_SUCCESS]: (state, action) => produce(state, (draft) => {
+    draft.loadUserLoading = false;
+    draft.me = action.data;
+    draft.loadUserDone = true;
+  }),
+  [RELOAD_USER_FAILURE]: (state, action) => produce(state, (draft) => {
+    draft.loadUserLoading = false;
+    draft.loadUserError = action.error;
+  }),
+  [SIGN_UP_REQUEST]: (state) => produce(state, (draft) => {
+    draft.signUpLoading = true;
+    draft.signUpError = null;
+    draft.signUpDone = false;
+  }),
+  [SIGN_UP_SUCCESS]: (state) => produce(state, (draft) => {
+    draft.signUpLoading = false;
+    draft.signUpDone = true;
+  }),
+  [SIGN_UP_FAILURE]: (state, action) => produce(state, (draft) => {
+    draft.signUpLoading = false;
+    draft.signUpError = action.error;
+  }),
+});
+=======
 const reducer = (state = initialState, action) => produce(state, (draft) => {
   switch (action.type) {
     case LOG_IN_REQUEST:
@@ -95,3 +158,4 @@ const reducer = (state = initialState, action) => produce(state, (draft) => {
 });
 
 export default reducer;
+>>>>>>> master
