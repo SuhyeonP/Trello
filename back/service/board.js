@@ -69,4 +69,30 @@ const getBoard = async (db, id) => {
   return data;
 };
 
-export default { createBoard, getBoard, getInitData };
+const modifyTitle = async (db, modifyData) => {
+  await db.board.update(
+    {
+      boardTitle: modifyData.boardTitle,
+    },
+    {
+      where: { boardId: modifyData.boardId },
+    },
+  );
+  const data = await db.board.findByPk(modifyData.boardId);
+  return data;
+};
+
+const modifyBG = async (db, backgroundData) => {
+  await db.board.update(
+    {
+      backgroundValue: backgroundData.backgroundValue,
+    },
+    {
+      where: { boardId: backgroundData.boardId },
+    },
+  );
+  const data = await db.board.findByPk(backgroundData.boardId);
+  return data;
+};
+
+export default { modifyBG, modifyTitle, createBoard, getBoard, getInitData };
