@@ -4,8 +4,9 @@ const createBoard = async (db, boardData) => {
   try {
     const result = await db.board.create(boardData);
     const returnValues = await result.get();
-
+    console.log(111);
     const newDateString = createDate(returnValues.createdAt);
+    console.log(222);
     returnValues.createdAt = newDateString;
     returnValues.updatedAt = newDateString;
 
@@ -59,10 +60,15 @@ const getInitData = async (models, params) => {
 };
 
 const getBoard = async (db, id) => {
-  const data = await db.board.findOne({
-    where: { userId: id },
-  });
-  return data;
+  try {
+    const data = await db.board.findOne({
+      where: { userId: id },
+    });
+    return data;
+  } catch (e) {
+    console.log(e);
+    return e;
+  }
 };
 
 const modifyTitle = async (db, modifyData) => {

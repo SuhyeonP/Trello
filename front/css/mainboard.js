@@ -1,14 +1,8 @@
 import { css } from '@emotion/react';
-<<<<<<< HEAD
 import styled from '@emotion/styled';
 
 export const MainBoardSection = styled.div`
  background-color:${(props) => props.color || '#0079bf'};
-=======
-
-export const mainBoardSection = css`
- background-color: #0079bf;
->>>>>>> master
  overflow-y:hidden;
  height:100vh;
  *{
@@ -19,11 +13,7 @@ export const mainBoardSection = css`
     display:flex;
     text-align:center;
     justify-content:space-between;
-<<<<<<< HEAD
     background-color:#0a0a0a52;
-=======
-    background-color:#0067a3;
->>>>>>> master
     padding:10px 20px;
     z-index:1;
     p{
@@ -36,11 +26,7 @@ export const mainBoardSection = css`
             height:35px;
             border:0;
             outline:0;
-<<<<<<< HEAD
             background-color: hsla(202, 47%, 52%, 0.55);
-=======
-            background-color:hsl(202, 47%, 52%);
->>>>>>> master
             border-radius:4px;
             &:focus{
                 background-color:white;
@@ -100,11 +86,7 @@ export const mainBoardSection = css`
         position: relative;
         display:flex;
         justify-content:space-between;
-<<<<<<< HEAD
         background: #34343459;
-=======
-        background: #0079bf;
->>>>>>> master
         transition: padding .1s ease-in;
     }
     .project-title{
@@ -195,11 +177,7 @@ export const listWrapper = css`
     vertical-align: top;
     white-space: nowrap;
     .list{
-<<<<<<< HEAD
         margin:8px 4px 0;
-=======
-        margin-top:8px;
->>>>>>> master
         background-color: #ebecf0;
         border-radius: 3px;
         box-sizing: border-box;
@@ -366,7 +344,6 @@ export const listWrapper = css`
 `;
 
 export const makeBoard = css`
-<<<<<<< HEAD
     .same-line{
         margin-top:8px;
         border-radius: 3px;
@@ -380,19 +357,6 @@ export const makeBoard = css`
         cursor: pointer;
         display:inline-block;
     }
-=======
-    margin-top:8px;
-    border-radius: 3px;
-    box-sizing: border-box;
-    display: inline-flex;
-    flex-direction: column;
-    max-height: 40px;
-    position: relative;
-    white-space: normal;
-    background-color: hsla(0,0%,100%,.24);
-    cursor: pointer;
-    display:inline-block;
->>>>>>> master
     .making-board{
         width:272px;
         margin: 0 4px;

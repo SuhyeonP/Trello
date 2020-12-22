@@ -1,8 +1,5 @@
 import produce from 'immer';
-<<<<<<< HEAD
 import { createReducer } from '@reduxjs/toolkit';
-=======
->>>>>>> master
 
 export const initialState = {
   mainLists: [],
@@ -43,7 +40,6 @@ export const ADD_CARD_REQUEST = 'ADD_CARD_REQUEST';
 export const ADD_CARD_SUCCESS = 'ADD_CARD_SUCCESS';
 export const ADD_CARD_FAILURE = 'ADD_CARD_FAILURE';
 
-<<<<<<< HEAD
 export const MODIFY_BOARD_TT_REQUEST = 'MODIFY_BOARD_TT_REQUEST';
 export const MODIFY_BOARD_TT_SUCCESS = 'MODIFY_BOARD_TT_SUCCESS';
 export const MODIFY_BOARD_TT_FAILURE = 'MODIFY_BOARD_TT_FAILURE';
@@ -52,8 +48,6 @@ export const MODIFY_BOARD_REQUEST = 'MODIFY_BOARD_REQUEST';
 export const MODIFY_BOARD_SUCCESS = 'MODIFY_BOARD_SUCCESS';
 export const MODIFY_BOARD_FAILURE = 'MODIFY_BOARD_FAILURE';
 
-=======
->>>>>>> master
 export const MODIFY_LIST_REQUEST = 'MODIFY_LIST_REQUEST';
 export const MODIFY_LIST_SUCCESS = 'MODIFY_LIST_SUCCESS';
 export const MODIFY_LIST_FAILURE = 'MODIFY_LIST_FAILURE';
@@ -66,7 +60,6 @@ export const DELETE_CARD_REQUEST = 'DELETE_CARD_REQUEST';
 export const DELETE_CARD_SUCCESS = 'DELETE_CARD_SUCCESS';
 export const DELETE_CARD_FAILURE = 'DELETE_CARD_FAILURE';
 
-<<<<<<< HEAD
 export default createReducer(initialState, {
   [LOAD_MAIN_REQUEST]: (state) => produce(state, (draft) => {
     draft.loadingBoards = true;
@@ -187,96 +180,3 @@ export default createReducer(initialState, {
     draft.deleteCardError = action.error;
   }),
 });
-=======
-const reducer = (state = initialState, action) => produce(state, (draft) => {
-  switch (action.type) {
-    case LOAD_MAIN_REQUEST:
-      draft.loadingBoards = true;
-      draft.loadBoardError = null;
-      draft.loadedBoards = false;
-      break;
-    case LOAD_MAIN_SUCCESS:
-      draft.loadingBoards = false;
-      draft.mainLists = action.data;
-      draft.loadedBoards = true;
-      break;
-    case LOAD_MAIN_FAILURE:
-      draft.loadingBoards = false;
-      draft.loadBoardError = action.error;
-      break;
-    case LOAD_CARD_REQUEST:// load modal
-      draft.loadingCard = true;
-      draft.loadCardError = null;
-      draft.loadedCard = false;
-      break;
-    case LOAD_CARD_SUCCESS:
-      draft.loadingCard = false;
-      draft.loadedCard = true;
-      draft.cardModal = action.data;
-      break;
-    case LOAD_CARD_FAILURE:
-      draft.loadingCard = false;
-      draft.loadCardError = action.error;
-      break;
-    case ADD_LIST_REQUEST:
-      draft.addListLoading = true;
-      draft.addListError = null;
-      draft.logOutDone = false;
-      break;
-    case ADD_LIST_SUCCESS:
-      draft.addListLoading = false;
-      draft.addListDone = true;
-      draft.mainLists = action.data;
-      break;
-    case ADD_LIST_FAILURE:
-      draft.addListLoading = false;
-      draft.addListError = action.error;
-      break;
-    case ADD_CARD_REQUEST:
-      draft.addCardLoading = true;
-      draft.addCardError = null;
-      draft.addCardDone = false;
-      break;
-    case ADD_CARD_SUCCESS:
-      draft.addCardLoading = false;
-      draft.addCardDone = true;
-      draft.mainLists = action.data;
-      break;
-    case ADD_CARD_FAILURE:
-      draft.addCardLoading = false;
-      draft.addCardError = action.error;
-      break;
-    case MODIFY_LIST_REQUEST:
-    case MODIFY_CARD_REQUEST:
-      draft.modifyTextLoading = true;
-      draft.modifyTextError = null;
-      break;
-    case MODIFY_LIST_SUCCESS:
-    case MODIFY_CARD_SUCCESS:
-      draft.modifyTextDone = true;
-      draft.modifyTextLoading = false;
-      break;
-    case MODIFY_LIST_FAILURE:
-    case MODIFY_CARD_FAILURE:
-      draft.modifyTextDone = false;
-      draft.modifyTextError = action.error;
-      break;
-    case DELETE_CARD_REQUEST:
-      draft.deleteCardLoading = true;
-      draft.deleteCardError = null;
-      break;
-    case DELETE_CARD_SUCCESS:
-      draft.deleteCardLoading = false;
-      draft.deleteCardDone = true;
-      break;
-    case DELETE_CARD_FAILURE:
-      draft.deleteCardLoading = false;
-      draft.deleteCardError = action.error;
-      break;
-    default:
-      break;
-  }
-});
-
-export default reducer;
->>>>>>> master
