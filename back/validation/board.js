@@ -7,10 +7,9 @@ const isValidBoardData = data => {
     properties: {
       boardName: { type: 'string' },
       userId: { type: 'string' },
-      backgroundType: { type: 'string' },
       backgroundValue: { type: 'string' },
     },
-    required: ['boardName', 'userId', 'backgroundType', 'backgroundValue'],
+    required: ['boardName', 'userId', 'backgroundValue'],
   };
 
   const validate = ajv.compile(schema);
