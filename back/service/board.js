@@ -1,4 +1,12 @@
+<<<<<<< HEAD
 import { createDate } from '../util/createDate.js';
+=======
+const createDate = date => {
+  return `${date.getFullYear()}-${
+    date.getMonth() + 1
+  }-${date.getDate()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
+};
+>>>>>>> master
 
 const createBoard = async (db, boardData) => {
   try {

@@ -14,12 +14,15 @@ import {
   LOAD_MAIN_FAILURE,
   LOAD_MAIN_REQUEST,
   LOAD_MAIN_SUCCESS,
+<<<<<<< HEAD
   MODIFY_BOARD_FAILURE,
   MODIFY_BOARD_REQUEST,
   MODIFY_BOARD_SUCCESS,
   MODIFY_BOARD_TT_FAILURE,
   MODIFY_BOARD_TT_REQUEST,
   MODIFY_BOARD_TT_SUCCESS,
+=======
+>>>>>>> master
 
 } from '../reducers/board';
 
@@ -35,6 +38,7 @@ const dummyLists = [
   { listId: 1, boardId: 1, createdAt: '2020.10.21', updatedAt: null },
 ];// this is board table i need
 
+<<<<<<< HEAD
 function loadMainLists() {
   return axios.get('/board');
 }
@@ -45,6 +49,19 @@ function* loadMain() {
     yield put({
       type: LOAD_MAIN_SUCCESS,
       data: result.data,
+=======
+function loadMainLists(data) {
+  return axios.get('/list', data);
+}
+
+function* loadMain(action) {
+  try {
+    // const result=yield call(loadMainLists,action.data),
+    yield delay(1000);
+    yield put({
+      type: LOAD_MAIN_SUCCESS,
+      data: dummyLists,
+>>>>>>> master
     });
   } catch (err) {
     console.error(err);
@@ -89,10 +106,18 @@ function addListRequest(data) {
 
 function* addList(action) {
   try {
+<<<<<<< HEAD
     const result = yield call(addListRequest, action.data);
     yield put({
       type: ADD_LIST_SUCCESS,
       data: result.data,
+=======
+    // const result=yield call(addListRequest,action.data)
+    yield delay(1000);
+    yield put({
+      type: ADD_LIST_SUCCESS,
+      // data: result.data,
+>>>>>>> master
     });
   } catch (err) {
     console.error(err);
@@ -132,6 +157,7 @@ function* watchAddCard() {
   yield takeLatest(ADD_CARD_REQUEST, addCard);
 }
 
+<<<<<<< HEAD
 function setBoardTTAPI(data) {
   return axios.patch('/board/title', data);
 }
@@ -180,13 +206,18 @@ function* watchBackgroundBoard() {
   yield takeLatest(MODIFY_BOARD_REQUEST, setBoardBackground);
 }
 
+=======
+>>>>>>> master
 export default function* userSaga() {
   yield all([
     fork(watchLoadMain),
     fork(watchLoadModal),
     fork(watchAddList),
     fork(watchAddCard),
+<<<<<<< HEAD
     fork(watchBoardTT),
     fork(watchBackgroundBoard),
+=======
+>>>>>>> master
   ]);
 }
