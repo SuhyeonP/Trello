@@ -5,7 +5,7 @@ import board from '../service/board.js';
 const router = express.Router();
 
 router.get('/', async (req, res, next) => {
-  const { id } = req.params;
+  const { id } = req.user;
   const result = await board.getBoard(req.db.models, id);
   res.status(200).json(result);
 });
