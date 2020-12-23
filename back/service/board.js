@@ -4,9 +4,7 @@ const createBoard = async (db, boardData) => {
   try {
     const result = await db.board.create(boardData);
     const returnValues = await result.get();
-    console.log(111);
     const newDateString = createDate(returnValues.createdAt);
-    console.log(222);
     returnValues.createdAt = newDateString;
     returnValues.updatedAt = newDateString;
 
