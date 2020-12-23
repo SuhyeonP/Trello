@@ -1,18 +1,9 @@
-<<<<<<< HEAD
 import { createDate } from '../util/createDate.js';
-=======
-const createDate = date => {
-  return `${date.getFullYear()}-${
-    date.getMonth() + 1
-  }-${date.getDate()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
-};
->>>>>>> master
 
 const createBoard = async (db, boardData) => {
   try {
     const result = await db.board.create(boardData);
     const returnValues = await result.get();
-
     const newDateString = createDate(returnValues.createdAt);
     returnValues.createdAt = newDateString;
     returnValues.updatedAt = newDateString;
@@ -67,10 +58,15 @@ const getInitData = async (models, params) => {
 };
 
 const getBoard = async (db, id) => {
-  const data = await db.board.findOne({
-    where: { userId: id },
-  });
-  return data;
+  try {
+    const data = await db.board.findOne({
+      where: { userId: id },
+    });
+    return data;
+  } catch (e) {
+    console.log(e);
+    return e;
+  }
 };
 
 const modifyTitle = async (db, modifyData) => {

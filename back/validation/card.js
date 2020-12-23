@@ -5,13 +5,13 @@ const isValidateCardData = data => {
 
   const schema = {
     properties: {
-      cardListId: { type: 'integer' },
+      listId: { type: 'integer' },
       cardTitle: { type: 'string' },
       content: { type: 'string' },
       order: { type: 'integer' },
       background: { type: 'string' },
     },
-    required: ['cardListId', 'cardTitle', 'content', 'order', 'background'],
+    required: ['listId', 'cardTitle', 'content', 'order', 'background'],
   };
 
   const validate = ajv.compile(schema);
