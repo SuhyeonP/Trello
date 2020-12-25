@@ -1,6 +1,6 @@
 /** @format */
 
-import produce from "immer";
+import produce from 'immer';
 
 export default function createReducer(initState, handlerMap) {
   return function (state = initState, action) {
