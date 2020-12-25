@@ -22,14 +22,14 @@ app.use((req, res, next) => {
 if (process.env.NODE_ENV === 'production') {
   app.use(
     cors({
-      origin: 'http://localhost:3060',
+      origin: 'http://localhost:3000',
       credentials: true,
     }),
   );
 } else {
   app.use(
     cors({
-      origin: 'http://localhost:3060',
+      origin: 'http://localhost:3000',
       credentials: true,
     }),
   );

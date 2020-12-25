@@ -4,17 +4,19 @@
   "private": true,
   "scripts": {
     "dev": "next -p 3060",
-    "build": "next build",
-    "start": "next start"
+    "build": "cross-env ANALYZE=true NODE_ENV=production next build",
+    "start": "cross-env NODE_ENV=production next start -p 3060"
   },
   "dependencies": {
     "@ant-design/icons": "^4.3.0",
     "@emotion/react": "^11.1.1",
     "@emotion/styled": "^11.0.0",
+    "@next/bundle-analyzer": "^10.0.4",
     "@reduxjs/toolkit": "^1.5.0",
     "antd": "^4.8.5",
     "array-move": "^3.0.1",
     "axios": "^0.21.0",
+    "cross-env": "^7.0.3",
     "customize-cra": "^1.0.0",
     "immer": "^8.0.0",
     "next": "10.0.3",
