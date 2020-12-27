@@ -4,6 +4,8 @@ import cors from 'cors';
 import passport from 'passport';
 import dotenv from 'dotenv';
 import session from 'express-session';
+import hpp from 'hpp';
+import helmet from 'helmet';
 import indexRouter from './router/index.js';
 import boardRouter from './router/board.js';
 import listRouter from './router/list.js';
@@ -18,18 +20,24 @@ app.use((req, res, next) => {
   req.db = app.get('db');
   next();
 });
+app.use(hpp());
+app.use(helmet({ contentSecurityPolicy: false }));
 
 if (process.env.NODE_ENV === 'production') {
   app.use(
     cors({
-      origin: 'http://localhost:3000',
+      origin: [
+        'http://localhost:3060',
+        'http://54.180.53.11:3060',
+        'http://honeyhyoni.shop:3060',
+      ],
       credentials: true,
     }),
   );
 } else {
   app.use(
     cors({
-      origin: 'http://localhost:3000',
+      origin: 'http://localhost:3060',
       credentials: true,
     }),
   );
@@ -43,6 +51,11 @@ app.use(
     saveUninitialized: false,
     resave: false,
     secret: process.env.COOKIE_SECRET,
+    cookie: {
+      httpOnly: true,
+      secure: false,
+      domain: process.env.NODE_ENV === 'production' && '.honeyhyoni.shop',
+    },
   }),
 );
 
