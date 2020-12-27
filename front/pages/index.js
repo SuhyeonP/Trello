@@ -1,13 +1,13 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import Head from 'next/head';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Button } from 'antd';
 import { useRouter } from 'next/router';
 import axios from 'axios';
 import { END } from 'redux-saga';
 import LoginForm from '../components/login';
 import SignUpForm from '../components/signup';
-import { RELOAD_USER_REQUEST } from '../reducers/user';
+import { LOG_OUT_REQUEST, RELOAD_USER_REQUEST } from '../reducers/user';
 import { mainPage } from '../css/mainPage';
 import wrapper from '../store/configureStore';
 
@@ -17,10 +17,11 @@ const mainIndex = () => {
   const [back, setBack] = useState(true);
   const { me, logInDone, loadUserDone } = useSelector((state) => state.user);
   const router = useRouter();
-
+  const dispatch = useDispatch();
   useEffect(() => {
     if (logInDone && loadUserDone) {
-      router.push('/board');
+      //router.push('/board');
+      // window.location.href = '/board';
       document.getElementById('goBack-btn').style.display = 'none';
     }
   }, [logInDone, loadUserDone]);
@@ -29,6 +30,12 @@ const mainIndex = () => {
     setShowLogin(true);
     setShowSign(false);
     setBack(false);
+  }, []);
+  const logOutBtn = useCallback(() => {
+    dispatch({
+      type: LOG_OUT_REQUEST,
+    });
+    window.location.href = '/';
   }, []);
 
   const showSignUp = useCallback(() => {
@@ -49,13 +56,14 @@ const mainIndex = () => {
         <title>hi test</title>
       </Head>
       <div css={mainPage}>
+        <button type="button" onClick={logOutBtn}>out</button>
         <div className="user-join">
           {!me && showLog && <LoginForm />}
           {!me && showSign && <SignUpForm />}
           {me
           && (
           <>
-            <p>Hi {me.nickName},</p>
+            <p>Hi {me.userNickName},</p>
             <p>Wait a sec we move to your board</p>
           </>
           )}
