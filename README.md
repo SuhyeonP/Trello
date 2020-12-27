@@ -2,7 +2,7 @@
 
 This Project remade by Trello and made into a KOR.ver
 
-[Demo]()
+[Demo](http://honeyhyoni.shop:3060)
 
 Front: [Chansol](https://github.com/badbeoti) ,
  [Mingue](https://github.com/gyumong) ,
@@ -77,7 +77,7 @@ If you want to see it in real time,
 </tr>
 <tr>
 <td><a href="https://github.com/dismsssss">Dajeong</a></td>
-<td>Back Server setting, Modeling Table(Back), AWS</td>
+<td>Back Server setting,Back</td>
 </tr>
 <tr>
 <td><a href="https://github.com/gyumong">Mingue</a></td>
@@ -85,7 +85,7 @@ If you want to see it in real time,
 </tr>
 <tr>
 <td><a href="https://github.com/SuhyeonP">Suhyeon</a></td>
-<td>Redux,SSR,UI,Action,Event(Front), Modeling Table(Back)</td>
+<td>Redux,SSR,UI,Action,Event(Front),Back</td>
 </tr>
 </tbody>
 </table>
