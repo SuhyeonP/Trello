@@ -20,10 +20,10 @@ app.use((req, res, next) => {
   req.db = app.get('db');
   next();
 });
+app.use(hpp());
+app.use(helmet({ contentSecurityPolicy: false }));
 
 if (process.env.NODE_ENV === 'production') {
-  app.use(hpp());
-  app.use(helmet({ contentSecurityPolicy: false }));
   app.use(
     cors({
       origin: [
