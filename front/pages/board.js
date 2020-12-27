@@ -21,6 +21,7 @@ const Board = () => {
   const { me } = useSelector((state) => state.user);
   const { mainLists } = useSelector((state) => state.board);
   const dispatch = useDispatch();
+  const router = useRouter();
 
   useEffect(() => {
     console.log(mainLists);
@@ -32,13 +33,13 @@ const Board = () => {
     }
   }, [me]);
   if (!me) {
-    return '내 정보 로딩중...';
+    return '정보 로딩중...';
   }
   const logOutBtn = useCallback(() => {
     dispatch({
       type: LOG_OUT_REQUEST,
     });
-    window.location.href = '/';
+    router.push('/');
   }, []);
 
   const openSingle = useCallback(

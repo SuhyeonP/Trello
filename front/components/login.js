@@ -10,7 +10,6 @@ const LoginForm = () => {
   const dispatch = useDispatch();
 
   const gotoLogin = useCallback(() => {
-    console.log(userId, userPassword);
     dispatch({
       type: LOG_IN_REQUEST,
       data: { userId, userPassword },

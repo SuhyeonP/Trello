@@ -17,7 +17,6 @@ const mainIndex = () => {
   const [back, setBack] = useState(true);
   const { me, logInDone, loadUserDone } = useSelector((state) => state.user);
   const router = useRouter();
-
   useEffect(() => {
     if (logInDone && loadUserDone) {
       router.push('/board');
@@ -55,7 +54,7 @@ const mainIndex = () => {
           {me
           && (
           <>
-            <p>Hi {me.nickName},</p>
+            <p>Hi {me.userNickName},</p>
             <p>Wait a sec we move to your board</p>
           </>
           )}
