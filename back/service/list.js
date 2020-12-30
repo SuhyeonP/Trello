@@ -19,4 +19,33 @@ const createList = async (db, listData) => {
   }
 };
 
-export default { createList };
+const getListInformation = async (models, listId) => {
+  try {
+    models.list.hasMany(models.card, {
+      foreignKey: 'listId',
+      sourceKey: 'listId',
+    });
+
+    models.card.belongsTo(models.list, {
+      foreignKey: 'listId',
+      targetKey: 'listId',
+    });
+
+    const result = await models.list.findAll({
+      where: {
+        listId: Number(listId),
+      },
+      include: [
+        {
+          model: models.card,
+        },
+      ],
+    });
+    return result[0].dataValues;
+  } catch (error) {
+    console.error(error);
+    return error;
+  }
+};
+
+export default { createList, getListInformation };
