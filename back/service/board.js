@@ -15,9 +15,7 @@ const createBoard = async (db, boardData) => {
   }
 };
 
-const getInitData = async (models, params) => {
-  const { boardId } = params;
-
+const getInitData = async (models, userId) => {
   models.board.hasMany(models.list, {
     foreignKey: 'boardId',
     sourceKey: 'boardId',
@@ -39,7 +37,7 @@ const getInitData = async (models, params) => {
 
   const result = await models.board.findAll({
     where: {
-      boardId: Number(boardId),
+      userId,
     },
     include: [
       {
