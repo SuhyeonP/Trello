@@ -6,13 +6,8 @@ const router = express.Router();
 
 router.get('/', async (req, res, next) => {
   const { id } = req.user;
-  const result = await board.getBoard(req.db.models, id);
+  const result = await board.getInitData(req.db.models, id);
   res.status(200).json(result);
-});
-
-router.get('/all', async (req, res) => {
-  const result = await board.getInitData(req.db.models, req.query);
-  res.status(200).send(result);
 });
 
 router.post('/', async (req, res, next) => {
