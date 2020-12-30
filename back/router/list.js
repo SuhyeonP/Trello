@@ -17,4 +17,18 @@ router.post('/', async (req, res, next) => {
   }
 });
 
+router.get('/:listId', async (req, res, next) => {
+  try {
+    const { listId } = req.params;
+    const listInformation = await list.getListInformation(
+      req.db.models,
+      listId,
+    );
+    res.status(200).json(listInformation);
+  } catch (err) {
+    console.error(err);
+    next(err);
+  }
+});
+
 export default router;
