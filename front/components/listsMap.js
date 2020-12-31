@@ -8,8 +8,8 @@ import ListCards from './listCards';
 import ListForm from './listForm';
 
 const TheList = styled.div`
-  display:inline-block;
-  position:relative;
+  display: inline-block;
+  position: relative;
 `;
 
 const ListsMap = ({ lists, setLists, openSingle }) => {
@@ -17,27 +17,27 @@ const ListsMap = ({ lists, setLists, openSingle }) => {
 
   const onSortEnd = ({ oldIndex, newIndex }) => setLists(arrayMove(lists, oldIndex, newIndex));
 
-  const SortableItem = SortableElement(({ value, sortIndex }) => (
-    <TheList value={value} sortIndex={sortIndex}>
-      <ListCards openSingle={openSingle} />
+  const SortableItem = SortableElement(({ element, sortIndex }) => (
+    <TheList element={element} sortIndex={sortIndex}>
+      <ListCards openSingle={openSingle} cardLists={element.cards} />
       <DragHandle />
     </TheList>
   ));
 
   const SortableList = SortableContainer(() => (
     <div className="display-board">
-      {lists.map((value, index) => (
-        <SortableItem key={`item-${index}`} index={index} sortIndex={index} value={value} />
-      ))}
+      {lists &&
+        lists.map((element, index) => (
+          <SortableItem key={`item-${index}`} index={index} sortIndex={index} element={element} />
+        ))}
       <ListForm />
     </div>
   ));
 
   return (
     <SortableList axis="x" onSortEnd={onSortEnd} useDragHandle>
-      {lists.map((e, i) => (
-        <SortableItem key={`item-${i}`} index={i} sortIndex={i} value={e} />
-      ))}
+      {lists &&
+        lists.map((e, i) => <SortableItem key={`item-${i}`} index={i} sortIndex={i} element={e} />)}
     </SortableList>
   );
 };

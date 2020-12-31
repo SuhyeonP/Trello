@@ -8,14 +8,14 @@ import useInput from '../exp/useInput';
 import AddOrClose from './addorclose';
 import ListCardsMap from './listCardsMap';
 
-const ListCards = ({ openSingle }) => {
+const ListCards = ({ openSingle, cardLists }) => {
   const [changeTitle, setChangeTitle] = useState(false);
   const [sortList, setSortList] = useState(false);
   const [modifyListTitle, onChangeListTitle, setListTitle] = useInput('');
   const [addCardTitle, onChangeAddCardTitle, setAddCardTitle] = useInput('');
   const [openAddCard, setOpenAddCard] = useState(false);
   const [focusOnListTitle, setFocusListTitle] = useState(false);
-  const [cards, setCards] = useState(['test1', 'test2', 'test3', 'test4']);
+  const [cards, setCards] = useState(cardLists && cardLists);
   const router = useRouter();
 
   const setListTitleChange = useCallback(() => {
@@ -84,7 +84,7 @@ const ListCards = ({ openSingle }) => {
             )}
           </span>
         </div>
-        <ListCardsMap openSingle={openSingle} cards={cards} setCards={setCards} />
+        {cards && <ListCardsMap openSingle={openSingle} cards={cards} setCards={setCards} />}
         <div className="list-cards">
           {openAddCard && (
             <div className="add-card-form">
@@ -116,5 +116,6 @@ const ListCards = ({ openSingle }) => {
 
 ListCards.propTypes = {
   openSingle: PropTypes.func.isRequired,
+  cardLists: PropTypes.array.isRequired,
 };
 export default memo(ListCards);
